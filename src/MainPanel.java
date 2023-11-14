@@ -6,7 +6,8 @@ public class MainPanel extends JPanel {
 
     public MainPanel() {
         try{
-            ToDoModel toDoModel = new ToDoModel();
+            ToDoPanel toDoPanel = new ToDoPanel();
+            this.add(toDoPanel);
         }
         catch(Exception e) {System.out.println("Error: " + e);}
     }

@@ -21,8 +21,9 @@ class ToDoData{
         tasks.clear();
         try{
             //figure out how to access task list to do things
-            File file = new File("TaskList.txt"); //creates file if no file
-            BufferedReader reader = new BufferedReader(new FileReader("TaskList.txt"));
+            String pathname = "./resources/data/TaskList.txt";
+            File file = new File(pathname); //creates file if no file
+            BufferedReader reader = new BufferedReader(new FileReader(pathname));
             String currentLine = reader.readLine();
             while (currentLine != null) {
                 tasks.add(currentLine);
