@@ -23,7 +23,8 @@ public class Spott {
     public void update(World w, double time)
     {
         // TODO: implement
-        // position = position.add(velocity.times(time));
+        position = position.add(velocity.times(time));
+        // TODO: should move differently from Pong.java --> constant speed, only pausing and changing direction
     }
 
     // task accomplished --> excited animation
