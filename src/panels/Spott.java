@@ -16,6 +16,7 @@ public class Spott {
     public void draw()
     {
         // TODO: implement
+        // different from draw() in Pong.java because we're importing graphics
     }
 
     // program running --> default movement around the screen
