@@ -7,10 +7,10 @@ import java.awt.event.*;
 import java.io.IOException;
 
 //figure out how to do this with extending JPanel instead of extending JFrame
-public class ToDoModel extends JPanel implements ItemListener {
+public class ToDoPanel extends JPanel implements ItemListener {
 
     public static int FPS = 60;
-    static ToDoModel toDoModel;
+    static ToDoPanel toDoModel;
     ToDoData data;
     JList taskList;
     JButton addTaskButton;
@@ -20,9 +20,10 @@ public class ToDoModel extends JPanel implements ItemListener {
         toDoModel = new ToDoModel();
     } */
 
-    public ToDoModel() throws IOException{
+    public ToDoPanel() throws IOException{
 
         data = new ToDoData();
+        //JList containing JCheckBox
         DefaultListModel<String> listModel = new DefaultListModel<>();
         for(String s : data.tasks){
             listModel.addElement(s);
@@ -41,26 +42,27 @@ public class ToDoModel extends JPanel implements ItemListener {
                 catch(Exception e) {System.out.println("Exception " + e);}
             }
         });
+        Border emptyBorder = BorderFactory.createEmptyBorder();
+        addTaskButton.setBorder(emptyBorder);
         //need to add runner back in and update FPS and every time, call update data
         newTask = new JTextField("Enter task here...");
 
-        Border emptyBorder = BorderFactory.createEmptyBorder();
+        JLabel title = new JLabel("To Do: ");
+        title.setHorizontalAlignment(JLabel.CENTER);
 
+        this.setLayout(new FlowLayout());
+        this.add(title);
+
+        //smaller borders btwn elements
         JPanel panel1 = new JPanel();
         panel1.add(taskList);
 
-        addTaskButton.setBorder(emptyBorder);
         JPanel panel2 = new JPanel();
         panel2.setLayout(new FlowLayout());
         panel2.add(newTask);
         panel2.add(addTaskButton);
 
-        this.setLayout(new GridLayout(3,1,0,0));
-
-        //need to make buffer borders smaller in between elements
-        JLabel title = new JLabel("To Do: ");
-        title.setHorizontalAlignment(JLabel.CENTER);
-        add(title);
+        //this.setLayout(new GridLayout(3,1,0,0));
         add(panel2);
         add(panel1);
 
