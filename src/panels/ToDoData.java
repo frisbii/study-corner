@@ -20,6 +20,7 @@ class ToDoData{
     public void getListFromFile() throws IOException{
         tasks.clear();
         try{
+            //figure out how to access task list to do things
             File file = new File("TaskList.txt"); //creates file if no file
             BufferedReader reader = new BufferedReader(new FileReader("TaskList.txt"));
             String currentLine = reader.readLine();

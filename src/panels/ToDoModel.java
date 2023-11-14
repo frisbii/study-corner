@@ -6,7 +6,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
-public class ToDoModel extends JFrame implements ItemListener {
+//figure out how to do this with extending JPanel instead of extending JFrame
+public class ToDoModel extends JPanel implements ItemListener {
 
     public static int FPS = 60;
     static ToDoModel toDoModel;
@@ -15,13 +16,11 @@ public class ToDoModel extends JFrame implements ItemListener {
     JButton addTaskButton;
     JTextField newTask;
 
-    public static void main(String [] args) throws IOException{
+    /*public static void main(String [] args) throws IOException{
         toDoModel = new ToDoModel();
-    }
+    } */
 
     public ToDoModel() throws IOException{
-        super("To Do List");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         data = new ToDoData();
         DefaultListModel<String> listModel = new DefaultListModel<>();
