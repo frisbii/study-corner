@@ -12,16 +12,23 @@ public class Spott {
         velocity = v;
     }
 
-    // program running --> default movement around the screen
-    public void update()
+    // graphics
+    public void draw()
     {
-        // implement
+        // TODO: implement
+    }
+
+    // program running --> default movement around the screen
+    public void update(World w, double time)
+    {
+        // TODO: implement
+        // position = position.add(velocity.times(time));
     }
 
     // task accomplished --> excited animation
     public void cheers()
     {
-        // implement
+        // TODO: implement
     }
 }
 
