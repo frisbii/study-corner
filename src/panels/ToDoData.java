@@ -12,6 +12,7 @@ class ToDoData{
 
     public ArrayList<String> tasks;
 
+    //constructor
     public ToDoData() throws IOException{
         tasks = new ArrayList<String>();
         getListFromFile();
@@ -20,7 +21,6 @@ class ToDoData{
     public void getListFromFile() throws IOException{
         tasks.clear();
         try{
-            //figure out how to access task list to do things
             String pathname = "./resources/data/TaskList.txt";
             File file = new File(pathname); //creates file if no file
             BufferedReader reader = new BufferedReader(new FileReader(pathname));
@@ -38,7 +38,7 @@ class ToDoData{
 
     public void getFileFromList() throws IOException{
         try{
-            PrintWriter out = new PrintWriter("TaskList.txt");
+            PrintWriter out = new PrintWriter("./resources/data/TaskList.txt");
             //should maybe delete all the tasks in the list before re-writing??
             for(int i = 0; i < tasks.size(); i++){
                 out.println(tasks.get(i));
@@ -50,9 +50,15 @@ class ToDoData{
         }
     }
 
+    //adds task to list and text file
     public void addTask(String task) throws IOException{
         tasks.add(task);
         getFileFromList();
+    }
+
+    //removes task from list and text file
+    public void removeTask(String task) throws IOException{
+        
     }
 
 }
