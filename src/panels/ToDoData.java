@@ -58,7 +58,10 @@ class ToDoData{
 
     //removes task from list and text file
     public void removeTask(String task) throws IOException{
-        
+        if(tasks.contains(task)){
+            tasks.remove(task);
+            getFileFromList();
+        }
     }
 
 }
