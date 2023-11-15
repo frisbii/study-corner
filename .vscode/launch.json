@@ -15,7 +15,9 @@
             "name": "Main",
             "request": "launch",
             "mainClass": "Main",
-            "projectName": "study-corner_1459dcc8"
+            "projectName": "study-corner",
+            "sourcePaths": ["${workspaceFolder}/src"],
+            "classPaths": ["${workspaceFolder}/bin", "${workspaceFolder}/resources"]
         }
     ]
 }

@@ -1,0 +1,7 @@
+{
+    "java.project.sourcePaths": [
+        "src/panels",
+        "src",
+        "resources"
+    ]
+}
