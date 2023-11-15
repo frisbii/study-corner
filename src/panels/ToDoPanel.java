@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
+//TO DO: pretty background image
 public class ToDoPanel extends JPanel implements ItemListener {
 
     public static int FPS = 60;
@@ -41,7 +42,9 @@ public class ToDoPanel extends JPanel implements ItemListener {
         Border emptyBorder = BorderFactory.createEmptyBorder();
         addTaskButton.setBorder(emptyBorder);
 
-        newTask = new JTextField("Enter task here...");
+        newTask = new JTextField(15);
+        //apparently this makes it only accept 15 characters
+        newTask.setText("Enter task here...");
 
         //TO DO: add a way to delete tasks in the program itself
 
@@ -53,20 +56,18 @@ public class ToDoPanel extends JPanel implements ItemListener {
         GridBagConstraints c = new GridBagConstraints();
 
         c.anchor = GridBagConstraints.PAGE_START;
-
         this.setLayout(toDoLayout);
         c.fill = GridBagConstraints.BOTH;
 
-        //c.weightx = 1;
-        //c.gridheight = 1;
+        c.weightx = 1;
+        c.gridheight = 1;
         toDoLayout.setConstraints(title, c);
         this.add(title);
+        c.gridwidth = GridBagConstraints.REMAINDER;
 
         //smaller borders btwn elements
         JPanel panel1 = new JPanel();
         panel1.add(taskList);
-        c.gridwidth = GridBagConstraints.REMAINDER;
-
         JPanel panel2 = new JPanel();
         panel2.setLayout(new FlowLayout());
         panel2.add(newTask);
@@ -77,11 +78,13 @@ public class ToDoPanel extends JPanel implements ItemListener {
         toDoLayout.setConstraints(panel2, c);
         add(panel2);
         c.gridwidth = GridBagConstraints.REMAINDER;
-        c.weightx = 3;
+
+        c.weightx = 1;
         c.gridheight = 3;
         toDoLayout.setConstraints(panel1, c);
         add(panel1);
         c.gridwidth = GridBagConstraints.REMAINDER;
+
 
         //setSize(300, 500);
         setVisible(true);
@@ -96,6 +99,7 @@ public class ToDoPanel extends JPanel implements ItemListener {
     }
 }
 
+//TO DO: finish this so I can have nice placeholder text :)))
 class JTextFieldWithPrompt extends JTextField{
 
     String placeholder;
