@@ -9,12 +9,11 @@ public class SpottPanel extends JPanel {
     int length;
     int height;
     int delay;
-    World world;
 
     // constructor
     public SpottPanel(int x, int y, int d)
     {
-        spott = new Spott(new Pair(d, d), new Pair(d, d), 20);
+        spott = new Spott(new Pair(0, 860), new Pair(20, 0), 20);
         
         length = x;
         height = y;
