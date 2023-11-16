@@ -43,11 +43,11 @@ public class TicTacToe extends JPanel implements Gameable {
     g.setFont(myFont1);
     g.drawString("TicTacToe!", WIDTH/2 - 85, 75);
     g.drawString("Select Squares On The Grid To Place X's!", WIDTH/2 - 360 ,700 );
-    int yPlus = HEIGHT/2 - 200;
+    int yPlus = HEIGHT/2 - 100;
     int xPlus = WIDTH/2 - 50;
     for (int i = 0; i < 2; i++){
          g.fillRect(360, yPlus, 300, 10);
-         g.fillRect(xPlus, 100, 10, 300);
+         g.fillRect(xPlus, 200, 10, 300);
          xPlus += 100;
          yPlus += 100;
     }
