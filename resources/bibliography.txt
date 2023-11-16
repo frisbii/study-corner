@@ -1,0 +1,10 @@
+Madi:
+
+Emma:
+
+Serin:
+
+Allison:
+https://www.codejava.net/java-se/swing/jlist-basic-tutorial-and-examples
+https://web.mit.edu/6.005/www/sp14/psets/ps4/java-6-tutorial/components.html
+https://stackoverflow.com/questions/30656473/how-to-use-gridbaglayout
