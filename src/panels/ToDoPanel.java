@@ -2,11 +2,14 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import javax.imageio.*;
+import java.io.File;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
-//figure out how to do this with extending JPanel instead of extending JFrame
+//TO DO: figure out how to make things in the jpanel see through so i can see the pretty background image
 public class ToDoPanel extends JPanel implements ItemListener {
 
     public static int FPS = 60;
@@ -14,12 +17,10 @@ public class ToDoPanel extends JPanel implements ItemListener {
     ToDoData data;
     JList taskList;
     JButton addTaskButton;
+    JButton deleteTaskButton;
     JTextField newTask;
 
-    /*public static void main(String [] args) throws IOException{
-        toDoModel = new ToDoModel();
-    } */
-
+    //constructor contains everything graphics related in the class essentially so that it can be added to MainPanel
     public ToDoPanel() throws IOException{
 
         data = new ToDoData();
@@ -34,40 +35,98 @@ public class ToDoPanel extends JPanel implements ItemListener {
         addTaskButton = new JButton("Add");
         addTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                try { //how to refresh data list after data is edited???
+                try {
                     data.addTask(newTask.getText());
-                    data.getFileFromList();
-                    data = new ToDoData();
+                    listModel.addElement(newTask.getText());
+                    newTask.setText("Enter task here...");
                 }
                 catch(Exception e) {System.out.println("Exception " + e);}
             }
         });
         Border emptyBorder = BorderFactory.createEmptyBorder();
         addTaskButton.setBorder(emptyBorder);
-        //need to add runner back in and update FPS and every time, call update data
-        newTask = new JTextField("Enter task here...");
+
+        newTask = new JTextField(15);
+        //apparently this makes it only accept 15 characters
+        newTask.setText("Enter task here...");
+
+        //button to delete tasks
+        deleteTaskButton = new JButton("Remove selected task");
+        deleteTaskButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                try {
+                    if(!taskList.isSelectionEmpty()){
+                        String removeMe = (String)taskList.getSelectedValue();
+                        data.removeTask(removeMe);
+                        listModel.removeElement(removeMe);
+                    }
+                }
+                catch(Exception e) {System.out.println("Exception " + e);}
+            }
+        });
+        deleteTaskButton.setBorder(emptyBorder);
 
         JLabel title = new JLabel("To Do: ");
         title.setHorizontalAlignment(JLabel.CENTER);
 
-        this.setLayout(new FlowLayout());
+        //TO DO: figure out how GridBagLayout works to make it do properly what I want to do
+        GridBagLayout toDoLayout = new GridBagLayout();
+        GridBagConstraints c = new GridBagConstraints();
+
+        c.anchor = GridBagConstraints.PAGE_START;
+        this.setLayout(toDoLayout);
+        c.fill = GridBagConstraints.BOTH;
+
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = 1;
+        c.weighty = 1;
+        c.gridheight = 1;
+        toDoLayout.setConstraints(title, c);
         this.add(title);
+        c.gridwidth = GridBagConstraints.REMAINDER;
 
         //smaller borders btwn elements
         JPanel panel1 = new JPanel();
         panel1.add(taskList);
-
         JPanel panel2 = new JPanel();
         panel2.setLayout(new FlowLayout());
         panel2.add(newTask);
         panel2.add(addTaskButton);
 
-        //this.setLayout(new GridLayout(3,1,0,0));
+        c.gridy = 1;
+        c.weightx = 1;
+        c.weighty = 1;
+        c.gridheight = 1;
+        toDoLayout.setConstraints(panel2, c);
         add(panel2);
-        add(panel1);
+        c.gridwidth = GridBagConstraints.REMAINDER;
 
-        //frame properties
-        setSize(300, 500);
+        JPanel panel3 = new JPanel();
+        panel3.add(deleteTaskButton);
+        c.gridy = 2;
+        c.weightx = 1;
+        c.weighty = 1;
+        c.gridheight = 1;
+        toDoLayout.setConstraints(panel3, c);
+        add(panel3);
+        c.gridwidth = GridBagConstraints.REMAINDER;
+
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridy = 3;
+        c.weightx = 1;
+        c.weighty = 3;
+        c.gridheight = 3;
+        toDoLayout.setConstraints(panel1, c);
+        add(panel1);
+        c.gridwidth = GridBagConstraints.REMAINDER;
+
+
+        panel1.setBackground(new Color(0,0,0,0));
+        panel2.setBackground(new Color(0,0,0,0));
+        panel3.setBackground(new Color(0,0,0,0));
+        //setSize(300, 500);
         setVisible(true);
     }
 
@@ -77,5 +136,35 @@ public class ToDoPanel extends JPanel implements ItemListener {
             if(source == addTaskButton) data.addTask(newTask.getText());
         }
         catch(Exception e) {System.out.println("Error: " + e);}
+    }
+
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        try{
+            Image background = ImageIO.read(new File("./resources/images/temp_background.png"));
+            g.drawImage(background, 0, 0, null);
+        }
+        catch(Exception e){System.out.println("Error: " + e);}
+    }
+}
+
+//TO DO: finish this so I can have nice placeholder text :)))
+class JTextFieldWithPrompt extends JTextField{
+
+    String placeholder;
+
+    public JTextFieldWithPrompt(String s){
+        placeholder = s;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+
+    }
+
+    public void setPlaceholder(String s){
+        placeholder = s;
     }
 }
