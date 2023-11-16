@@ -18,7 +18,7 @@ public class MainPanel extends JPanel {
         Fonts.setUIFonts();
 
         try {
-            bgImage = ImageIO.read(new File("./resources/images/background.png"));
+            bgImage = ImageIO.read(new File("./resources/images/cherrytree_bg.png"));
         } catch (IOException e) { e.printStackTrace(); }
 
 
@@ -33,12 +33,12 @@ public class MainPanel extends JPanel {
         }
         catch(Exception e) {System.out.println("Error: " + e);}
         this.centralPanel.add(new TimerPanel());
-        this.centralPanel.add(new JTextArea("bottom right"));
+        this.centralPanel.add(new TicTacToe());
 
         // Bottom panel
         this.bottomPanel = new JTextArea("spott's home :]");
         this.bottomPanel.setPreferredSize(new Dimension(this.getWidth(), 40));
-        this.bottomPanel.setBackground(Color.GREEN);
+        this.bottomPanel.setBackground(new Color(135,166,202));
 
 
 
