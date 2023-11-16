@@ -1,5 +1,7 @@
+import javax.swing.*;
+
 public class Spott {
-    // TODO: move Spott around the screen
+    // move Spott around the screen
 
     // instance variables
     Pair position;
@@ -16,19 +18,27 @@ public class Spott {
     public void draw()
     {
         // TODO: implement
+        // different from draw() in Pong.java because we're importing graphics
     }
 
     // program running --> default movement around the screen
-    public void update(World w, double time)
+    public void roaming(World w, double time)
     {
         // TODO: implement
-        // position = position.add(velocity.times(time));
+        // should be different from update() in Pong.java --> constant speed, only pausing and changing direction
+        position = position.add(velocity.times(time)); // constant velocity
+        
+        // roaming() is called constantly in the main method, need to implement something with time
+        Timer timer = new Timer(speed, this); // timer recurs every speed number of milliseconds
+        timer.setInitialDelay(pause); // first timer starts after pause number of milliseconds
+        timer.start();
     }
 
     // task accomplished --> excited animation
     public void cheers()
     {
         // TODO: implement
+        // insert different image (again, importing graphics)
     }
 }
 

@@ -2,6 +2,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.geom.AffineTransform;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -10,9 +11,11 @@ import javax.swing.UIManager;
 class Fonts {
     public static Font CUTIVE_UI;
 
+    private static final String cutivePath = "./resources/fonts/Cutive-Regular.ttf";
+
     public static void setUIFonts() {
         System.out.println(Fonts.class.getResource("Fonts.class"));
-        try (InputStream is = Fonts.class.getResourceAsStream("./Cutive-Regular.ttf")) {
+        try (InputStream is = new FileInputStream(new File(cutivePath))) {
             CUTIVE_UI = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(15f).deriveFont(AffineTransform.getTranslateInstance(0, 3));
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
@@ -29,7 +32,7 @@ class Fonts {
     }
 
     public static Font generateCutiveFont(int size) {
-        try (InputStream is = Fonts.class.getClassLoader().getResourceAsStream("./Cutive-Regular.ttf")) {
+        try (InputStream is = new FileInputStream(new File(cutivePath))) {
             Font f = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont((float) size).deriveFont(AffineTransform.getTranslateInstance(0, 3));
             return f;
         } catch (FontFormatException | IOException e) {
