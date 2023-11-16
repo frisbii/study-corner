@@ -1,5 +1,6 @@
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.Graphics;
 
 public class SpottPanel extends JPanel {
     
@@ -32,8 +33,9 @@ public class SpottPanel extends JPanel {
     }
 
     // graphics
-    public void drawShapes()
+    public void drawShapes(Graphics g)
     {
+        spott.tempDraw(g);
         // TODO: implement
         // again, should be different from the one in Pong.java --> we're importing our own graphics
     }

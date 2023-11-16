@@ -26,6 +26,7 @@ public class Spott {
     }
     */
 
+    // TODO: placeholder for Spott graphics
     public void tempDraw(Graphics g)
     {
         Color c = g.getColor();
