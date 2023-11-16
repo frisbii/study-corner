@@ -3,6 +3,7 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 
 public class MainPanel extends JPanel {
     public static final int WIDTH = 1024;
@@ -31,7 +32,7 @@ public class MainPanel extends JPanel {
             this.centralPanel.add(toDoPanel);
         }
         catch(Exception e) {System.out.println("Error: " + e);}
-        this.centralPanel.add(new JTextArea("bottom left"));
+        this.centralPanel.add(new TimerPanel());
         this.centralPanel.add(new JTextArea("bottom right"));
 
         // Bottom panel

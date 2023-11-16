@@ -21,11 +21,14 @@ public class ToDoPanel extends JPanel implements ItemListener {
     JButton addTaskButton;
     JButton deleteTaskButton;
     JTextField newTask;
+    JPanel flowPanel;
 
     //constructor contains everything graphics related in the class essentially so that it can be added to MainPanel
     public ToDoPanel() throws IOException{
 
         data = new ToDoData();
+        flowPanel = new JPanel();
+
         //JList containing JCheckBox
         DefaultListModel<String> listModel = new DefaultListModel<>();
         for(String s : data.tasks){
@@ -74,11 +77,10 @@ public class ToDoPanel extends JPanel implements ItemListener {
         //layout stuff
         GridBagLayout toDoLayout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
+        flowPanel.setLayout(toDoLayout);
 
         c.anchor = GridBagConstraints.PAGE_START;
-        this.setLayout(toDoLayout);
         c.fill = GridBagConstraints.BOTH;
-
 
         c.gridx = 0;
         c.gridy = 0;
@@ -86,7 +88,7 @@ public class ToDoPanel extends JPanel implements ItemListener {
         c.weighty = 1;
         c.gridheight = 1;
         toDoLayout.setConstraints(title, c);
-        this.add(title);
+        this.flowPanel.add(title);
         c.gridwidth = GridBagConstraints.REMAINDER;
 
         //smaller borders btwn elements
@@ -97,14 +99,16 @@ public class ToDoPanel extends JPanel implements ItemListener {
         panel2.add(newTask);
         panel2.add(addTaskButton);
 
+        //gridbag stuff for add button pannel
         c.gridy = 1;
         c.weightx = 1;
         c.weighty = 1;
         c.gridheight = 1;
         toDoLayout.setConstraints(panel2, c);
-        add(panel2);
+        this.flowPanel.add(panel2);
         c.gridwidth = GridBagConstraints.REMAINDER;
 
+        //gridbag for delete button
         JPanel panel3 = new JPanel();
         panel3.add(deleteTaskButton);
         c.gridy = 2;
@@ -112,22 +116,27 @@ public class ToDoPanel extends JPanel implements ItemListener {
         c.weighty = 1;
         c.gridheight = 1;
         toDoLayout.setConstraints(panel3, c);
-        add(panel3);
+        this.flowPanel.add(panel3);
         c.gridwidth = GridBagConstraints.REMAINDER;
 
+        //gridbag for to do list
         c.anchor = GridBagConstraints.CENTER;
         c.gridy = 3;
         c.weightx = 1;
         c.weighty = 4;
         c.gridheight = 3;
         toDoLayout.setConstraints(panel1, c);
-        add(panel1);
+        this.flowPanel.add(panel1);
         c.gridwidth = GridBagConstraints.REMAINDER;
 
 
         panel1.setBackground(new Color(0,0,0,0));
         panel2.setBackground(new Color(0,0,0,0));
         panel3.setBackground(new Color(0,0,0,0));
+        flowPanel.setBackground(new Color(0,0,0,0));
+
+        this.setLayout(new FlowLayout());
+        this.add(flowPanel);
         //setSize(300, 500);
         setVisible(true);
     }
