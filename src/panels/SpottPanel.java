@@ -11,7 +11,7 @@ public class SpottPanel extends JPanel {
         spott = new Spott(new Pair(d, d), new Pair(d, d));
         
         // creating pauses for Spott
-        delay = d;
+        delay = d; // TODO: randomize delay to have more organic movement
         ActionListener taskPerformer = new ActionListener()
         {
             public void actionPerformed(ActionEvent evt) {
