@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 public class Spott {
     // move Spott around the screen
 
@@ -27,11 +25,6 @@ public class Spott {
         // TODO: implement
         // should be different from update() in Pong.java --> constant speed, only pausing and changing direction
         position = position.add(velocity.times(time)); // constant velocity
-        
-        // roaming() is called constantly in the main method, need to implement something with time
-        Timer timer = new Timer(speed, this); // timer recurs every speed number of milliseconds
-        timer.setInitialDelay(pause); // first timer starts after pause number of milliseconds
-        timer.start();
     }
 
     // task accomplished --> excited animation
