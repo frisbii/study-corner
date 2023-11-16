@@ -44,7 +44,8 @@ public class MainPanel extends JPanel {
 
 
 
-        this.setLayout(new GridBagLayout());
+        GridBagLayout gridBag = new GridBagLayout();
+        this.setLayout(gridBag);
         GridBagConstraints c = new GridBagConstraints();
         
         c.fill = GridBagConstraints.BOTH;
@@ -102,7 +103,7 @@ public class MainPanel extends JPanel {
         //this.add(new JLabel("spott!") {{ this.setOpaque(true); this.setBackground(Color.GREEN); }}, c);
         this.add(new SpottPanel(), c);
         
-
+        System.out.println(this.centralPanel.getWidth() + " " + this.centralPanel.getHeight());
     }
 
     @Override
