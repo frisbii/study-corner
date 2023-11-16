@@ -100,7 +100,7 @@ public class MainPanel extends JPanel {
         c.weighty = 0.20;
         c.insets = new Insets(40, 0, 0, 0);
         //this.add(new JLabel("spott!") {{ this.setOpaque(true); this.setBackground(Color.GREEN); }}, c);
-        this.add(this.bottomPanel, c);
+        this.add(new SpottPanel(), c);
         
 
     }

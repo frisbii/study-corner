@@ -1,26 +1,42 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class Spott {
     // move Spott around the screen
 
     // instance variables
     Pair position;
     Pair velocity;
+    double size; // Spott's sprite is contained in a size x size square
 
     // constructor
-    public Spott(Pair p, Pair v)
+    public Spott(Pair p, Pair v, double s)
     {
         position = p;
         velocity = v;
+        size = s;
     }
 
     // graphics
+    /*
     public void draw()
     {
         // TODO: implement
         // different from draw() in Pong.java because we're importing graphics
     }
+    */
+
+    // TODO: placeholder for Spott graphics
+    public void tempDraw(Graphics g)
+    {
+        Color c = g.getColor();
+        g.fillOval((int)(position.x - size / 2), (int)(position.y - size / 2), (int)(size), (int)(size));
+        g.drawOval((int)(position.x - size / 2), (int)(position.y - size / 2), (int)(size), (int)(size));
+        g.setColor(c);
+    }
 
     // program running --> default movement around the screen
-    public void roaming(World w, double time)
+    public void roaming(double time)
     {
         // TODO: implement
         // should be different from update() in Pong.java --> constant speed, only pausing and changing direction
