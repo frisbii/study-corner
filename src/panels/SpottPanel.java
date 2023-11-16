@@ -8,7 +8,6 @@ public class SpottPanel extends JPanel {
     int length;
     int height;
     int delay;
-    World world;
 
     // constructor
     public SpottPanel(int x, int y, int d)
