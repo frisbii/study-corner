@@ -9,7 +9,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
-//TO DO: figure out how to make things in the jpanel see through so i can see the pretty background image
+//TO DO: maybe make a pretty background outline for some of the JPanels? :)
+//TO DO: be able to rearrange the tasks
+//TO DO: actual check boxes in the tasks
 public class ToDoPanel extends JPanel implements ItemListener {
 
     public static int FPS = 60;
@@ -69,7 +71,7 @@ public class ToDoPanel extends JPanel implements ItemListener {
         JLabel title = new JLabel("To Do: ");
         title.setHorizontalAlignment(JLabel.CENTER);
 
-        //TO DO: figure out how GridBagLayout works to make it do properly what I want to do
+        //layout stuff
         GridBagLayout toDoLayout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
 
@@ -116,7 +118,7 @@ public class ToDoPanel extends JPanel implements ItemListener {
         c.anchor = GridBagConstraints.CENTER;
         c.gridy = 3;
         c.weightx = 1;
-        c.weighty = 3;
+        c.weighty = 4;
         c.gridheight = 3;
         toDoLayout.setConstraints(panel1, c);
         add(panel1);
@@ -143,7 +145,7 @@ public class ToDoPanel extends JPanel implements ItemListener {
         super.paintComponent(g);
         try{
             Image background = ImageIO.read(new File("./resources/images/temp_background.png"));
-            g.drawImage(background, 0, 0, null);
+            g.drawImage(background, 0, 0, 800, 600, null);
         }
         catch(Exception e){System.out.println("Error: " + e);}
     }

@@ -25,7 +25,7 @@ public class MainPanel extends JPanel {
         this.centralPanel = new JPanel(new GridLayout(2,2));
         //this.centralPanel.setPreferredSize(new Dimension(600, 520));
 
-        this.centralPanel.add(new JTextArea("top left"));
+        this.centralPanel.add(new ClockPanel());
         try{
             ToDoPanel toDoPanel = new ToDoPanel();
             this.centralPanel.add(toDoPanel);
