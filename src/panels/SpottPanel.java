@@ -1,5 +1,6 @@
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.Graphics;
 
 public class SpottPanel extends JPanel {
     
@@ -10,15 +11,11 @@ public class SpottPanel extends JPanel {
     int delay;
 
     // constructor
-    public SpottPanel(int x, int y, int d)
+    public SpottPanel()
     {
-        spott = new Spott(new Pair(d, d), new Pair(d, d), 20);
+        spott = new Spott(new Pair(0, 860), new Pair(20, 0), 20);
         
-        length = x;
-        height = y;
-
         // creating pauses for Spott
-        delay = d; // TODO: randomize delay to have more organic movement
         ActionListener taskPerformer = new ActionListener()
         {
             public void actionPerformed(ActionEvent evt) {
@@ -31,8 +28,9 @@ public class SpottPanel extends JPanel {
     }
 
     // graphics
-    public void drawShapes()
+    public void drawShapes(Graphics g)
     {
+        spott.tempDraw(g);
         // TODO: implement
         // again, should be different from the one in Pong.java --> we're importing our own graphics
     }
