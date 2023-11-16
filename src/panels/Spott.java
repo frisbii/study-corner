@@ -1,5 +1,5 @@
 public class Spott {
-    // TODO: move Spott around the screen
+    // move Spott around the screen
 
     // instance variables
     Pair position;
@@ -16,13 +16,14 @@ public class Spott {
     public void draw()
     {
         // TODO: implement
+        // different from draw() in Pong.java because we're importing graphics
     }
 
     // program running --> default movement around the screen
     public void update(World w, double time)
     {
         // TODO: implement
-        // position = position.add(velocity.times(time));
+        // should be different from the one in Pong.java --> constant speed, only pausing and changing direction
     }
 
     // task accomplished --> excited animation
