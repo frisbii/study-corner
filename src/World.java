@@ -26,6 +26,6 @@ public class World {
     // movement
     public void updateShapes(double time)
     {
-        spott.update(this, time);
+        spott.roaming(this, time);
     }
 }
