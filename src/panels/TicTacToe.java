@@ -1,14 +1,13 @@
 import javax.swing.JPanel;
 import javax.swing.JFrame;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Dimension;
-import java.util.Random;
-import java.awt.event.ItemListener;
-import java.awt.FontMetrics;
-import java.awt.Font;
 
-public class TicTacToe extends JPanel implements Gameable { 
+import java.util.Random;
+
+import javax.swing.JButton;
+import java.awt.*;
+import java.awt.event.*;
+
+public class TicTacToe extends JPanel implements Gameable, ActionListener { 
 // implement itemListener interface 
     // TO DO: be able to select where to put an x through itemlistener
     // TO DO: draw main graphics
@@ -17,11 +16,15 @@ public class TicTacToe extends JPanel implements Gameable {
 
     public static final int WIDTH = 1024;
     public static final int HEIGHT = 768;
+    JButton topLeft;
+
     
     public TicTacToe(){
         
            this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-         
+          topLeft = new JButton("X");
+          topLeft.addActionListener(this);
+          topLeft.setPreferredSize(new Dimension(200, 80));
        }
 
     public static void main(String[] args){
@@ -55,8 +58,8 @@ public class TicTacToe extends JPanel implements Gameable {
       
     }
  
-//     public void itemStateChanged(ItemEvent event){
+    public void actionPerformed(ActionEvent e){
 
-//  }
+ }
     
 }
