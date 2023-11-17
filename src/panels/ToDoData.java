@@ -54,6 +54,12 @@ class ToDoData{
         getFileFromList();
     }
 
+    //add task to specific index
+    public void addTask(int index, String task) throws IOException{
+        tasks.add(index, task);
+        getFileFromList();
+    }
+
     //removes task from list and text file
     public void removeTask(String task) throws IOException{
         if(tasks.contains(task)){

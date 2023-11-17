@@ -9,41 +9,54 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
+//TO DO: WHY DOES IT DISPLAY THE TIMER IN THE BACKGROUND WHEN ADDING TASKS 2-4 WHY
+//does not have anything to do with the timer being in the panel after it, it just happens
+
 //TO DO: maybe make a pretty background outline for some of the JPanels? :)
-//TO DO: be able to rearrange the tasks
 //TO DO: actual check boxes in the tasks
-public class ToDoPanel extends JPanel implements ItemListener {
+public class ToDoPanel extends JPanel implements ItemListener, MouseListener, MouseMotionListener {
 
     public static int FPS = 60;
     static ToDoPanel toDoModel;
     ToDoData data;
     JList taskList;
+    DefaultListModel<String> listModel;
+
     JButton addTaskButton;
     JButton deleteTaskButton;
     JTextField newTask;
     JPanel flowPanel;
+
+    boolean isMouseDragging;
+    int dragInitial;
 
     //constructor contains everything graphics related in the class essentially so that it can be added to MainPanel
     public ToDoPanel() throws IOException{
 
         data = new ToDoData();
         flowPanel = new JPanel();
+        isMouseDragging = false;
 
         //JList containing JCheckBox
-        DefaultListModel<String> listModel = new DefaultListModel<>();
+        listModel = new DefaultListModel<>();
         for(String s : data.tasks){
             listModel.addElement(s);
         }
         taskList = new JList<>(listModel);
+        taskList.addMouseListener(this);
+        taskList.addMouseMotionListener(this);
         taskList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        //button to add tasl to the to do list
         addTaskButton = new JButton("Add");
         addTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 try {
-                    data.addTask(newTask.getText());
-                    listModel.addElement(newTask.getText());
-                    newTask.setText("Enter task here...");
+                    if(newTask.getText().length() <= 40){
+                        data.addTask(newTask.getText());
+                        listModel.addElement(newTask.getText());
+                        newTask.setText("Enter task here...");
+                    }
                 }
                 catch(Exception e) {System.out.println("Exception " + e);}
             }
@@ -52,7 +65,6 @@ public class ToDoPanel extends JPanel implements ItemListener {
         addTaskButton.setBorder(emptyBorder);
 
         newTask = new JTextField(15);
-        //apparently this makes it only accept 15 characters
         newTask.setText("Enter task here...");
 
         //button to delete tasks
@@ -143,10 +155,6 @@ public class ToDoPanel extends JPanel implements ItemListener {
 
     public void itemStateChanged(ItemEvent event){
         Object source = event.getItemSelectable();
-        try{
-            if(source == addTaskButton) data.addTask(newTask.getText());
-        }
-        catch(Exception e) {System.out.println("Error: " + e);}
     }
 
     @Override
@@ -156,7 +164,41 @@ public class ToDoPanel extends JPanel implements ItemListener {
             Image background = ImageIO.read(new File("./resources/images/temp_background.png"));
             g.drawImage(background, 0, 0, 800, 600, null);
         }
-        catch(Exception e){System.out.println("Error: " + e);}
+        catch(Exception e){System.out.println("Error with background: " + e);}
+    }
+
+    public void mousePressed(MouseEvent e){
+        dragInitial = taskList.getSelectedIndex();
+    }
+    public void mouseEntered(MouseEvent e){
+
+    }
+    public void mouseReleased(MouseEvent e){
+        if (isMouseDragging) {        
+            int dragTarget = taskList.getSelectedIndex();
+            String dragElement = listModel.get(dragInitial);
+            listModel.remove(dragInitial);
+            listModel.add(dragTarget, dragElement);
+            try{
+                data.removeTask(dragElement);
+                data.addTask(dragTarget, dragElement);
+            }
+            catch(Exception ex){System.out.println("Error dragging: " + ex);}
+        }
+        isMouseDragging = false;
+
+    }
+    public void mouseClicked(MouseEvent e){
+
+    }
+    public void mouseDragged(MouseEvent e){
+        isMouseDragging = true;
+    }
+    public void mouseMoved(MouseEvent e){
+
+    }
+    public void mouseExited(MouseEvent e){
+
     }
 }
 
