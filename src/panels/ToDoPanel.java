@@ -7,6 +7,8 @@ import java.io.File;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.IOException;
 
 //TO DO: WHY DOES IT DISPLAY THE TIMER IN THE BACKGROUND WHEN ADDING TASKS 2-4 WHY
@@ -24,7 +26,7 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
 
     JButton addTaskButton;
     JButton deleteTaskButton;
-    JTextField newTask;
+    JTextFieldWithPrompt newTask;
     JPanel flowPanel;
 
     boolean isMouseDragging;
@@ -64,8 +66,7 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
         Border emptyBorder = BorderFactory.createEmptyBorder();
         addTaskButton.setBorder(emptyBorder);
 
-        newTask = new JTextField(15);
-        newTask.setText("Enter task here...");
+        newTask = new JTextFieldWithPrompt(15, "Enter task here...");
 
         //button to delete tasks
         deleteTaskButton = new JButton("Remove selected task");
@@ -202,18 +203,71 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
     }
 }
 
-//TO DO: finish this so I can have nice placeholder text :)))
+//TO DO: maybe make it not have immediate focus upon start up????? how?
 class JTextFieldWithPrompt extends JTextField{
 
     String placeholder;
 
-    public JTextFieldWithPrompt(String s){
+    public JTextFieldWithPrompt(){
+        super();
+        this.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e){
+                if(getText().equals(placeholder)){
+                    setText("");
+                }
+            }
+            public void focusLost(FocusEvent e){
+                if(getText().isEmpty()){
+                    setText(placeholder);
+                }
+            }
+
+        });
+    }
+
+    public JTextFieldWithPrompt(int cols){
+        super(cols);
+        this.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e){
+                if(getText().equals(placeholder)){
+                    setText("");
+                }
+            }
+            public void focusLost(FocusEvent e){
+                if(getText().isEmpty()){
+                    setText(placeholder);
+                }
+            }
+
+        });
+    }
+
+    public JTextFieldWithPrompt(int cols, String s){
+        super(cols);
         placeholder = s;
+        setText(placeholder);
+        this.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e){
+                if(getText().equals(placeholder)){
+                    setText("");
+                }
+            }
+            public void focusLost(FocusEvent e){
+                if(getText().isEmpty()){
+                    setText(placeholder);
+                }
+            }
+
+        });
     }
 
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
+
 
     }
 

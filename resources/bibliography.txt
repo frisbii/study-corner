@@ -8,3 +8,5 @@ Allison:
 https://www.codejava.net/java-se/swing/jlist-basic-tutorial-and-examples
 https://web.mit.edu/6.005/www/sp14/psets/ps4/java-6-tutorial/components.html
 https://stackoverflow.com/questions/30656473/how-to-use-gridbaglayout
+https://stackoverflow.com/questions/3804361/how-to-enable-drag-and-drop-inside-jlist
+https://stackoverflow.com/questions/8292773/checking-if-a-jtextfield-is-selected-or-not
