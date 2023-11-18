@@ -1,5 +1,7 @@
 Study Corner; A cozy companion for your studies.
 
+Set your command directory to study-corner.
+
 To compile, use the following command:
     javac src/*.java src/panels/*.java -d ./classes
 
