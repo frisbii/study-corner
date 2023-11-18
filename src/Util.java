@@ -8,6 +8,9 @@ import java.io.InputStream;
 
 import javax.swing.UIManager;
 
+import javax.imageio.*;
+import java.awt.Image;
+
 class Fonts {
     public static Font CUTIVE_UI;
 
@@ -41,4 +44,13 @@ class Fonts {
         }
     }
 
+}
+
+class Images{
+
+    Image toDoBackground;
+
+    public Images() throws IOException{
+        toDoBackground = ImageIO.read(new File("./resources/images/temp_background.png"));
+    }
 }
