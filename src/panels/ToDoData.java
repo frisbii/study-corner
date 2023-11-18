@@ -35,7 +35,7 @@ class ToDoData{
     }
 
     public void getFileFromList() throws IOException{
-        try{
+        try {
             PrintWriter out = new PrintWriter("./resources/data/TaskList.txt");
             //should maybe delete all the tasks in the list before re-writing??
             for(int i = 0; i < tasks.size(); i++){

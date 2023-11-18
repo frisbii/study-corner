@@ -17,7 +17,6 @@ class Fonts {
     private static final String cutivePath = "./resources/fonts/Cutive-Regular.ttf";
 
     public static void setUIFonts() {
-        System.out.println(Fonts.class.getResource("Fonts.class"));
         try (InputStream is = new FileInputStream(new File(cutivePath))) {
             CUTIVE_UI = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(15f).deriveFont(AffineTransform.getTranslateInstance(0, 3));
         } catch (FontFormatException | IOException e) {

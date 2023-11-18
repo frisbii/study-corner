@@ -16,21 +16,24 @@ public class TicTacToe extends JPanel implements Gameable, ActionListener {
 
     public static final int WIDTH = 1024;
     public static final int HEIGHT = 768;
-    JButton topLeft;
+    public static JButton topLeft;
 
     
     public TicTacToe(){
         
            this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
           topLeft = new JButton("X");
+          topLeft.setVisible(true);
+          topLeft.setBounds(146, 84, 85, 21);
           topLeft.addActionListener(this);
-          topLeft.setPreferredSize(new Dimension(200, 80));
+          
        }
 
     public static void main(String[] args){
+         TicTacToe mainInstance = new TicTacToe();
         JFrame frame = new JFrame("TicTacToe");
+        frame.add(topLeft);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        TicTacToe mainInstance = new TicTacToe();
         frame.setContentPane(mainInstance);
         frame.pack();
         frame.setVisible(true);

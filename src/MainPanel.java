@@ -3,12 +3,8 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Time;
 
 public class MainPanel extends JPanel {
-    public static final int WIDTH = 1024;
-    public static final int HEIGHT = 768;
-
     public JPanel centralPanel;
     public JTextArea bottomPanel;
 
@@ -98,12 +94,11 @@ public class MainPanel extends JPanel {
         c.gridwidth = 3;
         c.gridheight = 1;
         c.weightx = 1;
-        c.weighty = 0.20;
+        c.weighty = 0.25;
         c.insets = new Insets(40, 0, 0, 0);
         //this.add(new JLabel("spott!") {{ this.setOpaque(true); this.setBackground(Color.GREEN); }}, c);
         this.add(new SpottPanel(), c);
         
-        System.out.println(this.centralPanel.getWidth() + " " + this.centralPanel.getHeight());
     }
 
     @Override
