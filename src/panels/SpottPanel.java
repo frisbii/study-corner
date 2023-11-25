@@ -2,6 +2,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 
 public class SpottPanel extends JPanel {
@@ -14,10 +15,11 @@ public class SpottPanel extends JPanel {
     public int height;
 
     // constructor
-    public SpottPanel()
+    public SpottPanel(int h)
     {
         this.width = Main.WIDTH;
-        this.height = 150;
+        this.height = h;
+        this.setPreferredSize(new Dimension(width, height));
         this.delay = 10;
         this.spott = new Spott();
         

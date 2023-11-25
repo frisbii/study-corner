@@ -49,7 +49,11 @@ class Images{
 
     Image toDoBackground;
 
-    public Images() throws IOException{
-        toDoBackground = ImageIO.read(new File("./resources/images/temp_background.png"));
+    public Images() {
+        try {
+            toDoBackground = ImageIO.read(new File("./resources/images/temp_background.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
