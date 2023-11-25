@@ -1,8 +1,5 @@
-import java.io.File;
-import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.List;
 import java.util.ArrayList;
 import java.io.PrintWriter;
 
@@ -11,16 +8,16 @@ class ToDoData{
     public ArrayList<String> tasks;
 
     //constructor
-    public ToDoData() throws IOException{
+    public ToDoData() {
         tasks = new ArrayList<String>();
         getListFromFile();
     }
 
-    public void getListFromFile() throws IOException{
+    public void getListFromFile() {
         tasks.clear();
-        try{
+        try {
             String pathname = "./resources/data/TaskList.txt";
-            File file = new File(pathname); //creates file if no file
+            // File file = new File(pathname); //creates file if no file
             BufferedReader reader = new BufferedReader(new FileReader(pathname));
             String currentLine = reader.readLine();
             while (currentLine != null) {
@@ -28,13 +25,12 @@ class ToDoData{
                 currentLine = reader.readLine();
               }
             reader.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Error writing to file: " + e);
         }
     }
 
-    public void getFileFromList() throws IOException{
+    public void getFileFromList() {
         try {
             PrintWriter out = new PrintWriter("./resources/data/TaskList.txt");
             //should maybe delete all the tasks in the list before re-writing??
@@ -49,19 +45,19 @@ class ToDoData{
     }
 
     //adds task to list and text file
-    public void addTask(String task) throws IOException{
+    public void addTask(String task) {
         tasks.add(task);
         getFileFromList();
     }
 
     //add task to specific index
-    public void addTask(int index, String task) throws IOException{
+    public void addTask(int index, String task) {
         tasks.add(index, task);
         getFileFromList();
     }
 
     //removes task from list and text file
-    public void removeTask(String task) throws IOException{
+    public void removeTask(String task) {
         if(tasks.contains(task)){
             tasks.remove(task);
             getFileFromList();

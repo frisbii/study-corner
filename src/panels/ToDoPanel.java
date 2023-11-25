@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.io.IOException;
 
 //TO DO: WHY DOES IT DISPLAY THE TIMER IN THE BACKGROUND WHEN ADDING TASKS 2-4 WHY
 //does not have anything to do with the timer being in the panel after it, it just happens
@@ -37,11 +36,11 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
     int dragInitial;
 
     //constructor contains everything graphics related in the class essentially so that it can be added to MainPanel
-    public ToDoPanel() throws IOException{
+    public ToDoPanel() {
 
         data = new ToDoData();
         flowPanel = new JPanel();
-        Images images = new Images();
+        // Images images = new Images();
         isMouseDragging = false;
 
         //JList containing JCheckBox
@@ -160,7 +159,7 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
     }
 
     public void itemStateChanged(ItemEvent event){
-        Object source = event.getItemSelectable();
+        // Object source = event.getItemSelectable();
     }
 
     @Override
