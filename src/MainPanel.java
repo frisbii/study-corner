@@ -29,7 +29,7 @@ public class MainPanel extends JPanel {
         }
         catch(Exception e) {System.out.println("Error: " + e);}
         this.centralPanel.add(new TimerPanel());
-        this.centralPanel.add(new TicTacToe());
+        this.centralPanel.add(new TicTacToePanel());
 
         // Bottom panel
         this.bottomPanel = new JTextArea("spott's home :]");

@@ -4,6 +4,12 @@ Emma:
 https://www3.ntu.edu.sg/home/ehchua/programming/java/J4b_CustomGraphics.html#zz-4.1
 https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
 https://www3.ntu.edu.sg/home/ehchua/programming/java/j4a_gui.html
+https://docs.oracle.com/javase/tutorial/uiswing/components/border.html
+https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/
+https://www.geeksforgeeks.org/finding-optimal-move-in-tic-tac-toe-using-minimax-algorithm-in-game-theory/
+
+
+
 
 Serin:
 
