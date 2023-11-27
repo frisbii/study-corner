@@ -32,7 +32,8 @@ public class MainPanel extends JPanel {
         this.centralPanel.add(new TicTacToePanel());
 
         // Bottom panel
-        this.bottomPanel = new JTextArea("spott's home :]");
+        this.bottomPanel = new JPanel();
+        this.bottomPanel.add(new JTextArea("spott's home :]"));
         this.bottomPanel.setPreferredSize(new Dimension(this.getWidth(), 40));
         this.bottomPanel.setBackground(new Color(135,166,202));
 
