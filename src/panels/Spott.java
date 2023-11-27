@@ -55,7 +55,6 @@ public class Spott {
         position.y += velocity.y * t;
     }
 
-
     // task accomplished --> excited animation
     public void cheers()
     {
