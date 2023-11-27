@@ -1,25 +1,31 @@
 import java.awt.event.*;
 import javax.swing.*;
+
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class SpottPanel extends JPanel {
     
     // instance variables
     Spott spott;
-    int length;
-    int height;
     int delay;
+
+    public int width;
+    public int height;
 
     // constructor
     public SpottPanel()
     {
-        spott = new Spott(new Pair(0, 860), new Pair(20, 0), 20);
+        this.width = Main.WIDTH;
+        this.height = 150;
+        this.delay = 10;
+        this.spott = new Spott();
         
         // creating pauses for Spott
         ActionListener taskPerformer = new ActionListener()
         {
             public void actionPerformed(ActionEvent evt) {
-                spott.roaming(1000000);
+                spott.update(delay);
                 repaint();
             }
         };
@@ -27,17 +33,10 @@ public class SpottPanel extends JPanel {
         timer.start();
     }
 
-    // graphics
-    public void drawShapes(Graphics g)
-    {
-        spott.tempDraw(g);
-        // TODO: implement
-        // again, should be different from the one in Pong.java --> we're importing our own graphics
-    }
-
-    // movement
-    public void updateShapes(double time)
-    {
-        spott.roaming(time);
+    @Override
+    public void paintComponent(Graphics g) {
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, width, height);
+        spott.draw(g);
     }
 }

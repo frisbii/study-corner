@@ -16,37 +16,27 @@ public class Spott {
         velocity = v;
         size = s;
     }
-
+    
+    public Spott()
+    {
+        position = new Pair(0, 0);
+        velocity = new Pair(100, 0);
+        size = 50;
+    }
     // graphics
-    /*
-    public void draw()
-    {
-        // TODO: implement
-        // different from draw() in Pong.java because we're importing graphics
-        try{
-            Image background = ImageIO.read(new File("./resources/images/file_name.png"));
-            g.drawImage(background, 0, 0, 800, 600, null);
-        }
-        catch(Exception e){System.out.println("Error with background: " + e);}
+    
+    public void draw(Graphics g) {
+        g.setColor(Color.RED);
+        g.fillRect((int) position.x, (int)  position.y, (int) size, (int) size);
     }
-    */
+   
 
-    // TODO: placeholder for Spott graphics
-    public void tempDraw(Graphics g)
-    {
-        Color c = g.getColor();
-        g.fillOval((int)(position.x - size / 2), (int)(position.y - size / 2), (int)(size), (int)(size));
-        g.drawOval((int)(position.x - size / 2), (int)(position.y - size / 2), (int)(size), (int)(size));
-        g.setColor(c);
+    public void update(double time) {
+        double t = time / 1000;
+        position.x += velocity.x * t;
+        position.y += velocity.y * t;
     }
 
-    // program running --> default movement around the screen
-    public void roaming(double time)
-    {
-        // TODO: implement
-        // should be different from update() in Pong.java --> constant speed, only pausing and changing direction
-        position = position.add(velocity.times(time)); // constant velocity
-    }
 
     // task accomplished --> excited animation
     public void cheers()

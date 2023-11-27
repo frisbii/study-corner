@@ -16,6 +16,8 @@ import java.io.IOException;
 
 //TO DO: maybe make a pretty background outline for some of the JPanels? :)
 //TO DO: actual check boxes in the tasks
+//TO DO: makes Util Images work properly with background
+
 public class ToDoPanel extends JPanel implements ItemListener, MouseListener, MouseMotionListener {
 
     public static int FPS = 60;
@@ -23,6 +25,8 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
     ToDoData data;
     JList taskList;
     DefaultListModel<String> listModel;
+    Images images;
+    Graphics g;
 
     JButton addTaskButton;
     JButton deleteTaskButton;
@@ -37,6 +41,7 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
 
         data = new ToDoData();
         flowPanel = new JPanel();
+        Images images = new Images();
         isMouseDragging = false;
 
         //JList containing JCheckBox

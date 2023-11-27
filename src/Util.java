@@ -8,13 +8,15 @@ import java.io.InputStream;
 
 import javax.swing.UIManager;
 
+import javax.imageio.*;
+import java.awt.Image;
+
 class Fonts {
     public static Font CUTIVE_UI;
 
     private static final String cutivePath = "./resources/fonts/Cutive-Regular.ttf";
 
     public static void setUIFonts() {
-        System.out.println(Fonts.class.getResource("Fonts.class"));
         try (InputStream is = new FileInputStream(new File(cutivePath))) {
             CUTIVE_UI = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(15f).deriveFont(AffineTransform.getTranslateInstance(0, 3));
         } catch (FontFormatException | IOException e) {
@@ -41,4 +43,13 @@ class Fonts {
         }
     }
 
+}
+
+class Images{
+
+    Image toDoBackground;
+
+    public Images() throws IOException{
+        toDoBackground = ImageIO.read(new File("./resources/images/temp_background.png"));
+    }
 }
