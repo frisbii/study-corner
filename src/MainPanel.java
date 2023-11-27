@@ -6,33 +6,34 @@ import java.io.IOException;
 
 public class MainPanel extends JPanel {
     public JPanel centralPanel;
-    public JTextArea bottomPanel;
+    public JPanel bottomPanel;
 
     public Image bgImage;
 
+    public final int centralPanelWidth = 1000;
+    public final int centralPanelHeight = 600;
+    public final int centralPanelXOffset = 440;
+    public final int centralPanelYOffset = 140;
+    public final int bottomPanelHeight = 100;
+
     public MainPanel() {
-        Fonts.setUIFonts();
-
+        // Initialization tasks
         try {
-            bgImage = ImageIO.read(new File("./resources/images/cherrytree_bg.png"));
+            bgImage = ImageIO.read(new File("./resources/images/cherry2.png"));
         } catch (IOException e) { e.printStackTrace(); }
+        //
+        
 
-
-        // Central panel
-        this.centralPanel = new JPanel(new GridLayout(2,2));
-        //this.centralPanel.setPreferredSize(new Dimension(600, 520));
-
+        // Create the centralPanel
+        this.centralPanel = new JPanel(new GridLayout(2, 2));
         this.centralPanel.add(new ClockPanel());
-        try{
-            ToDoPanel toDoPanel = new ToDoPanel();
-            this.centralPanel.add(toDoPanel);
-        }
-        catch(Exception e) {System.out.println("Error: " + e);}
+        this.centralPanel.add(new ToDoPanel());
         this.centralPanel.add(new TimerPanel());
-        this.centralPanel.add(new TicTacToe());
+        this.centralPanel.add(new TicTacToePanel());
 
         // Bottom panel
-        this.bottomPanel = new JTextArea("spott's home :]");
+        this.bottomPanel = new JPanel();
+        this.bottomPanel.add(new JTextArea("spott's home :]"));
         this.bottomPanel.setPreferredSize(new Dimension(this.getWidth(), 40));
         this.bottomPanel.setBackground(new Color(135,166,202));
 
@@ -54,67 +55,39 @@ public class MainPanel extends JPanel {
 
         double chw = 1.8;
         
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.gridy = 1;
-        c.gridwidth = 1;
-        c.gridheight = 1;
-        c.weightx = 0.35;
-        c.weighty = chw;
-        this.add(new EmptyPanel(new Color(0, 255, 0, 100)), c);
+        // Responsible for correctly spacing out all the components onto the window
+        this.setLayout(new BorderLayout());
+        JPanel horizontalBoxSpacer = new JPanel();
+        horizontalBoxSpacer.setOpaque(false);
+        horizontalBoxSpacer.setLayout(new BoxLayout(horizontalBoxSpacer, BoxLayout.X_AXIS));
+        horizontalBoxSpacer.add(Box.createRigidArea(new Dimension(centralPanelXOffset, 0)));
+        horizontalBoxSpacer.add(this.centralPanel);
+        horizontalBoxSpacer.add(Box.createRigidArea(new Dimension(Main.WIDTH - (centralPanelXOffset + centralPanelWidth), 0)));
         
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
-        c.gridy = 1;
-        c.gridwidth = 1;
-        c.gridheight = 1;
-        c.weightx = 0.60;
-        c.weighty = chw;
-        //this.add(new EmptyPanel(new Color(0, 255, 0, 255)), c);
-
-        // Wrap the centralPanel in a Flow Layout
-        JPanel f = new JPanel();
-        f.setPreferredSize(new Dimension(0, 0));
-        f.setLayout(new BorderLayout());
-        f.add(this.centralPanel, BorderLayout.CENTER);
-        this.add(f, c);
+        JPanel verticalBoxSpacer = new JPanel();
+        verticalBoxSpacer.setOpaque(false);
+        verticalBoxSpacer.setLayout(new BoxLayout(verticalBoxSpacer, BoxLayout.Y_AXIS));
+        verticalBoxSpacer.add(Box.createRigidArea(new Dimension(0, (Main.HEIGHT - centralPanelHeight - bottomPanelHeight) / 2)));
+        verticalBoxSpacer.add(horizontalBoxSpacer);
+        verticalBoxSpacer.add(Box.createRigidArea(new Dimension(0, (Main.HEIGHT - centralPanelHeight - bottomPanelHeight) / 2)));
+        this.add(verticalBoxSpacer, BorderLayout.CENTER);
         
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 2;
-        c.gridy = 1;
-        c.gridwidth = 1;
-        c.gridheight = 1;
-        c.weightx = 0.10;
-        c.weighty = chw;
-        this.add(new EmptyPanel(new Color(0, 0, 255, 100)), c);
-        
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.gridy = 2;
-        c.gridwidth = 3;
-        c.gridheight = 1;
-        c.weightx = 1;
-        c.weighty = 0.25;
-        c.insets = new Insets(40, 0, 0, 0);
-        //this.add(new JLabel("spott!") {{ this.setOpaque(true); this.setBackground(Color.GREEN); }}, c);
-        this.add(new SpottPanel(), c);
-        
+        this.bottomPanel = new SpottPanel(bottomPanelHeight);
+        this.add(this.bottomPanel, BorderLayout.PAGE_END);
+        // ------
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(bgImage, 0, 0, Main.WIDTH, Main.HEIGHT, null);
     }
-
-   
 }
 
 class EmptyPanel extends JPanel {
     public EmptyPanel() {
-        this.setBackground(new Color(0,0,0,0));
+        this(new Color((int) (255 * Math.random()), (int) (255 * Math.random()), (int) (255 * Math.random())));
     }
     public EmptyPanel(Color c) {
-        this.setBackground(new Color(0,0,0,0));
-        //this.setBackground(c);
+        this.setBackground(c);
     }
 }
