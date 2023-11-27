@@ -32,6 +32,7 @@ public class Spott {
     {
         // different from draw() in Pong.java because we're importing graphics
         /*
+        // for when we're using the actual imported images
         try{
             Image background = ImageIO.read(new File("./resources/images/file_name.png"));
             g.drawImage(background, 0, 0, 800, 600, null);
