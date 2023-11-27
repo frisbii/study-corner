@@ -31,9 +31,11 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
     JButton deleteTaskButton;
     JTextFieldWithPrompt newTask;
     JPanel flowPanel;
+    JLabel mainTask;
 
     boolean isMouseDragging;
     int dragInitial;
+    boolean isPutAway;
 
     //constructor contains everything graphics related in the class essentially so that it can be added to MainPanel
     public ToDoPanel() {
@@ -42,6 +44,7 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
         flowPanel = new JPanel();
         // Images images = new Images();
         isMouseDragging = false;
+        isPutAway = false;
 
         //JList containing JCheckBox
         listModel = new DefaultListModel<>();
@@ -52,6 +55,7 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
         taskList.addMouseListener(this);
         taskList.addMouseMotionListener(this);
         taskList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setMainTask();
 
         //button to add tasl to the to do list
         addTaskButton = new JButton("Add");
@@ -84,9 +88,28 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
                     }
                 }
                 catch(Exception e) {System.out.println("Exception " + e);}
+                setMainTask();
             }
         });
         deleteTaskButton.setBorder(emptyBorder);
+
+        //to make the panel move to the side and also back out (like a slidey side tab)
+        //WIP, not added to the program yet
+        JButton expand = new JButton("->");
+        expand.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                if(!isPutAway){
+                    expand.setText("<-");
+                    panelSlideTime();
+                }
+                else{
+                    expand.setText("->");
+                    panelSlideTime();
+                }
+                isPutAway = !isPutAway;
+            }
+        });
+
 
         JLabel title = new JLabel("To Do: ");
         title.setHorizontalAlignment(JLabel.CENTER);
@@ -158,6 +181,19 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
         setVisible(true);
     }
 
+    private void panelSlideTime(){
+        if(!isPutAway){
+            this.remove(flowPanel);
+        }
+        else{
+            this.add(flowPanel);
+        }
+    }
+
+    private void setMainTask(){
+        if(data.tasks.get(0) != null) mainTask = new JLabel(data.tasks.get(0));
+    }
+
     public void itemStateChanged(ItemEvent event){
         // Object source = event.getItemSelectable();
     }
@@ -191,6 +227,7 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
             catch(Exception ex){System.out.println("Error dragging: " + ex);}
         }
         isMouseDragging = false;
+        setMainTask();
 
     }
     public void mouseClicked(MouseEvent e){

@@ -19,7 +19,7 @@ public class MainPanel extends JPanel {
     public MainPanel() {
         // Initialization tasks
         try {
-            bgImage = ImageIO.read(new File("./resources/images/cherrytree_bg.png"));
+            bgImage = ImageIO.read(new File("./resources/images/cherry2.png"));
         } catch (IOException e) { e.printStackTrace(); }
         //
         

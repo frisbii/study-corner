@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.io.PrintWriter;
+import java.io.File;
 
 class ToDoData{
 
@@ -17,7 +18,7 @@ class ToDoData{
         tasks.clear();
         try {
             String pathname = "./resources/data/TaskList.txt";
-            // File file = new File(pathname); //creates file if no file
+            File file = new File(pathname); //creates file if no file
             BufferedReader reader = new BufferedReader(new FileReader(pathname));
             String currentLine = reader.readLine();
             while (currentLine != null) {
