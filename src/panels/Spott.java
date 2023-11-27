@@ -1,5 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 
 public class Spott {
     // move Spott around the screen
@@ -23,15 +26,25 @@ public class Spott {
         velocity = new Pair(100, 0);
         size = 50;
     }
+
     // graphics
-    
-    public void draw(Graphics g) {
+    public void draw(Graphics g)
+    {
+        // different from draw() in Pong.java because we're importing graphics
+        /*
+        try{
+            Image background = ImageIO.read(new File("./resources/images/file_name.png"));
+            g.drawImage(background, 0, 0, 800, 600, null);
+        }
+        catch(Exception e){System.out.println("Error with background: " + e);}
+        */
         g.setColor(Color.RED);
         g.fillRect((int) position.x, (int)  position.y, (int) size, (int) size);
     }
    
 
-    public void update(double time) {
+    public void update(double time)
+    {
         double t = time / 1000;
         position.x += velocity.x * t;
         position.y += velocity.y * t;
