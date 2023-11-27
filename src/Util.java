@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.geom.AffineTransform;
@@ -10,6 +11,12 @@ import javax.swing.UIManager;
 
 import javax.imageio.*;
 import java.awt.Image;
+
+class Util {
+    public static Color getRandomColor() {
+        return new Color((int) (255 * Math.random()), (int) (255 * Math.random()), (int) (255 * Math.random()));
+    }
+}
 
 class Fonts {
     public static Font CUTIVE_UI;
@@ -49,7 +56,11 @@ class Images{
 
     Image toDoBackground;
 
-    public Images() throws IOException{
-        toDoBackground = ImageIO.read(new File("./resources/images/temp_background.png"));
+    public Images() {
+        try {
+            toDoBackground = ImageIO.read(new File("./resources/images/temp_background.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

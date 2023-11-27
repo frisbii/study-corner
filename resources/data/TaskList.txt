@@ -1,3 +1,0 @@
-colours
-numbers
-task 1
