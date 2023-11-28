@@ -44,6 +44,7 @@ public class Spott {
         double t = time / 1000;
         position.x += velocity.x * t;
         position.y += velocity.y * t;
+        turnAround();
     }
 
     // task accomplished --> excited animation
@@ -51,6 +52,16 @@ public class Spott {
     {
         // TODO: implement
         // insert different image (again, importing graphics)
+    }
+
+    // turning around upon reaching the wall
+    private void turnAround()
+    {
+        // left wall
+        if((position.x < 0) || (position.x + size > Main.WIDTH))
+        {
+            velocity.flipX();
+        }
     }
 }
 

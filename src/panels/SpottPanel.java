@@ -1,4 +1,8 @@
 import java.awt.event.*;
+import java.io.File;
+
+import java.awt.Image;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Color;
@@ -37,8 +41,13 @@ public class SpottPanel extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, width, height);
+        //g.setColor(Color.WHITE);
+        //g.fillRect(0, 0, width, height);
+        try{
+            Image background = ImageIO.read(new File("./resources/images/background_bottom.png"));
+            g.drawImage(background, 0, 0, 1600, 150, null);
+        }
+        catch(Exception e){System.out.println("Error with background: " + e);}
         spott.draw(g);
     }
 }
