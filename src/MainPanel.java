@@ -36,24 +36,6 @@ public class MainPanel extends JPanel {
         this.bottomPanel.add(new JTextArea("spott's home :]"));
         this.bottomPanel.setPreferredSize(new Dimension(this.getWidth(), 40));
         this.bottomPanel.setBackground(new Color(135,166,202));
-
-
-
-
-
-        GridBagLayout gridBag = new GridBagLayout();
-        this.setLayout(gridBag);
-        GridBagConstraints c = new GridBagConstraints();
-        
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.gridy = 0;
-        c.gridwidth = 3;
-        c.gridheight = 1;
-        c.weighty = 0.15;
-        this.add(new EmptyPanel(new Color(255, 0, 0, 100)), c);
-
-        double chw = 1.8;
         
         // Responsible for correctly spacing out all the components onto the window
         this.setLayout(new BorderLayout());

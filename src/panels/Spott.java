@@ -10,12 +10,14 @@ public class Spott {
     double size; // Spott's sprite is contained in a size x size square
 
     // constructor
+    /*
     public Spott(Pair p, Pair v, double s)
     {
         position = p;
         velocity = v;
         size = s;
     }
+    */
     
     public Spott()
     {
@@ -23,20 +25,32 @@ public class Spott {
         velocity = new Pair(100, 0);
         size = 50;
     }
+
     // graphics
-    
-    public void draw(Graphics g) {
+    public void draw(Graphics g)
+    {
+        // different from draw() in Pong.java because we're importing graphics
+        // code for when we're using the actual imported images
+        /*
+        try{
+            Image background = ImageIO.read(new File("./resources/images/file_name.png"));
+            g.drawImage(background, 0, 0, 800, 600, null);
+        }
+        catch(Exception e){System.out.println("Error with background: " + e);}
+        */
+
+        // code for placeholder rectangle
         g.setColor(Color.RED);
         g.fillRect((int) position.x, (int)  position.y, (int) size, (int) size);
     }
    
-
-    public void update(double time) {
+    // default roaming around the screen
+    public void update(double time)
+    {
         double t = time / 1000;
         position.x += velocity.x * t;
         position.y += velocity.y * t;
     }
-
 
     // task accomplished --> excited animation
     public void cheers()
