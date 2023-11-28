@@ -16,7 +16,7 @@ public class Spott {
     public Spott()
     {
         position = new Pair(0, 0);
-        velocity = new Pair(100, 0);
+        velocity = new Pair(600, 0);
         size = 50;
     }
 
@@ -41,6 +41,7 @@ public class Spott {
     // default roaming around the screen
     public void update(double time)
     {
+        System.out.println(position.x);
         double t = time / 1000;
         position.x += velocity.x * t;
         position.y += velocity.y * t;
