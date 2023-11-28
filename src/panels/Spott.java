@@ -64,7 +64,7 @@ public class Spott {
     private void turnAround()
     {
         // left wall
-        if((position.x - (size / 2) < 0) || position.x + (size / 2) > Main.WIDTH)
+        if((position.x < 0) || (position.x + size > Main.WIDTH))
         {
             velocity.flipX();
         }
