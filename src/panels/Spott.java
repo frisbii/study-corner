@@ -5,20 +5,14 @@ public class Spott {
     // move Spott around the screen
 
     // instance variables
+    int spottWorldWidth;
+    int spottWorldHeight;
+
     Pair position;
     Pair velocity;
     double size; // Spott's sprite is contained in a size x size square
 
     // constructor
-    /*
-    public Spott(Pair p, Pair v, double s)
-    {
-        position = p;
-        velocity = v;
-        size = s;
-    }
-    */
-    
     public Spott()
     {
         position = new Pair(0, 0);
