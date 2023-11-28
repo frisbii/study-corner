@@ -13,7 +13,8 @@ import java.awt.event.FocusListener;
 //TO DO: maybe make a pretty background outline for some of the JPanels? :)
 //TO DO: actual check boxes in the tasks
 //TO DO: makes Util Images work properly with background
-//IMPLEMENT REPAINT INTO THIS TO FIX IT
+//IMPLEMENT REPAINT INTO THIS TO FIX IT (or remove repaint from other things)
+//TO DO: slide to do panel in and out
 
 public class ToDoPanel extends JPanel implements ItemListener, MouseListener, MouseMotionListener {
 
