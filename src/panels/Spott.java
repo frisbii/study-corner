@@ -5,6 +5,9 @@ public class Spott {
     // move Spott around the screen
 
     // instance variables
+    int spottWorldWidth;
+    int spottWorldHeight;
+
     Pair position;
     Pair velocity;
     double size; // Spott's sprite is contained in a size x size square
@@ -12,19 +15,10 @@ public class Spott {
     int i = 0; // incremented each time update() is called --> used to determine pauses
 
     // constructor
-    /*
-    public Spott(Pair p, Pair v, double s)
-    {
-        position = p;
-        velocity = v;
-        size = s;
-    }
-    */
-    
     public Spott()
     {
         position = new Pair(0, 0);
-        velocity = new Pair(50, 0);
+        velocity = new Pair(600, 0);
         size = 50;
     }
 
@@ -49,7 +43,6 @@ public class Spott {
     // default roaming around the screen
     public void update(double time)
     {
-        i++;
         double t = time / 1000;
         position.x += velocity.x * t;
         position.y += velocity.y * t;
