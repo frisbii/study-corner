@@ -49,5 +49,12 @@ public class SpottPanel extends JPanel {
         }
         catch(Exception e){System.out.println("Error with background: " + e);}
         spott.draw(g);
+        /*
+        g.fillRect(1000, 0, 50, 50);
+        g.setColor(Color.blue);
+        g.fillRect(1200, 0, 50, 50);
+        g.setColor(Color.red);
+        g.fillRect(1400, 0, 50, 50);
+        */
     }
 }
