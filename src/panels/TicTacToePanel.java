@@ -60,6 +60,9 @@ public class TicTacToePanel extends JPanel {
 
     JLabel [] board = new JLabel[] {topLeftReveal, topMiddleReveal, topRightReveal, middleLeftReveal, middleMiddleReveal, middleRightReveal,
     bottomLeftReveal, bottomMiddleReveal, bottomRightReveal};
+ 
+    Boolean [] currentState = new Boolean[9];
+    JLabel [] nextState = new JLabel [9]; 
 
 
       public static void show(JPanel panel){
@@ -85,6 +88,7 @@ public class TicTacToePanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
           topMiddleReveal.setVisible(true);
           topMiddle.setVisible(false);
+          nextMove();
         }
      }
      );
@@ -93,6 +97,7 @@ public class TicTacToePanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
           topRightReveal.setVisible(true);
           topRight.setVisible(false);
+          nextMove();
         }
      }
      );
@@ -102,6 +107,7 @@ public class TicTacToePanel extends JPanel {
           middleLeftReveal.setVisible(true);
           middleLeft.setVisible(false);
           System.out.println("middleLeft");
+          nextMove();
         }
      }
      );
@@ -110,6 +116,7 @@ public class TicTacToePanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
           middleMiddleReveal.setVisible(true);
           middleMiddle.setVisible(false);
+          nextMove();
         }
      }
      );
@@ -119,6 +126,7 @@ public class TicTacToePanel extends JPanel {
           middleRightReveal.setVisible(true);
           middleRight.setVisible(false);
           System.out.println("middle right");
+          nextMove();
         }
      }
      );
@@ -128,6 +136,7 @@ public class TicTacToePanel extends JPanel {
           bottomLeftReveal.setVisible(true);
           bottomLeft.setVisible(false);
           System.out.println("bottomLeft");
+          nextMove();
         }
      }
      );
@@ -136,6 +145,7 @@ public class TicTacToePanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
           bottomMiddleReveal.setVisible(true);
           bottomMiddle.setVisible(false);
+          nextMove();
         }
      }
      );
@@ -145,10 +155,24 @@ public class TicTacToePanel extends JPanel {
           bottomRightReveal.setVisible(true);
           bottomRight.setVisible(false);
           System.out.println("bottomRight");
+          nextMove();
         }
      }
      );
      
+
+       }
+
+       public void nextMove(){
+
+        for (int i = 0; i < board.length; i++) {
+          if (board[i].isVisible() == true){
+            currentState[i] = true;
+          } else {
+            currentState[i] = false;
+          }
+          System.out.println(currentState[i]);
+        }
 
        }
 
