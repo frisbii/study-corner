@@ -7,6 +7,13 @@ public class TicTacToePanel extends JPanel {
     // why does the middle and bottom left not appear??
     // why do the middle and bottom right appear at the top??
     // TO DO: implement play against computer
+    // for play against computer:
+    // make board array 
+    // need to traverse the board to get the current state
+    // need to search future states
+    // determine best state and play move
+    // need to make the program also sleep for a second to not make it instantaneous
+    // need to check the board state before and after move to determine if game is over 
 
    JPanel overall;
     public static final int WIDTH = 1024;
@@ -51,6 +58,10 @@ public class TicTacToePanel extends JPanel {
     public JLabel bottomMiddleReveal;
     public JLabel bottomRightReveal;
 
+    JLabel [] board = new JLabel[] {topLeftReveal, topMiddleReveal, topRightReveal, middleLeftReveal, middleMiddleReveal, middleRightReveal,
+    bottomLeftReveal, bottomMiddleReveal, bottomRightReveal};
+
+
       public static void show(JPanel panel){
         JFrame frame = new JFrame("Tic-Tac-Toe");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,6 +101,7 @@ public class TicTacToePanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
           middleLeftReveal.setVisible(true);
           middleLeft.setVisible(false);
+          System.out.println("middleLeft");
         }
      }
      );
@@ -106,6 +118,7 @@ public class TicTacToePanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
           middleRightReveal.setVisible(true);
           middleRight.setVisible(false);
+          System.out.println("middle right");
         }
      }
      );
@@ -114,6 +127,7 @@ public class TicTacToePanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
           bottomLeftReveal.setVisible(true);
           bottomLeft.setVisible(false);
+          System.out.println("bottomLeft");
         }
      }
      );
@@ -129,7 +143,8 @@ public class TicTacToePanel extends JPanel {
      bottomRight.addActionListener( new ActionListener() {
         public void actionPerformed(ActionEvent e) {
           bottomRightReveal.setVisible(true);
-          middleRight.setVisible(false);
+          bottomRight.setVisible(false);
+          System.out.println("bottomRight");
         }
      }
      );
