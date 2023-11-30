@@ -40,6 +40,7 @@ public class Spott {
     // default roaming around the screen
     public void update(double time)
     {
+        i++;
         System.out.println(position.x);
         double t = time / 1000;
         position.x += velocity.x * t;
@@ -70,7 +71,7 @@ public class Spott {
         if(i % 300 == 0)
         {
             velocity.x = 0;
-            // TODO: set states (e.g. "walk right") to make sprite implementation easier
+            // TODO: set states (e.g. "walk right") to make sprite implementation easier (easy, just depends on direction of movement)
         }
         if(i % 500 == 100)
         {
