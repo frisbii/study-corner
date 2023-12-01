@@ -34,6 +34,7 @@ public class MainPanel extends JPanel {
         // Bottom panel
         this.bottomPanel = new JPanel();
         this.bottomPanel.add(new JTextArea("spott's home :]"));
+        this.bottomPanel.setPreferredSize(new Dimension(this.getWidth(), 40));
         this.bottomPanel.setBackground(new Color(135,166,202));
         
         // Responsible for correctly spacing out all the components onto the window
