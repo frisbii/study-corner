@@ -7,8 +7,6 @@ import java.io.File;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 //TO DO: maybe make a pretty background outline for some of the JPanels? :)
 //TO DO: actual check boxes in the tasks
@@ -30,6 +28,7 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
     JButton deleteTaskButton;
     JTextFieldWithPrompt newTask;
     JPanel flowPanel;
+    JPanel putAwayPanel;
     JLabel mainTask;
 
     boolean isMouseDragging;
@@ -41,6 +40,7 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
 
         data = new ToDoData();
         flowPanel = new JPanel();
+        putAwayPanel = new JPanel();
         // Images images = new Images();
         isMouseDragging = false;
         isPutAway = false;
@@ -61,7 +61,7 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
         addTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 try {
-                    if(newTask.getText().length() <= 40){
+                    if(newTask.getText().length() <= 40 && data.tasks.size() < 9){
                         data.addTask(newTask.getText());
                         listModel.addElement(newTask.getText());
                         newTask.setText("Enter task here...");
@@ -93,25 +93,38 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
         deleteTaskButton.setBorder(emptyBorder);
 
         //to make the panel move to the side and also back out (like a slidey side tab)
-        //WIP, not added to the program yet
-        JButton expand = new JButton("->");
-        expand.addActionListener(new ActionListener() {
+        JButton contract = new JButton("<-");
+        contract.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                if(!isPutAway){
-                    expand.setText("<-");
-                    panelSlideTime();
-                }
-                else{
-                    expand.setText("->");
-                    panelSlideTime();
-                }
+                panelSlideTime();
                 isPutAway = !isPutAway;
             }
         });
 
+        JButton expand = new JButton("->");
+        expand.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                panelSlideTime();
+                isPutAway = !isPutAway;
+            }
+        });
+
+        //need to add gaps between components in put away panel
+        putAwayPanel.setLayout(new BoxLayout(putAwayPanel, BoxLayout.PAGE_AXIS));
+        putAwayPanel.add(contract);
+        JPanel currentTaskPanel = new JPanel();
+        currentTaskPanel.setLayout(new FlowLayout());
+        currentTaskPanel.add(new JLabel("Current task: "));
+        currentTaskPanel.add(mainTask);
+        putAwayPanel.add(currentTaskPanel);
+
 
         JLabel title = new JLabel("To Do: ");
         title.setHorizontalAlignment(JLabel.CENTER);
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new FlowLayout());
+        titlePanel.add(expand);
+        titlePanel.add(title);
 
         //layout stuff
         GridBagLayout toDoLayout = new GridBagLayout();
@@ -126,8 +139,8 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
         c.weightx = 1;
         c.weighty = 1;
         c.gridheight = 1;
-        toDoLayout.setConstraints(title, c);
-        this.flowPanel.add(title);
+        toDoLayout.setConstraints(titlePanel, c);
+        this.flowPanel.add(titlePanel);
         c.gridwidth = GridBagConstraints.REMAINDER;
 
         //smaller borders btwn elements
@@ -168,11 +181,12 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
         this.flowPanel.add(panel1);
         c.gridwidth = GridBagConstraints.REMAINDER;
 
-
+        titlePanel.setBackground(new Color(0,0,0,0));
         panel1.setBackground(new Color(0,0,0,0));
         panel2.setBackground(new Color(0,0,0,0));
         panel3.setBackground(new Color(0,0,0,0));
         flowPanel.setBackground(new Color(0,0,0,0));
+        putAwayPanel.setBackground(new Color(0,0,0,0));
 
         this.setLayout(new FlowLayout());
         this.add(flowPanel);
@@ -183,14 +197,20 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
     private void panelSlideTime(){
         if(!isPutAway){
             this.remove(flowPanel);
+            this.add(putAwayPanel);
         }
         else{
+            this.remove(putAwayPanel);
             this.add(flowPanel);
         }
+        this.revalidate();
+        this.repaint();
     }
 
     private void setMainTask(){
-        if(data.tasks.get(0) != null) mainTask = new JLabel(data.tasks.get(0));
+        if(mainTask == null) mainTask = new JLabel();
+        if(data.tasks.get(0) != null) mainTask.setText(data.tasks.get(0));
+        //repaint();
     }
 
     public void itemStateChanged(ItemEvent event){
@@ -242,6 +262,11 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
     public void mouseExited(MouseEvent e){
 
     }
+
+    /*possibly add repaint and update
+    public void draw(Graphics g){
+
+    } */
 }
 
 //TO DO: maybe make it not have immediate focus upon start up????? how?

@@ -9,8 +9,6 @@ https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introductio
 https://www.geeksforgeeks.org/finding-optimal-move-in-tic-tac-toe-using-minimax-algorithm-in-game-theory/
 
 
-
-
 Serin:
 
 Allison:
@@ -19,3 +17,6 @@ https://web.mit.edu/6.005/www/sp14/psets/ps4/java-6-tutorial/components.html
 https://stackoverflow.com/questions/30656473/how-to-use-gridbaglayout
 https://stackoverflow.com/questions/3804361/how-to-enable-drag-and-drop-inside-jlist
 https://stackoverflow.com/questions/8292773/checking-if-a-jtextfield-is-selected-or-not
+https://docs.oracle.com/javase/tutorial/uiswing/components/list.html
+https://www.reddit.com/r/javahelp/comments/h9qw6j/is_there_a_way_to_add_the_same_button_multiple/
+
