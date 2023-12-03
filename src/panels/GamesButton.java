@@ -19,13 +19,14 @@ public class GamesButton extends PanelBase implements MouseListener {
         JLabel gb = new JLabel("open mini-games");
         gb.setFont(Fonts.generateCutiveFont(17, 1));
         gb.setForeground(Color.WHITE);
-        gb.addMouseListener(this);
         this.add(gb);
+        this.addMouseListener(this);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO: add code to open the game picker
+        System.out.println("games button clicked");
     }
 
     @Override
