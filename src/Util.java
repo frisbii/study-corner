@@ -21,10 +21,12 @@ class Util {
 class Fonts {
     public static Font CUTIVE_UI;
 
-    private static final String cutivePath = "./resources/fonts/Cutive-Regular.ttf";
+    private static final String CUTIVE = "./resources/fonts/Cutive-Regular.ttf";
+    private static final String SPACEMONO = "./resources/fonts/SpaceMono-Regular.ttf";
+    private static final String SPACEMONO_BOLD = "./resources/fonts/SpaceMono-Bold.ttf";
 
     public static void setUIFonts() {
-        try (InputStream is = new FileInputStream(new File(cutivePath))) {
+        try (InputStream is = new FileInputStream(new File(CUTIVE))) {
             CUTIVE_UI = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(15f).deriveFont(AffineTransform.getTranslateInstance(0, 3));
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
@@ -40,15 +42,29 @@ class Fonts {
         }
     }
 
-    public static Font generateCutiveFont(int size) {
-        try (InputStream is = new FileInputStream(new File(cutivePath))) {
-            Font f = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont((float) size).deriveFont(AffineTransform.getTranslateInstance(0, 3));
+    private static Font generateFontFromPath(String path, int size, int vShift) {
+        try (InputStream is = new FileInputStream(new File(path))) {
+            Font f = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont((float) size).deriveFont(AffineTransform.getTranslateInstance(0, vShift));
             return f;
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
             return null;
         }
     }
+
+    public static Font generateSpaceMonoFont(int size) {
+        return generateFontFromPath(SPACEMONO, size, 0);
+    }
+
+    public static Font generateSpaceMonoBoldFont(int size) {
+        return generateFontFromPath(SPACEMONO_BOLD, size, 0);
+    }
+
+    public static Font generateCutiveFont(int size, int vShift) {
+        return generateFontFromPath(CUTIVE, size, vShift);
+    }
+
+    
 
 }
 
