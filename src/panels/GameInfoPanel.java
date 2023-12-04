@@ -10,7 +10,7 @@ public class GameInfoPanel {
     
     
     JFrame frame = new JFrame("game info");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     
         
     
