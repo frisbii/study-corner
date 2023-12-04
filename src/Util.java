@@ -12,11 +12,8 @@ import javax.swing.UIManager;
 import javax.imageio.*;
 import java.awt.Image;
 
-import javax.sound.sampled.AudioInputStream; 
-import javax.sound.sampled.AudioSystem; 
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineListener;
-import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.*;
+import javax.sound.sampled.LineEvent.Type;
 
 class Util {
     public static Color getRandomColor() {
@@ -89,28 +86,19 @@ class Images{
 
 class Sounds implements LineListener{
 
-    static File chimeSound;
-    static File nothingSound;
-    private static AudioInputStream chimeStream;
-    private static AudioInputStream audioInputStreamN;
-    private static boolean isPlaybackCompleted;
+    File chimeSound;
+    File nothingSound;
+    private AudioInputStream chimeStream;
+    private AudioInputStream audioInputStreamN;
+    private boolean isPlaybackCompleted;
 
-    static {
+    public Sounds(){
         isPlaybackCompleted = false;
-        chimeSound = new File("./resources/sounds/gentle_end_sound.wav");
+        chimeSound = new File("./resources/sounds/gentle_end_sound_16bit.wav");
         //sound from freesounds.org (copyright free)
 
         nothingSound = new File("./resources/sounds/nothingness.wav");
-    }
 
-    //line listener update method for sound things
-    public void update(LineEvent e){
-        if (LineEvent.Type.STOP == e.getType()) {
-            isPlaybackCompleted = true;
-        }
-    }
-
-    public void playNothing(){
         try{
             isPlaybackCompleted = false;
             audioInputStreamN = AudioSystem.getAudioInputStream(nothingSound);
@@ -123,6 +111,13 @@ class Sounds implements LineListener{
         catch(Exception e){}
     }
 
+    //line listener update method for sound things
+    public void update(LineEvent e){
+        if (LineEvent.Type.STOP == e.getType()) {
+            isPlaybackCompleted = true;
+        }
+    }
+
     public void playChimes(){
         try{
             isPlaybackCompleted = false;
@@ -132,8 +127,9 @@ class Sounds implements LineListener{
             clip.open(chimeStream);
             clip.start();
             chimeStream.close();
+            System.out.println("CHIME SOUND CHIME SOUNDS!!!");
         }
-        catch(Exception e){}
+        catch(Exception e){System.out.println("Error with sound: " + e);}
     }
 
 }

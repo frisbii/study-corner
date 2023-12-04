@@ -37,6 +37,9 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     int dragInitial;
     boolean isPutAway;
 
+
+    public ToDoSlideButton toggleButton;
+
     //constructor contains everything graphics related in the class essentially so that it can be added to MainPanel
     public ToDoPanel() {
         super(TODO_WIDTH, TODO_HEIGHT, TODO_COLOR);
@@ -196,6 +199,18 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         putAwayPanel.setBackground(new Color(0,0,0,0));
 
         this.add(flowPanel);
+    }
+
+    public void setToggleButton(ToDoSlideButton tb) {
+        this.toggleButton = tb;
+        this.toggleButton.setAction(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelSlideTime();
+            }
+            
+        });
     }
 
     private void panelSlideTime(){
