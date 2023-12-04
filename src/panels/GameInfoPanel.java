@@ -6,13 +6,13 @@ public class GameInfoPanel {
     public static final int HEIGHT = 900;
 
     // create frame for pop up
-    public static void main(String[] args) {
+    public GameInfoPanel(){
     
     
     JFrame frame = new JFrame("game info");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
-            
+        
     
             //Size and display the window.
             frame.setSize(WIDTH, HEIGHT);
