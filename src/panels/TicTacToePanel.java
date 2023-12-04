@@ -176,7 +176,7 @@ public class TicTacToePanel extends JPanel {
 
        }
 
-       JPanel createFieldsPanel(){
+       public JPanel createFieldsPanel(){
 
       
        GridBagLayout layout = new GridBagLayout();
