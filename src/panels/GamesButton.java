@@ -25,7 +25,6 @@ public class GamesButton extends PanelBase implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO: add code to open the game picker
         GameInfoPanel main = new GameInfoPanel();
         System.out.println("games button clicked");
     }

@@ -65,13 +65,13 @@ public class TicTacToePanel extends JPanel {
     JLabel [] nextState = new JLabel [9]; 
 
 
-      public static void show(JPanel panel){
-        JFrame frame = new JFrame("Tic-Tac-Toe");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(panel);
-        frame.setSize(600,600);
-        frame.setVisible(true);
-    }
+    //   public static void show(JPanel panel){
+    //     JFrame frame = new JFrame("Tic-Tac-Toe");
+    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //     frame.getContentPane().add(panel);
+    //     frame.setSize(600,600);
+    //     frame.setVisible(true);
+    // }
 
     public TicTacToePanel(){
        overall = new JPanel();
@@ -500,11 +500,11 @@ public class TicTacToePanel extends JPanel {
 
        }
 
-    public static void main(String[] args){
-         TicTacToePanel mainInstance = new TicTacToePanel();
-         show(mainInstance.overall);
+    // public static void main(String[] args){
+    //      TicTacToePanel mainInstance = new TicTacToePanel();
+    //      show(mainInstance.overall);
 
-    }
+    // }
 
  
 

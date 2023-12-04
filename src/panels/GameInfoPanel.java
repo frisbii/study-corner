@@ -17,7 +17,7 @@ public class GameInfoPanel {
          JFrame frame = new JFrame("game info");
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     
-        JPanel infoPanel = new JPanel(layout);
+           JPanel infoPanel = new JPanel(layout);
         
             //Size and display the window.
             frame.add(infoPanel);
@@ -54,6 +54,22 @@ public class GameInfoPanel {
         infoPanel.add(ticTacToeButton);
         infoPanel.add(sudokuButton);
         
+      // adding action listeners to set content pane
+        ticTacToeButton.addActionListener( new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+              TicTacToePanel main = new TicTacToePanel();
+              frame.setContentPane(main.overall);
+              System.out.println("tic tac toe button pressed");
+            }
+         }
+         );
+
+         sudokuButton.addActionListener( new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+             // TODO: switch content pane to sodoku panel
+            }
+         }
+         );
     
    
     }
