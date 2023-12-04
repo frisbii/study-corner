@@ -2,8 +2,6 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import javax.imageio.*;
-import java.io.File;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +12,11 @@ import java.awt.event.*;
 //IMPLEMENT REPAINT INTO THIS TO FIX IT (or remove repaint from other things)
 //TO DO: slide to do panel in and out
 
-public class ToDoPanel extends JPanel implements ItemListener, MouseListener, MouseMotionListener {
+public class ToDoPanel extends PanelBase implements ItemListener, MouseListener, MouseMotionListener {
+
+    private static int TODO_WIDTH = 500;
+    private static int TODO_HEIGHT = 500;
+    private static Color TODO_COLOR = new Color(255, 255, 255, 180);
 
     public static int FPS = 60;
     static ToDoPanel toDoModel;
@@ -37,6 +39,7 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
 
     //constructor contains everything graphics related in the class essentially so that it can be added to MainPanel
     public ToDoPanel() {
+        super(TODO_WIDTH, TODO_HEIGHT, TODO_COLOR);
 
         data = new ToDoData();
         flowPanel = new JPanel();
@@ -192,10 +195,7 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
         flowPanel.setBackground(new Color(0,0,0,0));
         putAwayPanel.setBackground(new Color(0,0,0,0));
 
-        this.setLayout(new FlowLayout());
         this.add(flowPanel);
-        //setSize(300, 500);
-        setVisible(true);
     }
 
     private void panelSlideTime(){
@@ -221,15 +221,6 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
         // Object source = event.getItemSelectable();
     }
 
-    @Override
-    protected void paintComponent(Graphics g){
-        super.paintComponent(g);
-        try{
-            Image background = ImageIO.read(new File("./resources/images/temp_background.png"));
-            g.drawImage(background, 0, 0, 800, 600, null);
-        }
-        catch(Exception e){System.out.println("Error with background: " + e);}
-    }
 
     public void mousePressed(MouseEvent e){
         dragInitial = taskList.getSelectedIndex();

@@ -54,6 +54,7 @@ public class TimerPanel extends PanelBase {
                 updateTimer();
                 if (secondsLeft <= 0) {
                     stopTimer();
+                    playFinishSound();
                 }
             }
         });
@@ -187,6 +188,10 @@ public class TimerPanel extends PanelBase {
         this.timerLabel.setText(String.format("%d:%02d", this.secondsLeft / 60, this.secondsLeft % 60));
         this.timerProgressBar.setMaximum(this.timerSetting);
         this.timerProgressBar.setValue(this.secondsLeft);
+    }
+
+    public void playFinishSound() {
+        
     }
 
 

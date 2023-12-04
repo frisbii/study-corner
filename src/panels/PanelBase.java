@@ -26,11 +26,15 @@ public abstract class PanelBase extends JPanel {
     public void centerAlignHorizontal(int xStart, int xWidth) {
         this.setLocation((int) (xStart + (1.0/2) * (xWidth - this.width)), this.getLocation().y);
     }
-
+    
     public void centerAlignHorizontal(PanelBase pb) {
         this.centerAlignHorizontal(pb.getX(), pb.getWidth());
     }
     
+    public void centerAlignHorizontal(int xAxis) {
+        this.setLocation((int) (xAxis - (this.getWidth() / 2)), this.getLocation().y);
+    }
+
     public void centerAlignVertical(int yStart, int yHeight) {
         this.setLocation(this.getLocation().x, (int) (yStart + (1.0/2) * (yHeight - this.height)));
     }

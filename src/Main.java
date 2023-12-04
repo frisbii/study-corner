@@ -28,6 +28,8 @@ public class Main {
             frame.setSize(WIDTH, HEIGHT);
             frame.setVisible(true);
             frame.setResizable(false);
+
+
         });
     }
 }

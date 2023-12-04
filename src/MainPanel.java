@@ -12,6 +12,7 @@ public class MainPanel extends JPanel {
     public ClockPanel clockPanel;
     public GamesButton gb;
     public TimerPanel timerPanel;
+    public ToDoPanel todoPanel;
 
     public MainPanel() {
         this.setLayout(null);
@@ -34,6 +35,10 @@ public class MainPanel extends JPanel {
         this.timerPanel.setLocation(0, this.clockPanel.getLowerY() + 60);
         this.timerPanel.centerAlignHorizontal(this.clockPanel);
         this.add(this.timerPanel);
+
+        this.todoPanel = new ToDoPanel();
+        this.todoPanel.setLocation(Main.WIDTH - this.todoPanel.getWidth(), this.clockPanel.getY());
+        this.add(this.todoPanel);
     }
 
     @Override
@@ -46,6 +51,7 @@ public class MainPanel extends JPanel {
         paintRoundRectBehindPanel(g, this.clockPanel, 15, 15);
         paintRoundRectBehindPanel(g, this.timerPanel, 15, 15);
         paintRoundRectBehindPanel(g, this.gb, 0, 0);
+        paintRoundRectBehindPanel(g, this.todoPanel, 0, 0);
     }
 
     private void paintRoundRectBehindPanel(Graphics g, PanelBase panel, int aw, int ah) {
