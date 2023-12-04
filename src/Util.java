@@ -12,6 +12,9 @@ import javax.swing.UIManager;
 import javax.imageio.*;
 import java.awt.Image;
 
+import javax.sound.sampled.*;
+import javax.sound.sampled.LineEvent.Type;
+
 class Util {
     public static Color getRandomColor() {
         return new Color((int) (255 * Math.random()), (int) (255 * Math.random()), (int) (255 * Math.random()));
@@ -81,5 +84,52 @@ class Images{
     }
 }
 
+class Sounds implements LineListener{
 
+    File chimeSound;
+    File nothingSound;
+    private AudioInputStream chimeStream;
+    private AudioInputStream audioInputStreamN;
+    private boolean isPlaybackCompleted;
 
+    public Sounds(){
+        isPlaybackCompleted = false;
+        chimeSound = new File("./resources/sounds/gentle_end_sound_16bit.wav");
+        //sound from freesounds.org (copyright free)
+
+        nothingSound = new File("./resources/sounds/nothingness.wav");
+
+        try{
+            isPlaybackCompleted = false;
+            audioInputStreamN = AudioSystem.getAudioInputStream(nothingSound);
+            Clip clip = AudioSystem.getClip();
+            clip.addLineListener(this);
+            clip.open(audioInputStreamN);
+            clip.start();
+            audioInputStreamN.close();
+        }
+        catch(Exception e){}
+    }
+
+    //line listener update method for sound things
+    public void update(LineEvent e){
+        if (LineEvent.Type.STOP == e.getType()) {
+            isPlaybackCompleted = true;
+        }
+    }
+
+    public void playChimes(){
+        try{
+            isPlaybackCompleted = false;
+            chimeStream = AudioSystem.getAudioInputStream(chimeSound);
+            Clip clip = AudioSystem.getClip();
+            clip.addLineListener(this);
+            clip.open(chimeStream);
+            clip.start();
+            chimeStream.close();
+            System.out.println("CHIME SOUND CHIME SOUNDS!!!");
+        }
+        catch(Exception e){System.out.println("Error with sound: " + e);}
+    }
+
+}

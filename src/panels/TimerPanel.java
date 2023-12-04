@@ -29,6 +29,7 @@ public class TimerPanel extends PanelBase {
     private static int TIMER_WIDTH = 600;
     private static int TIMER_HEIGHT = 370;
     private static Color TIMER_BGCOLOR = new Color(255, 255, 255, 150);
+    private Sounds sounds;
 
     public Timer swingTimer;
     public JPanel timerButtons;
@@ -43,6 +44,8 @@ public class TimerPanel extends PanelBase {
 
     public TimerPanel() {
         super(TIMER_WIDTH, TIMER_HEIGHT, TIMER_BGCOLOR);
+        //sounds
+        sounds = new Sounds();
 
         // Swing timer creation
         this.timerSetting = 60;
@@ -191,7 +194,8 @@ public class TimerPanel extends PanelBase {
     }
 
     public void playFinishSound() {
-        
+        System.out.println("Chime sounds TimerPanel");
+        sounds.playChimes();
     }
 
 

@@ -21,7 +21,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     public static int FPS = 60;
     static ToDoPanel toDoModel;
     ToDoData data;
-    JList taskList;
+    JList taskList; //declare the generic
     DefaultListModel<String> listModel;
     Images images;
     Graphics g;
