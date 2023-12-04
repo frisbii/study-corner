@@ -112,11 +112,15 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
         //need to add gaps between components in put away panel
         putAwayPanel.setLayout(new BoxLayout(putAwayPanel, BoxLayout.PAGE_AXIS));
         putAwayPanel.add(contract);
+        JPanel emptyPanel = new JPanel();
+        putAwayPanel.add(emptyPanel);
         JPanel currentTaskPanel = new JPanel();
         currentTaskPanel.setLayout(new FlowLayout());
         currentTaskPanel.add(new JLabel("Current task: "));
         currentTaskPanel.add(mainTask);
         putAwayPanel.add(currentTaskPanel);
+
+        emptyPanel.setBackground(new Color(0,0,0,0));
 
 
         JLabel title = new JLabel("To Do: ");
@@ -263,10 +267,6 @@ public class ToDoPanel extends JPanel implements ItemListener, MouseListener, Mo
 
     }
 
-    /*possibly add repaint and update
-    public void draw(Graphics g){
-
-    } */
 }
 
 //TO DO: maybe make it not have immediate focus upon start up????? how?
