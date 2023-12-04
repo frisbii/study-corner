@@ -12,6 +12,7 @@ public class MainPanel extends JPanel {
     public ClockPanel clockPanel;
     public GamesButton gb;
     public TimerPanel timerPanel;
+    public ToDoSlideButton toDoSlideButton;
     public ToDoPanel todoPanel;
 
     public MainPanel() {
@@ -39,6 +40,11 @@ public class MainPanel extends JPanel {
         this.todoPanel = new ToDoPanel();
         this.todoPanel.setLocation(Main.WIDTH - this.todoPanel.getWidth(), this.clockPanel.getY());
         this.add(this.todoPanel);
+
+        this.toDoSlideButton = new ToDoSlideButton();
+        this.todoPanel.setToggleButton(this.toDoSlideButton);
+        this.toDoSlideButton.setLocation(this.todoPanel.getX() - this.toDoSlideButton.getWidth(), this.todoPanel.getY());
+        this.add(this.toDoSlideButton);
     }
 
     @Override
