@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GameInfoPanel {
+    // lag when pushing games button on main??
     //do we want the frame to be the same size or different?
     public static final int WIDTH = 1600;
     public static final int HEIGHT = 900;
@@ -57,8 +58,9 @@ public class GameInfoPanel {
       // adding action listeners to set content pane
         ticTacToeButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // definitely incorrect way to change panel,,, fix
               TicTacToePanel main = new TicTacToePanel();
-              frame.setContentPane(main.overall);
+              frame.add(main.overall);
               System.out.println("tic tac toe button pressed");
             }
          }
