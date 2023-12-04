@@ -12,6 +12,12 @@ import javax.swing.UIManager;
 import javax.imageio.*;
 import java.awt.Image;
 
+import javax.sound.sampled.AudioInputStream; 
+import javax.sound.sampled.AudioSystem; 
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineListener;
+import javax.sound.sampled.LineEvent;
+
 class Util {
     public static Color getRandomColor() {
         return new Color((int) (255 * Math.random()), (int) (255 * Math.random()), (int) (255 * Math.random()));
@@ -63,4 +69,55 @@ class Images{
             e.printStackTrace();
         }
     }
+}
+
+class Sounds implements LineListener{
+
+    static File chimeSound;
+    static File nothingSound;
+    private static AudioInputStream chimeStream;
+    private static AudioInputStream audioInputStreamN;
+    private static boolean isPlaybackCompleted;
+
+    static {
+        isPlaybackCompleted = false;
+        chimeSound = new File("./resources/sounds/gentle_end_sound.wav");
+        //sound from freesounds.org (copyright free)
+
+        nothingSound = new File("./resources/sounds/nothingness.wav");
+    }
+
+    //line listener update method for sound things
+    public void update(LineEvent e){
+        if (LineEvent.Type.STOP == e.getType()) {
+            isPlaybackCompleted = true;
+        }
+    }
+
+    public void playNothing(){
+        try{
+            isPlaybackCompleted = false;
+            audioInputStreamN = AudioSystem.getAudioInputStream(nothingSound);
+            Clip clip = AudioSystem.getClip();
+            clip.addLineListener(this);
+            clip.open(audioInputStreamN);
+            clip.start();
+            audioInputStreamN.close();
+        }
+        catch(Exception e){}
+    }
+
+    public void playChimes(){
+        try{
+            isPlaybackCompleted = false;
+            chimeStream = AudioSystem.getAudioInputStream(chimeSound);
+            Clip clip = AudioSystem.getClip();
+            clip.addLineListener(this);
+            clip.open(chimeStream);
+            clip.start();
+            chimeStream.close();
+        }
+        catch(Exception e){}
+    }
+
 }
