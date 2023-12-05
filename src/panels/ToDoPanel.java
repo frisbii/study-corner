@@ -8,9 +8,8 @@ import java.awt.event.*;
 
 //TO DO: maybe make a pretty background outline for some of the JPanels? :)
 //TO DO: actual check boxes in the tasks
-//TO DO: makes Util Images work properly with background
 //IMPLEMENT REPAINT INTO THIS TO FIX IT (or remove repaint from other things)
-//TO DO: slide to do panel in and out
+//make the JList prettier, possibly put space in between the tasks or add a nice border around them?
 
 public class ToDoPanel extends PanelBase implements ItemListener, MouseListener, MouseMotionListener {
 
@@ -67,7 +66,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         addTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 try {
-                    if(newTask.getText().length() <= 40 && data.tasks.size() < 9){
+                    if(newTask.getText().length() <= 40 && data.tasks.size() < 20){
                         data.addTask(newTask.getText());
                         listModel.addElement(newTask.getText());
                         newTask.setText("Enter task here...");
