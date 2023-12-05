@@ -7,9 +7,9 @@ import javax.swing.JButton;
 
 public class ToDoSlideButton extends PanelBase {
 
-    private static int TDSB_WIDTH = 40;
-    private static int TDSB_HEIGHT = 150;
-    private static Color TDSB_BGCOLOR = new Color(171, 49, 243, 150);
+    private static final int TDSB_WIDTH = 40;
+    private static final int TDSB_HEIGHT = 150;
+    private static final Color TDSB_BGCOLOR = new Color(171, 49, 243, 150);
 
     private JButton button;
 

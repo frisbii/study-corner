@@ -20,9 +20,13 @@ public class MainPanel extends JPanel {
 
     private Timer toDoSlideTimer;
     private boolean toDoPanelIsOpen;
-    private boolean sliding;
 
+    /**
+     * Constructs the main panel. This is where instances of all the 
+     * panels within the main panel are instantiated and added.
+     */
     public MainPanel() {
+        // Allows the use of absolute positioning
         this.setLayout(null);
     
         // Initialization tasks
@@ -30,25 +34,31 @@ public class MainPanel extends JPanel {
             bgImage = ImageIO.read(new File("./resources/images/cherry2.png"));
         } catch (IOException e) { e.printStackTrace(); }
 
+        // Timer which implements to-do list sliding
         this.toDoSlideTimer = new Timer(5, new ActionListener() {
             int velocity;
             {
+                // Determines how many pixels the list moves when the timer fires
                 velocity = 41;
             }
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Sets direction
                 if (toDoPanelIsOpen) {
+                    // Draw the to-do panel at an offset location each time
                     todoPanel.setX(todoPanel.getX() + velocity);
                     toDoSlideButton.setX(toDoSlideButton.getX() + velocity);
                     if (todoPanel.getX() >= Main.WIDTH) {
+                        // Correct overshooting possibilities
                         todoPanel.setX(Main.WIDTH);
                         toDoSlideButton.setX(Main.WIDTH - toDoSlideButton.getWidth());
-                        
+                        // Stop firing the timer
                         toDoSlideTimer.stop();
                         toDoPanelIsOpen = false;
                     }
                 } else {
+                    // Same as above, just in the other direction
                     todoPanel.setX(todoPanel.getX() - velocity);
                     toDoSlideButton.setX(toDoSlideButton.getX() - velocity);
                     if (todoPanel.getX() <= Main.WIDTH - todoPanel.getWidth()) {
@@ -65,12 +75,14 @@ public class MainPanel extends JPanel {
 
 
         // Add components and lay them out
+        // setLocation calls position each component within MainPanel
         this.clockPanel = new ClockPanel();
         this.clockPanel.setLocation(300, 70);
         this.add(this.clockPanel);
 
         this.gb = new GamesButton();
         this.gb.setLocation(0, this.clockPanel.getLowerY());
+        // centerAlignHorizontal allows for relative positioning
         this.gb.centerAlignHorizontal(this.clockPanel);
         this.add(this.gb);
         
@@ -89,9 +101,8 @@ public class MainPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!sliding) {
-                    toDoSlideTimer.start();
-                }
+                // If the toggle button is pressed, start movement
+                toDoSlideTimer.start();
             }
             
         });
@@ -105,7 +116,7 @@ public class MainPanel extends JPanel {
         // Draw the background image below other components
         g.drawImage(bgImage, 0, 0, Main.WIDTH, Main.HEIGHT, null);
 
-        // Draw the background rectangles
+        // Draw the background rectangles under the components
         paintRoundRectBehindPanel(g, this.clockPanel, 15, 15);
         paintRoundRectBehindPanel(g, this.timerPanel, 15, 15);
         paintRoundRectBehindPanel(g, this.gb, 0, 0);
@@ -113,6 +124,17 @@ public class MainPanel extends JPanel {
 
     }
 
+    /**
+     * Draws a rectangle onto the mainPanel behind the passed panel object.
+     * This is separate from each panel so as to avoid conflicts with
+     * Swing's painting order and transluscent colours.
+     * 
+     * @param g       Graphics object used to draw to screen
+     * @param panel   The panel behind which to draw the rectangle
+     * @param aw      Arc width (rounded corners)
+     * @param ah      Arc height (rounded corners)
+     * 
+     */
     private void paintRoundRectBehindPanel(Graphics g, PanelBase panel, int aw, int ah) {
         g.setColor(panel.bgColor);
         g.fillRoundRect(panel.getX(), panel.getY(), panel.getWidth(), panel.getHeight(), aw, ah);

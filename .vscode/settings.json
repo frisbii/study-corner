@@ -3,5 +3,10 @@
         "src/panels",
         "src",
         "resources"
+    ],
+
+    "java.project.referencedLibraries": [
+        "lib/flatlaf-3.2.5.jar",
+        "c:\\path\\to\\jarfile\\commons-logging-1.1.1.jar"
     ]
 }
