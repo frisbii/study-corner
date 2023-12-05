@@ -1,5 +1,7 @@
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import javax.imageio.ImageIO;
+import java.io.File;
 
 public class Spott {
     // move Spott around the screen
@@ -23,18 +25,17 @@ public class Spott {
     public void draw(Graphics g)
     {
         // different from draw() in Pong.java because we're importing graphics
-        // code for when we're using the actual imported images
-        /*
         try{
-            Image background = ImageIO.read(new File("./resources/images/file_name.png"));
+            Image background = ImageIO.read(new File("./resources/images/spott.png"));
             g.drawImage(background, 0, 0, 800, 600, null);
         }
         catch(Exception e){System.out.println("Error with background: " + e);}
-        */
 
         // code for placeholder rectangle
+        /*
         g.setColor(Color.RED);
         g.fillRect((int) position.x, (int)  position.y, (int) size, (int) size);
+        */
     }
    
     // default roaming around the screen
