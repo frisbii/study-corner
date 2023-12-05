@@ -60,8 +60,12 @@ public class GameInfoPanel {
             public void actionPerformed(ActionEvent e) {
                 // definitely incorrect way to change panel,,, fix
               TicTacToePanel main = new TicTacToePanel();
+              
               frame.add(main.overall);
               System.out.println("tic tac toe button pressed");
+              frame.remove(infoPanel);
+              frame.revalidate();
+              frame.repaint();
             }
          }
          );
@@ -75,4 +79,6 @@ public class GameInfoPanel {
     
    
     }
+
+    
 }
