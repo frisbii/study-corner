@@ -32,6 +32,8 @@ public class GameInfoPanel {
         ticTacToeButton.setFont(Fonts.generateCutiveFont(24, 5));
         sudokuButton = new JButton("Sudoku");
         sudokuButton.setFont(Fonts.generateCutiveFont(24, 5));
+        ticTacToeButton.setBorder(new BevelBorder(BevelBorder.RAISED));
+        sudokuButton.setBorder(new BevelBorder(BevelBorder.RAISED));
 
        
         layout.setConstraints(ticTacToeButton, new GridBagConstraints(
@@ -44,7 +46,7 @@ public class GameInfoPanel {
             0 , 0
         ));
         layout.setConstraints(sudokuButton, new GridBagConstraints(
-            200, 200,
+            100, 200,
             1, 1,
             1, 1,
             GridBagConstraints.CENTER,
@@ -53,8 +55,7 @@ public class GameInfoPanel {
             0 , 0
         ));
          
-        ticTacToeButton.setBorder(new BevelBorder(BevelBorder.RAISED));
-         sudokuButton.setBorder(new BevelBorder(BevelBorder.RAISED));
+       
         infoPanel.add(ticTacToeButton);
         infoPanel.add(sudokuButton);
         
