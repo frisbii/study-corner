@@ -30,9 +30,11 @@ public class MainPanel extends JPanel {
             bgImage = ImageIO.read(new File("./resources/images/cherry2.png"));
         } catch (IOException e) { e.printStackTrace(); }
 
+        // Timer which implements to-do list sliding
         this.toDoSlideTimer = new Timer(5, new ActionListener() {
             int velocity;
             {
+                // Determines how many pixels the list moves when the timer fires
                 velocity = 41;
             }
 
