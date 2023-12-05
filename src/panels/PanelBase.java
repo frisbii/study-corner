@@ -19,6 +19,14 @@ public abstract class PanelBase extends JPanel {
         this.setOpaque(false);
     }
 
+    public void setX(int x) {
+        this.setLocation(x, this.getY());
+    }
+
+    public void setY(int y) {
+        this.setLocation(this.getX(), y);
+    }
+
     public int getLowerY() {
         return this.getY() + this.getHeight();
     }

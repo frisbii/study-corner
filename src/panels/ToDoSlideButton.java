@@ -17,8 +17,8 @@ public class ToDoSlideButton extends PanelBase {
         super(TDSB_WIDTH, TDSB_HEIGHT, TDSB_BGCOLOR);
 
         this.button = new JButton();
-        TextIcon t = new TextIcon(this.button, "toggle", TextIcon.Layout.HORIZONTAL);
-        t.setFont(Fonts.generateCutiveFont(20,0));
+        TextIcon t = new TextIcon(this.button, "to-do list", TextIcon.Layout.HORIZONTAL);
+        t.setFont(Fonts.generateCutiveFont(20, 3));
         RotatedIcon r = new RotatedIcon(t, RotatedIcon.Rotate.UP);
         this.button.setIcon(r);
         this.button.setFocusPainted(false);
