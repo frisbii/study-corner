@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import com.formdev.flatlaf.*;
 
 public class Main {
     public static final int WIDTH = 1600;
@@ -15,6 +16,9 @@ public class Main {
 
             MainPanel mainPanel = new MainPanel();
             frame.setContentPane(mainPanel); */
+
+
+            FlatLightLaf.setup();
 
             //Create and set up the window.
             JFrame frame = new JFrame("help");
