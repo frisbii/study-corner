@@ -7,7 +7,7 @@ public class Spott {
     // instance variables
     Pair position;
     Pair velocity;
-    double size; // Spott's sprite is contained in a size x size square
+    int size; // Spott's sprite is contained in a size x size square
 
     int i = 0; // incremented each time update() is called --> used to determine pauses
 
@@ -17,6 +17,14 @@ public class Spott {
         position = new Pair(0, 0);
         velocity = new Pair(50, 0);
         size = 50;
+    }
+
+    public int getHeight() {
+        return size;
+    }
+
+    public void setLocation(int x, int y) {
+        position = new Pair(x, y);
     }
 
     // graphics
@@ -41,7 +49,6 @@ public class Spott {
     public void update(double time)
     {
         i++;
-        System.out.println(position.x);
         double t = time / 1000;
         position.x += velocity.x * t;
         position.y += velocity.y * t;
@@ -61,7 +68,6 @@ public class Spott {
     {
         if((position.x < 0) || (position.x + size > Main.WIDTH))
         {
-            System.out.println(position.x);
             velocity.flipX();
         }
     }

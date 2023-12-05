@@ -13,11 +13,14 @@ import javax.imageio.*;
 import java.awt.Image;
 
 import javax.sound.sampled.*;
-import javax.sound.sampled.LineEvent.Type;
 
 class Util {
     public static Color getRandomColor() {
         return new Color((int) (255 * Math.random()), (int) (255 * Math.random()), (int) (255 * Math.random()));
+    }
+
+    public static Color setAlpha(Color c, int a) {
+        return new Color(c.getRed(), c.getGreen(), c.getBlue(), a);
     }
 }
 
@@ -132,4 +135,22 @@ class Sounds implements LineListener{
         catch(Exception e){System.out.println("Error with sound: " + e);}
     }
 
+}
+
+
+class AppColors {
+
+    public static Color PRIMARY;
+
+    static {
+        setColors("purple");
+    }
+
+    public static void setColors(String theme) {
+        switch (theme) {
+            case "purple":
+                PRIMARY = new Color(171, 49, 243);
+                break;
+        }
+    }
 }
