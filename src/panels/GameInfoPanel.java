@@ -11,6 +11,9 @@ public class GameInfoPanel {
 
     public JButton ticTacToeButton;
     public JButton sudokuButton;
+    public JLabel title;
+    public Color lightBlue = new Color (121,183,224);
+    public Color purple = new Color (197,153,222);
 
     // create frame for pop up
     public GameInfoPanel(){
@@ -34,6 +37,14 @@ public class GameInfoPanel {
         sudokuButton.setFont(Fonts.generateCutiveFont(24, 5));
         ticTacToeButton.setBorder(new BevelBorder(BevelBorder.RAISED));
         sudokuButton.setBorder(new BevelBorder(BevelBorder.RAISED));
+        ticTacToeButton.setBackground(purple);
+        ticTacToeButton.setOpaque(true);
+        sudokuButton.setBackground(purple);
+        sudokuButton.setOpaque(true);
+
+        title = new JLabel("Select a Game to Play!");
+        title.setFont(Fonts.generateCutiveFont(32, 5));
+
 
        
         layout.setConstraints(ticTacToeButton, new GridBagConstraints(
@@ -42,7 +53,7 @@ public class GameInfoPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,40,3,3),
+            new Insets(200,200,25,200),
             0 , 0
         ));
         layout.setConstraints(sudokuButton, new GridBagConstraints(
@@ -51,13 +62,25 @@ public class GameInfoPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,40,3,3),
+            new Insets(25,200,100,200),
+            0 , 0
+        ));
+        layout.setConstraints(title, new GridBagConstraints(
+            100, 100,
+            1, 1,
+            1, 1,
+            GridBagConstraints.CENTER,
+            GridBagConstraints.BOTH,
+            new Insets(25,185,100,15),
             0 , 0
         ));
          
        
         infoPanel.add(ticTacToeButton);
         infoPanel.add(sudokuButton);
+        infoPanel.add(title);
+        infoPanel.setBackground(lightBlue);
+        
         
       // adding action listeners to set content pane
         ticTacToeButton.addActionListener( new ActionListener() {
