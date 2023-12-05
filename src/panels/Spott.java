@@ -1,5 +1,7 @@
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import javax.imageio.ImageIO;
+import java.io.File;
 
 public class Spott {
     // move Spott around the screen
@@ -7,7 +9,7 @@ public class Spott {
     // instance variables
     Pair position;
     Pair velocity;
-    double size; // Spott's sprite is contained in a size x size square
+    int size; // Spott's sprite is contained in a size x size square
 
     int i = 0; // incremented each time update() is called --> used to determine pauses
 
@@ -19,29 +21,35 @@ public class Spott {
         size = 50;
     }
 
+    public int getHeight() {
+        return size;
+    }
+
+    public void setLocation(int x, int y) {
+        position = new Pair(x, y);
+    }
+
     // graphics
     public void draw(Graphics g)
     {
         // different from draw() in Pong.java because we're importing graphics
-        // code for when we're using the actual imported images
-        /*
         try{
-            Image background = ImageIO.read(new File("./resources/images/file_name.png"));
+            Image background = ImageIO.read(new File("./resources/images/spott.png"));
             g.drawImage(background, 0, 0, 800, 600, null);
         }
         catch(Exception e){System.out.println("Error with background: " + e);}
-        */
 
         // code for placeholder rectangle
+        /*
         g.setColor(Color.RED);
         g.fillRect((int) position.x, (int)  position.y, (int) size, (int) size);
+        */
     }
    
     // default roaming around the screen
     public void update(double time)
     {
         i++;
-        System.out.println(position.x);
         double t = time / 1000;
         position.x += velocity.x * t;
         position.y += velocity.y * t;
@@ -61,7 +69,6 @@ public class Spott {
     {
         if((position.x < 0) || (position.x + size > Main.WIDTH))
         {
-            System.out.println(position.x);
             velocity.flipX();
         }
     }
