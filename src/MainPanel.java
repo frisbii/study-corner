@@ -13,13 +13,15 @@ public class MainPanel extends JPanel {
 
     public Image bgImage;
     public ClockPanel clockPanel;
-    public GamesButton gb;
+    public MenuButtonsPanel menuButtonsPanel;
     public TimerPanel timerPanel;
     public ToDoSlideButton toDoSlideButton;
     public ToDoPanel todoPanel;
+    public Spott spott;
 
     private Timer toDoSlideTimer;
     private boolean toDoPanelIsOpen;
+    private Timer spottTimer;
 
     /**
      * Constructs the main panel. This is where instances of all the 
@@ -73,6 +75,19 @@ public class MainPanel extends JPanel {
         });
         this.toDoPanelIsOpen = true;
 
+        this.spottTimer = new Timer(5, new ActionListener() {
+            int delay;
+            {
+                delay = 5;
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                spott.update(delay);
+                repaint();
+            }
+        });
+        this.spottTimer.start();
 
         // Add components and lay them out
         // setLocation calls position each component within MainPanel
@@ -80,11 +95,11 @@ public class MainPanel extends JPanel {
         this.clockPanel.setLocation(300, 70);
         this.add(this.clockPanel);
 
-        this.gb = new GamesButton();
-        this.gb.setLocation(0, this.clockPanel.getLowerY());
+        this.menuButtonsPanel = new MenuButtonsPanel();
+        this.menuButtonsPanel.setLocation(0, this.clockPanel.getLowerY());
         // centerAlignHorizontal allows for relative positioning
-        this.gb.centerAlignHorizontal(this.clockPanel);
-        this.add(this.gb);
+        this.menuButtonsPanel.centerAlignHorizontal(this.clockPanel);
+        this.add(this.menuButtonsPanel);
         
         this.timerPanel = new TimerPanel();
         this.timerPanel.setLocation(0, this.clockPanel.getLowerY() + 60);
@@ -107,6 +122,10 @@ public class MainPanel extends JPanel {
             
         });
         this.add(this.toDoSlideButton);
+
+        this.spott = new Spott();
+        this.spott.setLocation(0, Main.HEIGHT - 100);
+
     }
 
 
@@ -119,8 +138,10 @@ public class MainPanel extends JPanel {
         // Draw the background rectangles under the components
         paintRoundRectBehindPanel(g, this.clockPanel, 15, 15);
         paintRoundRectBehindPanel(g, this.timerPanel, 15, 15);
-        paintRoundRectBehindPanel(g, this.gb, 0, 0);
         paintRoundRectBehindPanel(g, this.todoPanel, 0, 0);
+
+        this.spott.draw(g);
+
 
     }
 
