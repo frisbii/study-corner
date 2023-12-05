@@ -1,10 +1,13 @@
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class MainPanel extends JPanel {
 
@@ -15,6 +18,10 @@ public class MainPanel extends JPanel {
     public ToDoSlideButton toDoSlideButton;
     public ToDoPanel todoPanel;
 
+    private Timer toDoSlideTimer;
+    private boolean toDoPanelIsOpen;
+    private boolean sliding;
+
     public MainPanel() {
         this.setLayout(null);
     
@@ -22,7 +29,42 @@ public class MainPanel extends JPanel {
         try {
             bgImage = ImageIO.read(new File("./resources/images/cherry2.png"));
         } catch (IOException e) { e.printStackTrace(); }
-        
+
+        this.toDoSlideTimer = new Timer(5, new ActionListener() {
+            int velocity;
+            {
+                velocity = 41;
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (toDoPanelIsOpen) {
+                    todoPanel.setX(todoPanel.getX() + velocity);
+                    toDoSlideButton.setX(toDoSlideButton.getX() + velocity);
+                    if (todoPanel.getX() >= Main.WIDTH) {
+                        todoPanel.setX(Main.WIDTH);
+                        toDoSlideButton.setX(Main.WIDTH - toDoSlideButton.getWidth());
+                        
+                        toDoSlideTimer.stop();
+                        toDoPanelIsOpen = false;
+                    }
+                } else {
+                    todoPanel.setX(todoPanel.getX() - velocity);
+                    toDoSlideButton.setX(toDoSlideButton.getX() - velocity);
+                    if (todoPanel.getX() <= Main.WIDTH - todoPanel.getWidth()) {
+                        toDoSlideTimer.stop();
+                        todoPanel.setX(Main.WIDTH - todoPanel.getWidth());
+                        toDoSlideButton.setX(Main.WIDTH - todoPanel.getWidth() - toDoSlideButton.getWidth());
+                        toDoPanelIsOpen = true;
+                    }
+                }
+            }
+            
+        });
+        this.toDoPanelIsOpen = true;
+
+
+        // Add components and lay them out
         this.clockPanel = new ClockPanel();
         this.clockPanel.setLocation(300, 70);
         this.add(this.clockPanel);
@@ -42,10 +84,20 @@ public class MainPanel extends JPanel {
         this.add(this.todoPanel);
 
         this.toDoSlideButton = new ToDoSlideButton();
-        this.todoPanel.setToggleButton(this.toDoSlideButton);
         this.toDoSlideButton.setLocation(this.todoPanel.getX() - this.toDoSlideButton.getWidth(), this.todoPanel.getY());
+        this.toDoSlideButton.setAction(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!sliding) {
+                    toDoSlideTimer.start();
+                }
+            }
+            
+        });
         this.add(this.toDoSlideButton);
     }
+
 
     @Override
     public void paintComponent(Graphics g) {
@@ -53,11 +105,12 @@ public class MainPanel extends JPanel {
         // Draw the background image below other components
         g.drawImage(bgImage, 0, 0, Main.WIDTH, Main.HEIGHT, null);
 
-        // Draw the clock panel background rectangle
+        // Draw the background rectangles
         paintRoundRectBehindPanel(g, this.clockPanel, 15, 15);
         paintRoundRectBehindPanel(g, this.timerPanel, 15, 15);
         paintRoundRectBehindPanel(g, this.gb, 0, 0);
         paintRoundRectBehindPanel(g, this.todoPanel, 0, 0);
+
     }
 
     private void paintRoundRectBehindPanel(Graphics g, PanelBase panel, int aw, int ah) {

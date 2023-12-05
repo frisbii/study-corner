@@ -37,7 +37,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     boolean isPutAway;
 
 
-    public ToDoSlideButton toggleButton;
 
     //constructor contains everything graphics related in the class essentially so that it can be added to MainPanel
     public ToDoPanel() {
@@ -97,26 +96,9 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         });
         deleteTaskButton.setBorder(emptyBorder);
 
-        //to make the panel move to the side and also back out (like a slidey side tab)
-        JButton contract = new JButton("<-");
-        contract.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                panelSlideTime();
-                isPutAway = !isPutAway;
-            }
-        });
-
-        JButton expand = new JButton("->");
-        expand.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                panelSlideTime();
-                isPutAway = !isPutAway;
-            }
-        });
 
         //need to add gaps between components in put away panel
         putAwayPanel.setLayout(new BoxLayout(putAwayPanel, BoxLayout.PAGE_AXIS));
-        putAwayPanel.add(contract);
         JPanel emptyPanel = new JPanel();
         putAwayPanel.add(emptyPanel);
         JPanel currentTaskPanel = new JPanel();
@@ -132,7 +114,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         title.setHorizontalAlignment(JLabel.CENTER);
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new FlowLayout());
-        titlePanel.add(expand);
         titlePanel.add(title);
 
         //layout stuff
@@ -200,30 +181,19 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         this.add(flowPanel);
     }
 
-    public void setToggleButton(ToDoSlideButton tb) {
-        this.toggleButton = tb;
-        this.toggleButton.setAction(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                panelSlideTime();
-            }
-            
-        });
-    }
-
-    private void panelSlideTime(){
+    
+/*     private void panelSlideTime(){
+        isPutAway = !isPutAway;
         if(!isPutAway){
             this.remove(flowPanel);
             this.add(putAwayPanel);
-        }
-        else{
+        } else {
             this.remove(putAwayPanel);
             this.add(flowPanel);
         }
         this.revalidate();
         this.repaint();
-    }
+    } */
 
     private void setMainTask(){
         if(mainTask == null) mainTask = new JLabel();
