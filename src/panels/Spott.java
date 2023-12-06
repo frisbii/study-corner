@@ -15,7 +15,10 @@ public class Spott {
 
     MainPanel mainPanel;
 
-    Image background;
+    Image spott;
+    Image defaultSpott;
+    Image leftSpott;
+    Image rightSpott;
     
     // constructor
     public Spott(MainPanel mp)
@@ -26,8 +29,12 @@ public class Spott {
         velocity = new Pair(50, 0);
         size = 50;
 
+        // different from draw() in Pong.java because we're importing graphics
+        // importing default image once because spott is created once
         try{
-            background = ImageIO.read(new File("./resources/images/spott.png"));
+            defaultSpott = ImageIO.read(new File("./resources/images/spott.png"));
+            leftSpott = ImageIO.read(new File("./resources/images/walking_left.png"));
+            rightSpott = ImageIO.read(new File("./resources/images/walking_right.png"));
         }
         catch(Exception e){System.out.println("Error with background: " + e);}
     }
@@ -43,14 +50,29 @@ public class Spott {
     // graphics
     public void draw(Graphics g)
     {
-        // different from draw() in Pong.java because we're importing graphics
-        
-        g.drawImage(background, 0, 0, 800, 600, null);
         // code for placeholder rectangle
         /*
         g.setColor(Color.RED);
         g.fillRect((int) position.x, (int)  position.y, (int) size, (int) size);
         */
+
+        // changing to other images when spott changes direction
+        try{
+            if(velocity.x > 0)
+            {
+                spott = rightSpott;
+            }
+            else if(velocity.x < 0)
+            {
+                spott = leftSpott;
+            }
+            else
+            {
+                spott = defaultSpott;
+            }
+            g.drawImage(spott, (int) position.x, size, size, size, null);
+        }
+        catch(Exception e){System.out.println("Error with background: " + e);}
     }
    
     // default roaming around the screen
