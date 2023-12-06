@@ -6,10 +6,9 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
-//TO DO: maybe make a pretty background outline for some of the JPanels? :)
+//TO DO: make JList prettier with box outline possibly
 //TO DO: actual check boxes in the tasks
-//IMPLEMENT REPAINT INTO THIS TO FIX IT (or remove repaint from other things)
-//make the JList prettier, possibly put space in between the tasks or add a nice border around them?
+//note? someone see if you also occasionally see the tasks becoming three letters and then dot dot dot
 
 public class ToDoPanel extends PanelBase implements ItemListener, MouseListener, MouseMotionListener {
 
@@ -20,9 +19,8 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     public static int FPS = 60;
     static ToDoPanel toDoModel;
     ToDoData data;
-    JList taskList; //declare the generic
+    JList<String> taskList; //declare the generic
     DefaultListModel<String> listModel;
-    Images images;
     Graphics g;
 
     JButton addTaskButton;
@@ -45,7 +43,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         data = new ToDoData();
         flowPanel = new JPanel();
         putAwayPanel = new JPanel();
-        // Images images = new Images();
         isMouseDragging = false;
         isPutAway = false;
 
@@ -54,7 +51,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         for(String s : data.tasks){
             listModel.addElement(s);
         }
-        taskList = new JList<>(listModel);
+        taskList = new JList<String>(listModel);
         taskList.addMouseListener(this);
         taskList.addMouseMotionListener(this);
         taskList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -202,7 +199,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     }
 
     public void itemStateChanged(ItemEvent event){
-        // Object source = event.getItemSelectable();
     }
 
 
@@ -244,7 +240,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
 
 }
 
-//TO DO: maybe make it not have immediate focus upon start up????? how?
 class JTextFieldWithPrompt extends JTextField{
 
     String placeholder;
