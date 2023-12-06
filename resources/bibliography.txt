@@ -23,5 +23,6 @@ https://docs.oracle.com/javase/tutorial/uiswing/components/list.html
 https://www.reddit.com/r/javahelp/comments/h9qw6j/is_there_a_way_to_add_the_same_button_multiple/
 https://freesound.org/people/Slaking_97/sounds/332024/
 https://www.baeldung.com/java-play-sound
-
+https://docs.oracle.com/javase/8/docs/api/java/awt/GridBagLayout.html
+https://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html
 
