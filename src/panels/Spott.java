@@ -10,6 +10,7 @@ public class Spott {
     Pair position;
     Pair velocity;
     int size; // Spott's sprite is contained in a size x size square
+    int state = 1; // Spott's direction (1 = right, -1 = left) --> easier to import images
 
     int i = 0; // incremented each time update() is called --> used to determine pauses
 
@@ -19,22 +20,24 @@ public class Spott {
     Image defaultSpott;
     Image leftSpott;
     Image rightSpott;
+    Image cheersSpott;
     
     // constructor
     public Spott(MainPanel mp)
     {
         this.mainPanel = mp;
         
-        position = new Pair(0, 0);
+        position = new Pair(0, Main.H - size);
         velocity = new Pair(50, 0);
-        size = 50;
+        size = 300;
 
         // different from draw() in Pong.java because we're importing graphics
         // importing default image once because spott is created once
         try{
             defaultSpott = ImageIO.read(new File("./resources/images/spott.png"));
-            leftSpott = ImageIO.read(new File("./resources/images/walking_left.png"));
-            rightSpott = ImageIO.read(new File("./resources/images/walking_right.png"));
+            leftSpott = ImageIO.read(new File("./resources/images/left_spott.png"));
+            rightSpott = ImageIO.read(new File("./resources/images/right_spott.png"));
+            cheersSpott = ImageIO.read(new File("./resources/images/cheers_spott.png"));
         }
         catch(Exception e){System.out.println("Error with background: " + e);}
     }
@@ -60,17 +63,19 @@ public class Spott {
         try{
             if(velocity.x > 0)
             {
+                state = 1;
                 spott = rightSpott;
             }
             else if(velocity.x < 0)
             {
+                state = -1;
                 spott = leftSpott;
             }
             else
             {
                 spott = defaultSpott;
             }
-            g.drawImage(spott, (int) position.x, size, size, size, null);
+            g.drawImage(spott, (int) position.x, Main.H - size, size, size, null);
         }
         catch(Exception e){System.out.println("Error with background: " + e);}
     }
@@ -87,10 +92,10 @@ public class Spott {
     }
 
     // task accomplished --> excited animation
-    public void cheers()
+    public void cheers(Graphics g)
     {
-        // TODO: implement
-        // insert different image (again, importing graphics)
+        spott = cheersSpott;
+        g.drawImage(spott, (int) position.x, Main.H - size, size, size, null);
     }
 
     // turning around upon reaching the wall
@@ -107,12 +112,17 @@ public class Spott {
         if(i % 300 == 0)
         {
             velocity.x = 0;
-            // TODO: set states (e.g. "walk right") to make sprite implementation easier (easy, just depends on direction of movement)
         }
         if(i % 500 == 100)
         {
-            velocity.x = 50;
-            // TODO: can't just set velocity to 50 every time, needs to depend on direction
+            if(state == 1)
+            {
+                velocity.x = 50;
+            }
+            else if(state == -1)
+            {
+                velocity.x = -50;
+            }
         }
     }
 }
