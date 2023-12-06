@@ -1,5 +1,7 @@
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import javax.imageio.ImageIO;
+import java.io.File;
 
 public class Spott {
     // move Spott around the screen
@@ -7,41 +9,54 @@ public class Spott {
     // instance variables
     Pair position;
     Pair velocity;
-    double size; // Spott's sprite is contained in a size x size square
+    int size; // Spott's sprite is contained in a size x size square
 
     int i = 0; // incremented each time update() is called --> used to determine pauses
 
+    MainPanel mainPanel;
+
+    Image background;
+    
     // constructor
-    public Spott()
+    public Spott(MainPanel mp)
     {
+        this.mainPanel = mp;
+        
         position = new Pair(0, 0);
         velocity = new Pair(50, 0);
         size = 50;
+
+        try{
+            background = ImageIO.read(new File("./resources/images/spott.png"));
+        }
+        catch(Exception e){System.out.println("Error with background: " + e);}
+    }
+
+    public int getHeight() {
+        return size;
+    }
+
+    public void setLocation(int x, int y) {
+        position = new Pair(x, y);
     }
 
     // graphics
     public void draw(Graphics g)
     {
         // different from draw() in Pong.java because we're importing graphics
-        // code for when we're using the actual imported images
-        /*
-        try{
-            Image background = ImageIO.read(new File("./resources/images/file_name.png"));
-            g.drawImage(background, 0, 0, 800, 600, null);
-        }
-        catch(Exception e){System.out.println("Error with background: " + e);}
-        */
-
+        
+        g.drawImage(background, 0, 0, 800, 600, null);
         // code for placeholder rectangle
+        /*
         g.setColor(Color.RED);
         g.fillRect((int) position.x, (int)  position.y, (int) size, (int) size);
+        */
     }
    
     // default roaming around the screen
     public void update(double time)
     {
         i++;
-        System.out.println(position.x);
         double t = time / 1000;
         position.x += velocity.x * t;
         position.y += velocity.y * t;
@@ -59,9 +74,8 @@ public class Spott {
     // turning around upon reaching the wall
     private void turnAround()
     {
-        if((position.x < 0) || (position.x + size > Main.WIDTH))
+        if((position.x < 0) || (position.x + size > mainPanel.getWidth()))
         {
-            System.out.println(position.x);
             velocity.flipX();
         }
     }

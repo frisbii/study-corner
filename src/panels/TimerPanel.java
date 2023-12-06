@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.Timer;
+import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.imageio.ImageIO;
@@ -80,6 +81,9 @@ public class TimerPanel extends PanelBase {
         
 
         // Timer progress bar
+            // Set look and feel properties
+        UIManager.put("ProgressBar.horizontalSize", new Dimension(250, 10));
+
         this.timerProgressBar = new JProgressBar();
         this.timerProgressBar.setMinimum(0);
         this.updateTimer();
