@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 
 class ToDoData{
 
+    //TO DO: error occurs if task list is empty upon start ups
+
     public ArrayList<String> tasks;
 
     //constructor
