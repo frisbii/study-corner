@@ -56,7 +56,7 @@ public class Spott {
         g.fillRect((int) position.x, (int)  position.y, (int) size, (int) size);
         */
 
-        // importing other images when spott changes direction
+        // changing to other images when spott changes direction
         try{
             if(velocity.x > 0)
             {
