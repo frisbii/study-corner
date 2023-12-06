@@ -11,9 +11,13 @@ public class Spott {
 
     int i = 0; // incremented each time update() is called --> used to determine pauses
 
+    MainPanel mainPanel;
+
     // constructor
-    public Spott()
+    public Spott(MainPanel mp)
     {
+        this.mainPanel = mp;
+
         position = new Pair(0, 0);
         velocity = new Pair(50, 0);
         size = 50;
@@ -66,7 +70,7 @@ public class Spott {
     // turning around upon reaching the wall
     private void turnAround()
     {
-        if((position.x < 0) || (position.x + size > Main.WIDTH))
+        if((position.x < 0) || (position.x + size > mainPanel.getWidth()))
         {
             velocity.flipX();
         }

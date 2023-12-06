@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 public class MainPanel extends JPanel {
@@ -30,8 +31,8 @@ public class MainPanel extends JPanel {
     public MainPanel() {
         // Allows the use of absolute positioning
         this.setLayout(null);
-    
-        // Initialization tasks
+
+        // Loads the background into memory
         try {
             bgImage = ImageIO.read(new File("./resources/images/cherry2.png"));
         } catch (IOException e) { e.printStackTrace(); }
@@ -51,10 +52,10 @@ public class MainPanel extends JPanel {
                     // Draw the to-do panel at an offset location each time
                     todoPanel.setX(todoPanel.getX() + velocity);
                     toDoSlideButton.setX(toDoSlideButton.getX() + velocity);
-                    if (todoPanel.getX() >= Main.WIDTH) {
+                    if (todoPanel.getX() >= getWidth()) {
                         // Correct overshooting possibilities
-                        todoPanel.setX(Main.WIDTH);
-                        toDoSlideButton.setX(Main.WIDTH - toDoSlideButton.getWidth());
+                        todoPanel.setX(getWidth());
+                        toDoSlideButton.setX(getWidth() - toDoSlideButton.getWidth());
                         // Stop firing the timer
                         toDoSlideTimer.stop();
                         toDoPanelIsOpen = false;
@@ -63,10 +64,10 @@ public class MainPanel extends JPanel {
                     // Same as above, just in the other direction
                     todoPanel.setX(todoPanel.getX() - velocity);
                     toDoSlideButton.setX(toDoSlideButton.getX() - velocity);
-                    if (todoPanel.getX() <= Main.WIDTH - todoPanel.getWidth()) {
+                    if (todoPanel.getX() <= getWidth() - todoPanel.getWidth()) {
                         toDoSlideTimer.stop();
-                        todoPanel.setX(Main.WIDTH - todoPanel.getWidth());
-                        toDoSlideButton.setX(Main.WIDTH - todoPanel.getWidth() - toDoSlideButton.getWidth());
+                        todoPanel.setX(getWidth() - todoPanel.getWidth());
+                        toDoSlideButton.setX(getWidth() - todoPanel.getWidth() - toDoSlideButton.getWidth());
                         toDoPanelIsOpen = true;
                     }
                 }
@@ -75,10 +76,11 @@ public class MainPanel extends JPanel {
         });
         this.toDoPanelIsOpen = true;
 
-        this.spottTimer = new Timer(5, new ActionListener() {
+        // Timer used to dictate the movement of Spott
+        this.spottTimer = new Timer(10, new ActionListener() {
             int delay;
             {
-                delay = 5;
+                delay = 10;
             }
 
             @Override
@@ -88,13 +90,26 @@ public class MainPanel extends JPanel {
             }
         });
         this.spottTimer.start();
+        this.spottTimer.setCoalesce(true);
+
+        SwingUtilities.invokeLater(this::positionPanels);
+    }
+    
+    /**
+     * Adds and positions all the panels within the mainPanel.
+     * Called through an invokeLater call to ensure the mainPanel's
+     * size and position have been determined (allows for components
+     * to be positioned flush with the edges of the panel).
+     */
+    private void positionPanels() {
+        System.out.println(getWidth());
 
         // Add components and lay them out
         // setLocation calls position each component within MainPanel
         this.clockPanel = new ClockPanel();
         this.clockPanel.setLocation(300, 70);
         this.add(this.clockPanel);
-
+    
         this.menuButtonsPanel = new MenuButtonsPanel();
         this.menuButtonsPanel.setLocation(0, this.clockPanel.getLowerY());
         // centerAlignHorizontal allows for relative positioning
@@ -105,15 +120,15 @@ public class MainPanel extends JPanel {
         this.timerPanel.setLocation(0, this.clockPanel.getLowerY() + 60);
         this.timerPanel.centerAlignHorizontal(this.clockPanel);
         this.add(this.timerPanel);
-
+    
         this.todoPanel = new ToDoPanel();
-        this.todoPanel.setLocation(Main.WIDTH - this.todoPanel.getWidth(), this.clockPanel.getY());
+        this.todoPanel.setLocation(this.getWidth() - this.todoPanel.getWidth(), this.clockPanel.getY());
         this.add(this.todoPanel);
-
+    
         this.toDoSlideButton = new ToDoSlideButton();
         this.toDoSlideButton.setLocation(this.todoPanel.getX() - this.toDoSlideButton.getWidth(), this.todoPanel.getY());
         this.toDoSlideButton.setAction(new ActionListener() {
-
+    
             @Override
             public void actionPerformed(ActionEvent e) {
                 // If the toggle button is pressed, start movement
@@ -122,9 +137,9 @@ public class MainPanel extends JPanel {
             
         });
         this.add(this.toDoSlideButton);
-
-        this.spott = new Spott();
-        this.spott.setLocation(0, Main.HEIGHT - 100);
+    
+        this.spott = new Spott(this);
+        this.spott.setLocation(0, this.getHeight() - 100);
 
     }
 
@@ -133,7 +148,7 @@ public class MainPanel extends JPanel {
     public void paintComponent(Graphics g) {
 
         // Draw the background image below other components
-        g.drawImage(bgImage, 0, 0, Main.WIDTH, Main.HEIGHT, null);
+        g.drawImage(bgImage, 0, 0, this.getWidth(), this.getHeight(), null);
 
         // Draw the background rectangles under the components
         paintRoundRectBehindPanel(g, this.clockPanel, 15, 15);
