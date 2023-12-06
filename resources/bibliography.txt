@@ -1,5 +1,10 @@
 Madi:
 
+// Source of the TextIcon.java and RotatedIcon.java files
+// Used to make the Todo-list tab togggle with rotated text
+https://tips4java.wordpress.com/2009/04/06/rotated-icon/
+
+
 Emma:
 https://www3.ntu.edu.sg/home/ehchua/programming/java/J4b_CustomGraphics.html#zz-4.1
 https://docs.oracle.com/javase/tutorial/uiswing/components/button.html

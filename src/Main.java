@@ -2,8 +2,8 @@ import javax.swing.JFrame;
 import com.formdev.flatlaf.*;
 
 public class Main {
-    public static final int WIDTH = 1600;
-    public static final int HEIGHT = 900;
+    public static final int W = 1600;
+    public static final int H = 900;
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
             /* JFrame frame = new JFrame();
@@ -29,7 +29,7 @@ public class Main {
             frame.setContentPane(mainPanel);
     
             //Size and display the window.
-            frame.setSize(WIDTH, HEIGHT);
+            frame.setSize(W, H);
             frame.setVisible(true);
             frame.setResizable(false);
 

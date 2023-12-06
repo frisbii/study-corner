@@ -187,63 +187,65 @@ public class TicTacToePanel extends JPanel {
        panel.setBackground(lightPurple);
 
        JLabel title = new JLabel("Tic-Tac-Toe!");
+       title.setFont(Fonts.generateCutiveFont(32, 5));
        JLabel directions = new JLabel("Select Squares on the Grid to Place X's!");
+       directions.setFont(Fonts.generateCutiveFont(24, 5));
        
         topLeft = new JButton(topLeftText);
         topLeft.setName(topLeftName);
          
 
         topLeftReveal = new JLabel(topLeftRevealText);
-        topLeftReveal.setFont(new Font("Calibri", Font.BOLD, 60));
+        topLeftReveal.setFont(Fonts.generateCutiveFont(32, 5));
 
          topMiddle = new JButton(topMiddleText);
         topMiddle.setName(topMiddleName);
 
         topMiddleReveal = new JLabel("X");
-        topMiddleReveal.setFont(new Font("Calibri", Font.BOLD, 60));
+        topMiddleReveal.setFont(Fonts.generateCutiveFont(32, 5));
 
          topRight = new JButton(topRightText);
         topRight.setName(topRightName);
 
         topRightReveal = new JLabel("X");
-        topRightReveal.setFont(new Font("Calibri", Font.BOLD, 60));
+        topRightReveal.setFont(Fonts.generateCutiveFont(32, 5));
      
         middleLeft = new JButton(middleLeftText);
         middleLeft.setName(middleLeftName);
 
         middleLeftReveal = new JLabel("X");
-        middleLeftReveal.setFont(new Font("Calibri", Font.BOLD, 60));
+        middleLeftReveal.setFont(Fonts.generateCutiveFont(32, 5));
       
          middleMiddle = new JButton(middleMiddleText);
         middleMiddle.setName(middleMiddleName);
 
           middleMiddleReveal = new JLabel("X");
-        middleMiddleReveal.setFont(new Font("Calibri", Font.BOLD, 60));
+        middleMiddleReveal.setFont(Fonts.generateCutiveFont(32, 5));
         
         middleRight = new JButton(middleRightText);
         middleRight.setName(middleRightName);
 
           middleRightReveal = new JLabel("X");
-        middleRightReveal.setFont(new Font("Calibri", Font.BOLD, 60));
+        middleRightReveal.setFont(Fonts.generateCutiveFont(32, 5));
        
          bottomLeft = new JButton(bottomLeftText);
         bottomLeft.setName(bottomLeftName);
 
         bottomLeftReveal = new JLabel("X");
-        bottomLeftReveal.setFont(new Font("Calibri", Font.BOLD, 60));
+        bottomLeftReveal.setFont(Fonts.generateCutiveFont(32, 5));
        
         
          bottomMiddle = new JButton(bottomMiddleText);
         bottomMiddle.setName(bottomMiddleName);
 
          bottomMiddleReveal = new JLabel("X");
-        bottomMiddleReveal.setFont(new Font("Calibri", Font.BOLD, 60));
+        bottomMiddleReveal.setFont(Fonts.generateCutiveFont(32, 5));
       
          bottomRight = new JButton(bottomRightText);
         bottomRight.setName(bottomRightName);
 
          bottomRightReveal = new JLabel("X");
-        bottomRightReveal.setFont(new Font("Calibri", Font.BOLD, 60));
+        bottomRightReveal.setFont(Fonts.generateCutiveFont(32, 5));
 
         layout.setConstraints(topLeft, new GridBagConstraints(
             30, 40,
@@ -431,7 +433,7 @@ public class TicTacToePanel extends JPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,3,3,3),
+            new Insets(3,150,3,3),
             0 , 0
         ));
 
