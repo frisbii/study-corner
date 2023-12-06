@@ -19,6 +19,12 @@ public class Spott {
         position = new Pair(0, 0);
         velocity = new Pair(50, 0);
         size = 50;
+        // different from draw() in Pong.java because we're importing graphics
+        try{
+            Image spott = ImageIO.read(new File("./resources/images/spott.png"));
+            g.drawImage(spott, 0, 0, 800, 600, null);
+        }
+        catch(Exception e){System.out.println("Error with background: " + e);}
     }
 
     public int getHeight() {
@@ -32,18 +38,28 @@ public class Spott {
     // graphics
     public void draw(Graphics g)
     {
-        // different from draw() in Pong.java because we're importing graphics
-        try{
-            Image background = ImageIO.read(new File("./resources/images/spott.png"));
-            g.drawImage(background, 0, 0, 800, 600, null);
-        }
-        catch(Exception e){System.out.println("Error with background: " + e);}
-
         // code for placeholder rectangle
         /*
         g.setColor(Color.RED);
         g.fillRect((int) position.x, (int)  position.y, (int) size, (int) size);
         */
+        try{
+            Image spott;
+            if(velocity.x > 0)
+            {
+                spott = ImageIO.read(new File("./resources/images/walking_right.png"));
+            }
+            else if(velocity.x < 0)
+            {
+                spott = ImageIO.read(new File("./resources/images/walking_left.png"));
+            }
+            else
+            {
+                spott = ImageIO.read(new File("./resources/images/spott.png"));
+            }
+            g.drawImage(spott, 0, 0, 800, 600, null);
+        }
+        catch(Exception e){System.out.println("Error with background: " + e);}
     }
    
     // default roaming around the screen
