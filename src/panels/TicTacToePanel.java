@@ -253,7 +253,7 @@ public class TicTacToePanel extends JPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,40,3,3),
+            new Insets(0, 40,10,10),
             0 , 0
         ));
 
@@ -263,7 +263,7 @@ public class TicTacToePanel extends JPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,40,3,3),
+            new Insets(0,100,3,3),
             0 , 0
         ));
 
@@ -273,7 +273,7 @@ public class TicTacToePanel extends JPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,40,3,40),
+            new Insets(0,40,10,10),
             0 , 0
         ));
 
@@ -293,7 +293,7 @@ public class TicTacToePanel extends JPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,40,20,40),
+            new Insets(0,40,10,10),
             0 , 0
         ));
 
@@ -313,7 +313,7 @@ public class TicTacToePanel extends JPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,40,3,40),
+            new Insets(0,40,10,10),
             0 , 0
         ));
 
@@ -323,7 +323,7 @@ public class TicTacToePanel extends JPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,40,3,40),
+            new Insets(3,40,3,10),
             0 , 0
         ));
 
@@ -333,7 +333,7 @@ public class TicTacToePanel extends JPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,3,3,3),
+            new Insets(0,40,10,10),
             0 , 0
         ));
 
@@ -353,7 +353,7 @@ public class TicTacToePanel extends JPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,3,3,3),
+            new Insets(0,40,10,10),
             0 , 0
         ));
 
@@ -373,7 +373,7 @@ public class TicTacToePanel extends JPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,3,3,3),
+            new Insets(0,40,10,10),
             0 , 0
         ));
 
@@ -393,7 +393,7 @@ public class TicTacToePanel extends JPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,3,3,3),
+            new Insets(0,40,10,10),
             0 , 0
         ));
 
@@ -413,7 +413,7 @@ public class TicTacToePanel extends JPanel {
             1, 1,
             GridBagConstraints.CENTER,
             GridBagConstraints.BOTH,
-            new Insets(3,3,3,3),
+            new Insets(0,40,10,10),
             0 , 0
         ));
 

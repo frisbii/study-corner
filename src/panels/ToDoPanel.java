@@ -197,7 +197,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
 
     private void setMainTask(){
         if(mainTask == null) mainTask = new JLabel();
-        if(data.tasks.get(0) != null) mainTask.setText(data.tasks.get(0));
+        if(!data.tasks.isEmpty()) mainTask.setText(data.tasks.get(0));
         //repaint();
     }
 
