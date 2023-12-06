@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.io.PrintWriter;
@@ -8,23 +9,24 @@ class ToDoData{
     //TO DO: error occurs if task list is empty upon start ups
 
     public ArrayList<String> tasks;
+    String pathname = "./resources/data/TaskList.txt";
 
     //constructor
     public ToDoData() {
         tasks = new ArrayList<String>();
-        getListFromFile();
+        File textFile = new File(pathname);
+        if(textFile.length() != 0) getListFromFile();
     }
 
     public void getListFromFile() {
         tasks.clear();
         try {
-            String pathname = "./resources/data/TaskList.txt";
             BufferedReader reader = new BufferedReader(new FileReader(pathname));
             String currentLine = reader.readLine();
             while (currentLine != null) {
                 tasks.add(currentLine);
                 currentLine = reader.readLine();
-              }
+            }
             reader.close();
         } catch (Exception e) {
             System.out.println("Error writing to file: " + e);
