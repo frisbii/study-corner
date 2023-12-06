@@ -15,7 +15,7 @@ public class Spott {
 
     MainPanel mainPanel;
 
-    Image background;
+    Image spott;
     
     // constructor
     public Spott(MainPanel mp)
@@ -25,10 +25,11 @@ public class Spott {
         position = new Pair(0, 0);
         velocity = new Pair(50, 0);
         size = 50;
+
         // different from draw() in Pong.java because we're importing graphics
+        // importing default image once because spott is created once
         try{
-            Image spott = ImageIO.read(new File("./resources/images/spott.png"));
-            g.drawImage(spott, 0, 0, 800, 600, null);
+            spott = ImageIO.read(new File("./resources/images/spott.png"));
         }
         catch(Exception e){System.out.println("Error with background: " + e);}
     }
@@ -44,14 +45,13 @@ public class Spott {
     // graphics
     public void draw(Graphics g)
     {
-        // different from draw() in Pong.java because we're importing graphics
-        
-        g.drawImage(background, 0, 0, 800, 600, null);
         // code for placeholder rectangle
         /*
         g.setColor(Color.RED);
         g.fillRect((int) position.x, (int)  position.y, (int) size, (int) size);
         */
+
+        // importing other images when spott changes direction
         try{
             Image spott;
             if(velocity.x > 0)
@@ -66,7 +66,7 @@ public class Spott {
             {
                 spott = ImageIO.read(new File("./resources/images/spott.png"));
             }
-            g.drawImage(spott, 0, 0, 800, 600, null);
+            g.drawImage(spott, (int) position.x, size, size, size, null);
         }
         catch(Exception e){System.out.println("Error with background: " + e);}
     }
