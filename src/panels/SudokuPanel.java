@@ -3,6 +3,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
+
+//TO DO: ensure that initial creation is always actually solvable
+//TO DO: game win and game try again screen
+//TO DO: exit upon win game
 
 public class SudokuPanel extends JPanel{
 
@@ -12,6 +17,7 @@ public class SudokuPanel extends JPanel{
 
     //buttons to add numbers to the sudoku board
     JButton buttonCheck;
+    JButton buttonClear;
     JButton button1;
     JButton button2;
     JButton button3;
@@ -77,9 +83,21 @@ public class SudokuPanel extends JPanel{
             }
         });
 
+        buttonClear = new JButton("clear board");
+        buttonClear.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                for(int i = 0; i < sudokuTime.gridSize; i++){
+                    for(int j = 0; j < sudokuTime.gridSize; j++){
+                        if(!sudokuTime.cells[i][j].isDefault) sudokuTime.cells[i][j].setValue(0);
+                    }
+                }
+            }
+        });
+
         //TO DO: make button panel bigger
-        JPanel buttonPanel = new JPanel(new GridLayout(7,1,5,5));
+        JPanel buttonPanel = new JPanel(new GridLayout(8,1,5,5));
         buttonPanel.add(buttonCheck);
+        buttonPanel.add(buttonClear);
         JPanel clearPanel = new JPanel();
         clearPanel.setBackground(new Color(0,0,0,0));
         buttonPanel.add(clearPanel);
@@ -103,15 +121,13 @@ class GamePanel extends JPanel{
     Cell[][] cells;
     boolean isSolved;
     int gridSize;
-    int[][] numbers;
 
     public GamePanel(){
         gridSize = 4;
         isSolved = false;
 
-        numbers = new int[gridSize][gridSize];
         cells = new Cell[gridSize][gridSize];
-        setNumbers();
+        setValues();
 
         //arrange cells in game panel
         setLayout(new GridLayout(gridSize, gridSize,5,5));
@@ -126,41 +142,71 @@ class GamePanel extends JPanel{
     }
 
     //sets the values of all the cells and numbers in their various arrays
-    private void setNumbers(){
-        numbers[0][0] = 1;
-        numbers[0][1] = 2;
-        numbers[0][2] = 3;
-        numbers[0][3] = 4;
-
-        numbers[1][0] = 4;
-        numbers[1][1] = 3;
-        numbers[1][2] = 2;
-        numbers[1][3] = 1;
-
-        numbers[2][0] = 2;
-        numbers[2][1] = 4;
-        numbers[2][2] = 1;
-        numbers[2][3] = 3;
-
-        numbers[3][0] = 3;
-        numbers[3][1] = 1;
-        numbers[3][2] = 4;
-        numbers[3][3] = 2;
-
+    private void setValues(){
+        
+        //set default values of every cell to 0 before assigning random values to some
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
                 cells[i][j] = new Cell(i, j);
-                cells[i][j].setValue(numbers[i][j]);
+                cells[i][j].setValue(0);
                 //assign "clusters" to each cell
                 //integer division should result in only a 0 or a 1
-                if(i/2 == 0 && j/2 == 0) cells[i][j].cluster = 1;
+                if(i/2 == 0 && j/2 == 0) {cells[i][j].cluster = 1; cells[i][j].setBackground(Color.LIGHT_GRAY);}
                 else if(i/2 == 0 && j/2 == 1) cells[i][j].cluster = 2;
                 else if (i/2 == 1 && j/2 == 0) cells[i][j].cluster = 3;
-                else if(i/2 == 1 && j/2 == 1) cells[i][j].cluster = 4;
+                else if(i/2 == 1 && j/2 == 1) {cells[i][j].cluster = 4; cells[i][j].setBackground(Color.LIGHT_GRAY);}
             }
         }
 
+        Random rand = new Random();
+        int randRow;
+        int randCol;
+        List<Integer> numOptions = new ArrayList<Integer>();
+        int originalCellsCount = rand.nextInt(5) + 4;
+        for(int i = 0; i < originalCellsCount; i++){
+            randRow = rand.nextInt(4);
+            randCol = rand.nextInt(4);
+            System.out.println("Cell picked: r" + randRow + " c" + randCol);
+            numOptions.add(1);
+            numOptions.add(2);
+            numOptions.add(3);
+            numOptions.add(4);
+            if(!cells[randRow][randCol].isDefault) {
+                int cellInput = numOptions.get(rand.nextInt(numOptions.size()));
+                cells[randRow][randCol].assignInitialBoardState(cellInput);
+                while(!isInitiallyValid(randRow, randCol) && !numOptions.isEmpty()){
+                    numOptions.remove(cellInput);
+                    cellInput = numOptions.get(rand.nextInt(numOptions.size()));
+                    cells[randRow][randCol].assignInitialBoardState(cellInput);
+                }
+            }
+        }
 
+    }
+
+    private boolean isInitiallyValid(int row, int col){
+        Cell cellChecked = cells[row][col];
+        //check row of cell
+        for(int i = 0; i < gridSize; i++){
+            if(cells[row][i] != cellChecked){
+                if(cells[row][i].value == cellChecked.value) {System.out.println("Not set bc row"); return false;}
+            }
+        }
+        //check col of cell
+        for(int i = 0; i < gridSize; i++){
+            if(cells[i][col] != cellChecked){
+                if(cells[i][col].value == cellChecked.value) {System.out.println("Not set bc column"); return false;}
+            }
+        }
+        //check cluster of cell
+        for(int i = 0; i < gridSize; i++){
+            for(int j = 0; j < gridSize; j++){
+                if(cells[i][j] != cellChecked && cells[i][j].cluster == cellChecked.cluster){
+                    if(cells[i][j].value == cellChecked.value) {System.out.println("Not set bc cluster"); return false;}
+                }
+            }
+        }
+        return true;
     }
 
     public boolean isSolved(){
@@ -168,17 +214,17 @@ class GamePanel extends JPanel{
         //check that every cell has a number
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
-                if(numbers[i][j] == 0) {System.out.println("Not completely full"); return false;}
+                if(cells[i][j].value == 0) {System.out.println("Not completely full"); return false;}
             }
         }
         
         //check rows
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
-                fourSet.add(numbers[i][j]);
+                fourSet.add(cells[i][j].value);
             }
             for(int k = 1; k < gridSize + 1; k++){
-                if(!fourSet.contains(k)) {System.out.println("Rows failed" + i); return false;}
+                if(!fourSet.contains(k)) {System.out.println("Rows failed " + i); return false;}
             }
             fourSet.clear();
         }
@@ -186,10 +232,10 @@ class GamePanel extends JPanel{
         //check columns
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
-                fourSet.add(numbers[j][i]);
+                fourSet.add(cells[j][i].value);
             }
             for(int k = 1; k < gridSize + 1; k++){
-                if(!fourSet.contains(k)) {System.out.println("Columns failed" + i); return false;}
+                if(!fourSet.contains(k)) {System.out.println("Columns failed " + i); return false;}
             }
             fourSet.clear();
         }
@@ -210,15 +256,6 @@ class GamePanel extends JPanel{
         }
 
         return true;
-    }
-
-    private void printNumbers(){
-        for(int i = 0; i < gridSize; i++){
-            for(int j = 0; j < gridSize; j++){
-                System.out.print(numbers[i][j] + ", ");
-            }
-            System.out.println();
-        }
     }
 
     private void printCells(){
@@ -255,13 +292,16 @@ class Cell extends JPanel implements MouseListener{
         full = false;
         mouseInCell = false;
         addMouseListener(this);
+        isDefault = false;
 
         this.setMaximumSize(new java.awt.Dimension(width, height));
         this.setBackground(Color.WHITE);
         this.setLayout(new FlowLayout());
+
         valueText = new JLabel(" ");
         Fonts.setUIFonts();
         valueText.setFont(new Font(Fonts.CUTIVE_UI.getName(), Font.PLAIN, 100));
+        valueText.setForeground(Color.BLACK);
         this.add(valueText);
         valueText.setVisible(true);
     }
@@ -272,6 +312,13 @@ class Cell extends JPanel implements MouseListener{
         else valueText.setText(" ");
         this.revalidate();
         this.repaint();
+    }
+
+    public void assignInitialBoardState(int value){
+        isDefault = true;
+        valueText.setForeground(Color.BLUE);
+        setValue(value);
+        System.out.println("Initial value for cell " + row + " " + column + " is " + value);
     }
 
     //mouse listener to determine if the cell is clicked on
