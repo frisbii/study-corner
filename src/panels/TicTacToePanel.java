@@ -26,15 +26,15 @@ public class TicTacToePanel extends JPanel {
     static final String topRightName = "top right button";
     static final String middleLeftText = "";
     static final String middleLeftName = "middle left button";
-     static final String middleMiddleText = "";
+    static final String middleMiddleText = "";
     static final String middleMiddleName = "middle middle button";
-     static final String middleRightText = "";
+    static final String middleRightText = "";
     static final String middleRightName = "middle right button";
     static final String bottomLeftText = "";
     static final String bottomLeftName = "bottom left button";
-     static final String bottomMiddleText = "";
+    static final String bottomMiddleText = "";
     static final String bottomMiddleName = "bottom middle button";
-     static final String bottomRightText = "";
+    static final String bottomRightText = "";
     static final String bottomRightName = "bottom right button";
     static final String topLeftRevealText = "X";
     
@@ -179,12 +179,22 @@ public class TicTacToePanel extends JPanel {
        public JPanel createFieldsPanel(){
 
       
-       GridBagLayout layout = new GridBagLayout();
+       GridLayout layoutBoard = new GridLayout(3,3);
+       BorderLayout layoutBorderTitle = new BorderLayout(200,200);
+       BorderLayout layoutBorderInfo = new BorderLayout(200,200);
 
-       JPanel panel = new JPanel(layout);
+       JPanel boardPanel = new JPanel(layoutBoard);
+        JPanel masterPanel = new JPanel();
+        JPanel titlePanel = new JPanel(layoutBorderTitle);
+        JPanel infoPanel = new JPanel (layoutBorderInfo);
 
        Color lightPurple = new Color (156, 145, 188);
-       panel.setBackground(lightPurple);
+       masterPanel.setBackground(lightPurple);
+       boardPanel.setBackground(lightPurple);
+       titlePanel.setBackground(lightPurple);
+       infoPanel.setBackground(lightPurple);
+
+
 
        JLabel title = new JLabel("Tic-Tac-Toe!");
        title.setFont(Fonts.generateCutiveFont(32, 5));
@@ -196,289 +206,298 @@ public class TicTacToePanel extends JPanel {
          
 
         topLeftReveal = new JLabel(topLeftRevealText);
-        topLeftReveal.setFont(Fonts.generateCutiveFont(32, 5));
+        topLeftReveal.setFont(Fonts.generateCutiveFont(24, 5));
 
          topMiddle = new JButton(topMiddleText);
         topMiddle.setName(topMiddleName);
 
         topMiddleReveal = new JLabel("X");
-        topMiddleReveal.setFont(Fonts.generateCutiveFont(32, 5));
+        topMiddleReveal.setFont(Fonts.generateCutiveFont(24, 5));
 
          topRight = new JButton(topRightText);
         topRight.setName(topRightName);
 
         topRightReveal = new JLabel("X");
-        topRightReveal.setFont(Fonts.generateCutiveFont(32, 5));
+        topRightReveal.setFont(Fonts.generateCutiveFont(24, 5));
      
         middleLeft = new JButton(middleLeftText);
         middleLeft.setName(middleLeftName);
 
         middleLeftReveal = new JLabel("X");
-        middleLeftReveal.setFont(Fonts.generateCutiveFont(32, 5));
+        middleLeftReveal.setFont(Fonts.generateCutiveFont(24, 5));
       
          middleMiddle = new JButton(middleMiddleText);
         middleMiddle.setName(middleMiddleName);
 
           middleMiddleReveal = new JLabel("X");
-        middleMiddleReveal.setFont(Fonts.generateCutiveFont(32, 5));
+        middleMiddleReveal.setFont(Fonts.generateCutiveFont(24, 5));
         
         middleRight = new JButton(middleRightText);
         middleRight.setName(middleRightName);
 
           middleRightReveal = new JLabel("X");
-        middleRightReveal.setFont(Fonts.generateCutiveFont(32, 5));
+        middleRightReveal.setFont(Fonts.generateCutiveFont(24, 5));
        
          bottomLeft = new JButton(bottomLeftText);
         bottomLeft.setName(bottomLeftName);
 
         bottomLeftReveal = new JLabel("X");
-        bottomLeftReveal.setFont(Fonts.generateCutiveFont(32, 5));
+        bottomLeftReveal.setFont(Fonts.generateCutiveFont(24, 5));
        
         
          bottomMiddle = new JButton(bottomMiddleText);
         bottomMiddle.setName(bottomMiddleName);
 
          bottomMiddleReveal = new JLabel("X");
-        bottomMiddleReveal.setFont(Fonts.generateCutiveFont(32, 5));
+        bottomMiddleReveal.setFont(Fonts.generateCutiveFont(24, 5));
       
          bottomRight = new JButton(bottomRightText);
         bottomRight.setName(bottomRightName);
 
          bottomRightReveal = new JLabel("X");
-        bottomRightReveal.setFont(Fonts.generateCutiveFont(32, 5));
+        bottomRightReveal.setFont(Fonts.generateCutiveFont(24, 5));
 
-        layout.setConstraints(topLeft, new GridBagConstraints(
-            30, 40,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(0, 40,10,10),
-            0 , 0
-        ));
+        // layout.setConstraints(topLeft, new GridBagConstraints(
+        //     20, 40,
+        //     7, 7,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(0, 200,15,10),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(topLeftReveal, new GridBagConstraints(
-            30, 40,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(0,100,3,3),
-            0 , 0
-        ));
+        // layout.setConstraints(topLeftReveal, new GridBagConstraints(
+        //     30, 40,
+        //     5, 5,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(0,100,3,3),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(topMiddle, new GridBagConstraints(
-            40, 40,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(0,40,10,10),
-            0 , 0
-        ));
+        // layout.setConstraints(topMiddle, new GridBagConstraints(
+        //     30, 40,
+        //     7, 7,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(0,10,15,10),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(topMiddleReveal, new GridBagConstraints(
-            40, 40,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(3,40,3,40),
-            0 , 0
-        ));
+        // layout.setConstraints(topMiddleReveal, new GridBagConstraints(
+        //     40, 40,
+        //     7, 7,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(3,40,3,40),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(topRight, new GridBagConstraints(
-            50, 40,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(0,40,10,10),
-            0 , 0
-        ));
+        // layout.setConstraints(topRight, new GridBagConstraints(
+        //     40, 40,
+        //     7, 7,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(0,80,15,200),
+        //     0 , 0
+        // ));
 
-         layout.setConstraints(topRightReveal, new GridBagConstraints(
-            50, 40,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(3,40,20,40),
-            0 , 0
-        ));
+        //  layout.setConstraints(topRightReveal, new GridBagConstraints(
+        //     50, 40,
+        //     5, 5,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(3,10,20,40),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(middleLeft, new GridBagConstraints(
-            30, 50,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(0,40,10,10),
-            0 , 0
-        ));
+        // layout.setConstraints(middleLeft, new GridBagConstraints(
+        //     20, 50,
+        //     7, 7,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(0,200,15,10),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(middleLeftReveal, new GridBagConstraints(
-            30, 50,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(3,40,3,10),
-            0 , 0
-        ));
+        // layout.setConstraints(middleLeftReveal, new GridBagConstraints(
+        //     30, 50,
+        //     7, 7,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(3,40,3,10),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(middleMiddle, new GridBagConstraints(
-            40, 50,
-        5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(0,40,10,10),
-            0 , 0
-        ));
+        // layout.setConstraints(middleMiddle, new GridBagConstraints(
+        //     30, 50,
+        // 7, 7,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(0,10,15,10),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(middleMiddleReveal, new GridBagConstraints(
-            40, 50,
-        5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(3,3,3,3),
-            0 , 0
-        ));
+        // layout.setConstraints(middleMiddleReveal, new GridBagConstraints(
+        //     75, 50,
+        // 5, 5,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(3,3,3,3),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(middleRight, new GridBagConstraints(
-            50, 50,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(0,40,10,10),
-            0 , 0
-        ));
+        // layout.setConstraints(middleRight, new GridBagConstraints(
+        //     40, 50,
+        //     7, 7,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(0,80,15,200),
+        //     0 , 0
+        // ));
 
-         layout.setConstraints(middleRightReveal, new GridBagConstraints(
-            50, 50,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(3,3,3,3),
-            0 , 0
-        ));
+        //  layout.setConstraints(middleRightReveal, new GridBagConstraints(
+        //     5, 50,
+        //     20, 20,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(3,3,3,3),
+        //     0 , 0
+        // ));
 
-         layout.setConstraints(bottomLeft, new GridBagConstraints(
-            30, 70,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(0,40,10,10),
-            0 , 0
-        ));
+        //  layout.setConstraints(bottomLeft, new GridBagConstraints(
+        //     20, 70,
+        //     7, 7,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(0,200,15,10),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(bottomLeftReveal, new GridBagConstraints(
-            30, 70,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(3,3,3,3),
-            0 , 0
-        ));
+        // layout.setConstraints(bottomLeftReveal, new GridBagConstraints(
+        //     30, 70,
+        //     5, 5,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(3,3,3,3),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(bottomMiddle, new GridBagConstraints(
-            40, 70,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(0,40,10,10),
-            0 , 0
-        ));
+        // layout.setConstraints(bottomMiddle, new GridBagConstraints(
+        //     30, 70,
+        //     7, 7,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(0,10,15,10),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(bottomMiddleReveal, new GridBagConstraints(
-            40, 70,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(3,3,3,3),
-            0 , 0
-        ));
+        // layout.setConstraints(bottomMiddleReveal, new GridBagConstraints(
+        //     40, 70,
+        //     20, 5,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(3,3,3,3),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(bottomRight, new GridBagConstraints(
-            50, 70,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(0,40,10,10),
-            0 , 0
-        ));
+        // layout.setConstraints(bottomRight, new GridBagConstraints(
+        //     40, 70,
+        //     7, 7,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(0,80,15,200),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(bottomRightReveal, new GridBagConstraints(
-            50, 70,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(3,3,3,3),
-            0 , 0
-        ));
+        // layout.setConstraints(bottomRightReveal, new GridBagConstraints(
+        //     50, 70,
+        //     5, 5,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(3,3,3,3),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(title, new GridBagConstraints(
-            40, 10,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(3,150,3,3),
-            0 , 0
-        ));
+        // layout.setConstraints(title, new GridBagConstraints(
+        //     40, 10,
+        //     5, 5,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(3,150,3,3),
+        //     0 , 0
+        // ));
 
-        layout.setConstraints(directions, new GridBagConstraints(
-            40, 90,
-            5, 5,
-            1, 1,
-            GridBagConstraints.CENTER,
-            GridBagConstraints.BOTH,
-            new Insets(3,3,3,3),
-            0 , 0
-        ));
+        // layout.setConstraints(directions, new GridBagConstraints(
+        //     40, 90,
+        //     5, 5,
+        //     1, 1,
+        //     GridBagConstraints.CENTER,
+        //     GridBagConstraints.BOTH,
+        //     new Insets(3,3,3,3),
+        //     0 , 0
+        // ));
+        
 
+        titlePanel.add(title, BorderLayout.PAGE_START);
+        infoPanel.add(directions, BorderLayout.PAGE_END);
+        boardPanel.add(topLeft);
+        boardPanel.add(topMiddle);
+        boardPanel.add(topRight);
+        boardPanel.add(middleLeft);
+        boardPanel.add(middleMiddle);
+        boardPanel.add(middleRight);
+        boardPanel.add(bottomLeft);
+        boardPanel.add(bottomMiddle);
+        boardPanel.add(bottomRight);
 
-        panel.add(title);
-        panel.add(directions);
-        panel.add(topLeft);
-        panel.add(topMiddle);
-        panel.add(topRight);
-        panel.add(middleLeft);
-        panel.add(middleMiddle);
-        panel.add(middleRight);
-        panel.add(bottomLeft);
-        panel.add(bottomMiddle);
-        panel.add(bottomRight);
-        panel.add(topLeftReveal);
-        panel.add(topMiddleReveal);
-        panel.add(topRightReveal);
-        panel.add(middleRightReveal);
-        panel.add(middleMiddleReveal);
-        panel.add(middleRightReveal);
-        panel.add(bottomRightReveal);
-        panel.add(bottomMiddleReveal);
-        panel.add(bottomRightReveal);
+        boardPanel.setLocation(300,300);
+        titlePanel.setLocation(300,50);
+        infoPanel.setLocation(300, 500);
+        masterPanel.add(boardPanel);
+        masterPanel.add(infoPanel);
+        masterPanel.add(titlePanel);
 
 
-        topLeftReveal.setVisible(false);
-        topMiddleReveal.setVisible(false);
-        topRightReveal.setVisible(false);
-        middleLeftReveal.setVisible(false);
-        middleMiddleReveal.setVisible(false);
-        middleRightReveal.setVisible(false);
-        bottomLeftReveal.setVisible(false);
-        bottomMiddleReveal.setVisible(false);
-        bottomRightReveal.setVisible(false);
+        // panel.add(topLeftReveal);
+        // panel.add(topMiddleReveal);
+        // panel.add(topRightReveal);
+        // panel.add(middleRightReveal);
+        // panel.add(middleMiddleReveal);
+        // panel.add(middleRightReveal);
+        // panel.add(bottomRightReveal);
+        // panel.add(bottomMiddleReveal);
+        // panel.add(bottomRightReveal);
+
+
+        // topLeftReveal.setVisible(false);
+        // topMiddleReveal.setVisible(false);
+        // topRightReveal.setVisible(false);
+        // middleLeftReveal.setVisible(false);
+        // middleMiddleReveal.setVisible(false);
+        // middleRightReveal.setVisible(false);
+        // bottomLeftReveal.setVisible(false);
+        // bottomMiddleReveal.setVisible(false);
+        // bottomRightReveal.setVisible(false);
        
        makePurple(topLeft);
        makePurple(topMiddle);
@@ -490,7 +509,7 @@ public class TicTacToePanel extends JPanel {
        makePurple(bottomMiddle);
        makePurple(bottomRight);
 
-        return panel;
+        return masterPanel;
        }
 
        public static void makePurple(JButton j){
