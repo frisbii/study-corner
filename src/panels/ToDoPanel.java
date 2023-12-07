@@ -94,7 +94,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         deleteTaskButton.setBorder(emptyBorder);
 
 
-        //need to add gaps between components in put away panel
         putAwayPanel.setLayout(new BoxLayout(putAwayPanel, BoxLayout.PAGE_AXIS));
         JPanel emptyPanel = new JPanel();
         putAwayPanel.add(emptyPanel);

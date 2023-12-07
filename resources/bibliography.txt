@@ -31,3 +31,9 @@ https://www.baeldung.com/java-play-sound
 https://docs.oracle.com/javase/8/docs/api/java/awt/GridBagLayout.html
 https://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html
 
+https://www3.ntu.edu.sg/home/ehchua/programming/java/JavaGame_Sudoku.html
+https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/JList.html
+https://www.codejava.net/java-se/swing/jlist-basic-tutorial-and-examples
+https://docs.oracle.com/javase/tutorial/uiswing/examples/components/CheckBoxDemoProject/src/components/CheckBoxDemo.java
+
+

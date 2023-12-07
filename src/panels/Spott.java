@@ -37,9 +37,9 @@ public class Spott {
             defaultSpott = ImageIO.read(new File("./resources/images/spott.png"));
             leftSpott = ImageIO.read(new File("./resources/images/left_spott.png"));
             rightSpott = ImageIO.read(new File("./resources/images/right_spott.png"));
-            cheersSpott = ImageIO.read(new File("./resources/images/cheers_spott.png"));
+            //cheersSpott = ImageIO.read(new File("./resources/images/cheers_spott.png"));
         }
-        catch(Exception e){System.out.println("Error with background: " + e);}
+        catch(Exception e){System.out.println("Error with Spott: " + e);}
     }
 
     public int getHeight() {

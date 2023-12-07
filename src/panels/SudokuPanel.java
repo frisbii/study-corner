@@ -4,13 +4,14 @@ import java.awt.event.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class SudokuPanel extends JPanel {
+public class SudokuPanel extends JPanel{
 
     public static final int WIDTH = 1024;
     public static final int HEIGHT = 768;
     public static int FPS = 60;
 
     //buttons to add numbers to the sudoku board
+    JButton buttonCheck;
     JButton button1;
     JButton button2;
     JButton button3;
@@ -26,7 +27,9 @@ public class SudokuPanel extends JPanel {
         sudokuTime = new GamePanel();
         buttonType = "x";
 
-        this.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
+        Color lightPurple = new Color (156, 145, 188);
+        this.setBackground(lightPurple);
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
         this.add(sudokuTime);
 
         //putting all the buttons in their panel
@@ -34,44 +37,62 @@ public class SudokuPanel extends JPanel {
         button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 buttonType = "1";
+                Cell.valueToChangeTo = 1;
             }
         });
         button2 = new JButton("2");
         button2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 buttonType = "2";
+                Cell.valueToChangeTo = 2;
             }
         });
         button3 = new JButton("3");
         button3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 buttonType = "3";
+                Cell.valueToChangeTo = 3;
             }
         });
         button4 = new JButton("4");
         button4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 buttonType = "4";
+                Cell.valueToChangeTo = 4;
             }
         });
         buttonX = new JButton("X");
         buttonX.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                buttonType = "5";
+                buttonType = "x";
+                Cell.valueToChangeTo = 0;
+            }
+        });
+
+        //button to check if the sudoku is correct
+        buttonCheck = new JButton("check solution");
+        buttonCheck.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("Solved? " + sudokuTime.isSolved());
             }
         });
 
         //TO DO: make button panel bigger
-        JPanel buttonPanel = new JPanel(new GridLayout(5,1,5,5));
+        JPanel buttonPanel = new JPanel(new GridLayout(7,1,5,5));
+        buttonPanel.add(buttonCheck);
+        JPanel clearPanel = new JPanel();
+        clearPanel.setBackground(new Color(0,0,0,0));
+        buttonPanel.add(clearPanel);
         buttonPanel.add(button1);
         buttonPanel.add(button2);
         buttonPanel.add(button3);
         buttonPanel.add(button4);
         buttonPanel.add(buttonX);
+        
+        buttonPanel.setBackground(new Color(0,0,0,0));
 
         this.add(buttonPanel);
     }
-    
 }
 
 class GamePanel extends JPanel{
@@ -102,8 +123,6 @@ class GamePanel extends JPanel{
                 this.add(cells[i][j]);
             }
         }
-
-        System.out.println("Solved? " + isSolved());
     }
 
     //sets the values of all the cells and numbers in their various arrays
@@ -144,7 +163,7 @@ class GamePanel extends JPanel{
 
     }
 
-    private boolean isSolved(){
+    public boolean isSolved(){
         List<Integer> fourSet = new ArrayList<Integer>();
         //check that every cell has a number
         for(int i = 0; i < gridSize; i++){
@@ -228,24 +247,31 @@ class Cell extends JPanel implements MouseListener{
     int value;
     JLabel valueText;
 
+    static int valueToChangeTo;
+
     public Cell (int r, int c){
         row = r;
         column = c;
         full = false;
         mouseInCell = false;
+        addMouseListener(this);
 
         this.setMaximumSize(new java.awt.Dimension(width, height));
         this.setBackground(Color.WHITE);
+        this.setLayout(new FlowLayout());
         valueText = new JLabel(" ");
         Fonts.setUIFonts();
         valueText.setFont(new Font(Fonts.CUTIVE_UI.getName(), Font.PLAIN, 100));
         this.add(valueText);
+        valueText.setVisible(true);
     }
 
     public void setValue(int value){
         this.value = value;
         if(value != 0) valueText.setText(((Integer)value).toString());
         else valueText.setText(" ");
+        this.revalidate();
+        this.repaint();
     }
 
     //mouse listener to determine if the cell is clicked on
@@ -262,6 +288,9 @@ class Cell extends JPanel implements MouseListener{
 
     }
     public void mouseClicked(MouseEvent e){
+        if(mouseInCell){
+            setValue(valueToChangeTo);
+        }
 
     }
 
