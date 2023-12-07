@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-//TO DO: ensure that initial creation is always actually solvable
+//TO DO: ensure that initial creation is always actually solvable.. NO MORE ILLEGAL SUDOKU!!
 //TO DO: game win and game try again screen
 //TO DO: exit upon win game
 
@@ -336,7 +336,7 @@ class Cell extends JPanel implements MouseListener{
     }
     public void mouseClicked(MouseEvent e){
         if(mouseInCell){
-            setValue(valueToChangeTo);
+            if(!isDefault) setValue(valueToChangeTo);
         }
 
     }
