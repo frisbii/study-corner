@@ -29,6 +29,7 @@ public class MenuButtonsPanel extends PanelBase {
         JLabel gb = new JLabel("open games menu");
         gb.setPreferredSize(new Dimension(gbWidth, gbHeight));
         gb.setBackground(Util.setAlpha(AppColors.PRIMARY, 150));
+        gb.setForeground(Color.WHITE);
         gb.setOpaque(true);
         gb.setFont(Fonts.generateCutiveFont(17, 1));
         gb.setHorizontalAlignment(SwingConstants.CENTER);
