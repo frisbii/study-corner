@@ -86,9 +86,9 @@ public class GameInfoPanel {
         ticTacToeButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // creating instance of ticTacToe panel and setting the panel to show this
-              TicTacToePanel main = new TicTacToePanel();
+              TicTacToePanel2 main = new TicTacToePanel2();
               
-              frame.add(main.overall);
+              frame.add(main);
               System.out.println("tic tac toe button pressed");
               frame.remove(infoPanel);
               frame.revalidate();
@@ -99,7 +99,7 @@ public class GameInfoPanel {
 
          sudokuButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO: switch content pane to sodoku panel
+              
                 SudokuPanel main = new SudokuPanel();
               
                 frame.add(main);
