@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-
+// TODO: implement play against computer
+// TODO: fix orientation of buttons
+// TODO: write interface
 public class TicTacToePanel2 extends JPanel {
    
     public static final int WIDTH = 1024;
@@ -22,7 +24,7 @@ public class TicTacToePanel2 extends JPanel {
 
     public TicTacToePanel2(){
         ticTacToeTime = new TicTacToeGamePanel();
-        buttonType = "x";
+        buttonType = " ";
 
         Color lightPurple = new Color (156, 145, 188);
         this.setBackground(lightPurple);
@@ -34,7 +36,8 @@ public class TicTacToePanel2 extends JPanel {
         xButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 buttonType = "X";
-                TicTacToeCell.valueToChangeTo = 1; // fix this
+                TicTacToeCell.valueToChangeTo = 1; 
+                System.out.println("x button pressed"); 
             }
         });
 
@@ -42,11 +45,11 @@ public class TicTacToePanel2 extends JPanel {
         oButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 buttonType = "O";
-                TicTacToeCell.valueToChangeTo = 2; // fix this
+                TicTacToeCell.valueToChangeTo = 2; 
             }
         });
 
-        JPanel buttonPanel = new JPanel(new GridLayout(2,1,5,5));
+        JPanel buttonPanel = new JPanel(new GridLayout(2,1,0,5));
         JPanel clearPanel = new JPanel();
         clearPanel.setBackground(new Color(0,0,0,0));
         buttonPanel.add(clearPanel);
@@ -95,12 +98,7 @@ class TicTacToeGamePanel extends JPanel{
             for(int j = 0; j < gridSize; j++){
                 cellsTicTac[i][j] = new TicTacToeCell(i, j);
                 cellsTicTac[i][j].setValue(0);
-                //assign "clusters" to each cell
-                // //integer division should result in only a 0 or a 1
-                // if(i/2 == 0 && j/2 == 0) {cellsTic[i][j].cluster = 1; cells[i][j].setBackground(Color.LIGHT_GRAY);}
-                // else if(i/2 == 0 && j/2 == 1) cellsT[i][j].cluster = 2;
-                // else if (i/2 == 1 && j/2 == 0) cells[i][j].cluster = 3;
-                // else if(i/2 == 1 && j/2 == 1) {cells[i][j].cluster = 4; cells[i][j].setBackground(Color.LIGHT_GRAY);}
+                
             }
         }
 }
@@ -149,7 +147,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
         if(value == 1) {
          valueText.setText("X");
         } 
-        if (value == 2) {
+         else if (value == 2) {
             valueText.setText("O");
         } else { 
             valueText.setText(" ");

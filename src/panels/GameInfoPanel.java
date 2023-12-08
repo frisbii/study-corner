@@ -99,7 +99,7 @@ public class GameInfoPanel {
 
          sudokuButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO: switch content pane to sodoku panel
+              
                 SudokuPanel main = new SudokuPanel();
               
                 frame.add(main);
