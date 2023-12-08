@@ -174,6 +174,7 @@ class GamePanel extends JPanel{
             if(!cells[randRow][randCol].isDefault) {
                 int cellInput = numOptions.get(rand.nextInt(numOptions.size()));
                 cells[randRow][randCol].assignInitialBoardState(cellInput);
+                //ensure that no cluster has more than three initially assigned values
                 while(!isInitiallyValid(randRow, randCol) && !numOptions.isEmpty()){
                     numOptions.remove(cellInput);
                     cellInput = numOptions.get(rand.nextInt(numOptions.size()));
@@ -198,14 +199,20 @@ class GamePanel extends JPanel{
                 if(cells[i][col].value == cellChecked.value) {System.out.println("Not set bc column"); return false;}
             }
         }
-        //check cluster of cell
+        //check cluster of cell for the same number
+        int inCellTally = 0;
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
                 if(cells[i][j] != cellChecked && cells[i][j].cluster == cellChecked.cluster){
+                    //check if the number is already in th cell
                     if(cells[i][j].value == cellChecked.value) {System.out.println("Not set bc cluster"); return false;}
+
                 }
             }
         }
+
+        //check if this answer will make unsolveable. somehow.
+
         return true;
     }
 

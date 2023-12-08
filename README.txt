@@ -3,10 +3,10 @@ Study Corner; A cozy companion for your studies.
 Set your command directory to study-corner.
 
 To compile, use the following command:
-    javac src/*.java src/panels/*.java -d ./classes
+    javac -cp lib/flatlaf-3.2.5.jar -d classes src/*.java src/panels/*.java 
 
 To run, use the following command:
-    java -cp "./classes" Main
+    java -cp ".;lib/flatlaf-3.2.5.jar;classes" Main
 
 Using the program:
     In its current state, Study Corner has a central panel with four subpanels arranged in a grid.
