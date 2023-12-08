@@ -17,7 +17,8 @@ public class Main {
             MainPanel mainPanel = new MainPanel();
             frame.setContentPane(mainPanel); */
 
-
+            // Sets up the custom look and feel to streamline the experience
+            // across devices and operating systems
             FlatLightLaf.setup();
 
             //Create and set up the window.

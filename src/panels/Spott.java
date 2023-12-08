@@ -29,7 +29,7 @@ public class Spott {
         
         position = new Pair(0, Main.H - size);
         velocity = new Pair(50, 0);
-        size = 300;
+        size = 200;
 
         // different from draw() in Pong.java because we're importing graphics
         // importing default image once because spott is created once

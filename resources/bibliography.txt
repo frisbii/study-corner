@@ -4,6 +4,10 @@ Madi:
 // Used to make the Todo-list tab togggle with rotated text
 https://tips4java.wordpress.com/2009/04/06/rotated-icon/
 
+// Look and feel downloaded from the FlatLaf open-source project
+// under the Apache 2.0 license
+https://www.formdev.com/flatlaf/
+
 
 Emma:
 https://www3.ntu.edu.sg/home/ehchua/programming/java/J4b_CustomGraphics.html#zz-4.1

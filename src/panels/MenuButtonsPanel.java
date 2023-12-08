@@ -1,11 +1,15 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 
-import javax.swing.BoxLayout;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -22,48 +26,37 @@ public class MenuButtonsPanel extends PanelBase {
     public MenuButtonsPanel() {
         super(MB_WIDTH, MB_HEIGHT, MB_BGCOLOR);
 
-        this.setBackground(Color.RED);
-        this.setOpaque(true);
-
         JLabel gb = new JLabel("open games menu");
         gb.setPreferredSize(new Dimension(gbWidth, gbHeight));
+        gb.setBackground(Util.setAlpha(AppColors.PRIMARY, 150));
         gb.setOpaque(true);
         gb.setFont(Fonts.generateCutiveFont(17, 1));
         gb.setHorizontalAlignment(SwingConstants.CENTER);
-
-        gb.addMouseListener(new MouseListener() {
-
+        gb.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                GameInfoPanel main = new GameInfoPanel();
+                new GameInfoPanel();
                 System.out.println("games button clicked");
             }
-
+        });
+        
+        JLabel sb = new JLabel();
+        sb.setPreferredSize(new Dimension(sbWidth, sbWidth));
+        sb.setBackground(Color.LIGHT_GRAY);
+        sb.setOpaque(true);
+        try {
+            Image icon = ImageIO.read(new File("./resources/images/buttons/settings.png"));
+            icon = icon.getScaledInstance(sbWidth, sbWidth, Image.SCALE_SMOOTH);
+            sb.setIcon(new ImageIcon(icon));
+        } catch (IOException e) { e.printStackTrace(); }
+        sb.addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
+                new SettingsFrame();
             }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-            
         });
 
-        JLabel sb = new JLabel("set");
-        sb.setPreferredSize(new Dimension(40, 40));
-        sb.setOpaque(true);
-        sb.setFont(Fonts.generateCutiveFont(17, 1));
-        sb.setHorizontalAlignment(SwingConstants.CENTER);
-
-        this.setLayout(new FlowLayout());
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         this.add(gb);
         this.add(sb);
 
