@@ -34,9 +34,9 @@ public class Spott {
         // different from draw() in Pong.java because we're importing graphics
         // importing default image once because spott is created once
         try{
-            defaultSpott = ImageIO.read(new File("./resources/images/spott.png"));
-            leftSpott = ImageIO.read(new File("./resources/images/left_spott.png"));
-            rightSpott = ImageIO.read(new File("./resources/images/right_spott.png"));
+            defaultSpott = ImageIO.read(new File("./resources/images/spott/spott.png"));
+            leftSpott = ImageIO.read(new File("./resources/images/spott/left_spott.png"));
+            rightSpott = ImageIO.read(new File("./resources/images/spott/right_spott.png"));
             //cheersSpott = ImageIO.read(new File("./resources/images/cheers_spott.png"));
         }
         catch(Exception e){System.out.println("Error with Spott: " + e);}
@@ -75,7 +75,7 @@ public class Spott {
             {
                 spott = defaultSpott;
             }
-            g.drawImage(spott, (int) position.x, Main.H - size, size, size, null);
+            g.drawImage(spott, (int) position.x, this.mainPanel.getHeight() - size, size, size, null);
         }
         catch(Exception e){System.out.println("Error with background: " + e);}
     }
@@ -95,7 +95,7 @@ public class Spott {
     public void cheers(Graphics g)
     {
         spott = cheersSpott;
-        g.drawImage(spott, (int) position.x, Main.H - size, size, size, null);
+        g.drawImage(spott, (int) position.x, this.mainPanel.getHeight() - size, size, size, null);
     }
 
     // turning around upon reaching the wall
