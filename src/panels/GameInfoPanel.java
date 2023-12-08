@@ -20,15 +20,15 @@ public class GameInfoPanel {
         
          GridBagLayout layout = new GridBagLayout();
          JFrame frame = new JFrame("game info");
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel infoPanel = new JPanel(layout);
     
-           JPanel infoPanel = new JPanel(layout);
-        
-            //Size and display the window.
-            frame.add(infoPanel);
-            frame.setSize(WIDTH, HEIGHT);
-            frame.setVisible(true);
-            frame.setResizable(false);
+        //Size and display the window.
+        frame.add(infoPanel);
+        frame.setSize(WIDTH, HEIGHT);
+        frame.setVisible(true);
+        frame.setResizable(false);
          
             // setting up buttons   
         ticTacToeButton = new JButton("Tic Tac Toe");

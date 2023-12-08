@@ -216,7 +216,7 @@ public class TimerPanel extends PanelBase {
 
             this.duration = d;
             try {
-                this.icon = ImageIO.read(new File(String.format("./resources/images/timer_buttons/%d.png", duration)));
+                this.icon = ImageIO.read(new File(String.format("./resources/images/buttons/%d.png", duration)));
                 this.icon = this.icon.getScaledInstance(TIMERBUTTON_SIZE, TIMERBUTTON_SIZE, Image.SCALE_SMOOTH);
             } catch (IOException e) { e.printStackTrace(); }
             this.setIcon(new ImageIcon(this.icon));

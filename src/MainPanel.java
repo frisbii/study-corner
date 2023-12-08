@@ -34,7 +34,7 @@ public class MainPanel extends JPanel {
 
         // Loads the background into memory
         try {
-            bgImage = ImageIO.read(new File("./resources/images/cherry2.png"));
+            bgImage = ImageIO.read(new File("./resources/images/winter_bg.png"));
         } catch (IOException e) { e.printStackTrace(); }
 
         // Timer which implements to-do list sliding
@@ -102,8 +102,6 @@ public class MainPanel extends JPanel {
      * to be positioned flush with the edges of the panel).
      */
     private void positionPanels() {
-        System.out.println(getWidth());
-
         // Add components and lay them out
         // setLocation calls position each component within MainPanel
         this.clockPanel = new ClockPanel();
