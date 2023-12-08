@@ -206,6 +206,8 @@ class GamePanel extends JPanel{
                 }
             }
         }
+
+        //check if this answer will make unsolveable. somehow.
         return true;
     }
 
