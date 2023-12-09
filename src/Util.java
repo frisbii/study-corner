@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
+import javax.swing.JComponent;
 import javax.swing.UIManager;
 
 import javax.imageio.*;
@@ -137,19 +139,58 @@ class Sounds implements LineListener{
 }
 
 
-class AppColors {
+class AppTheme {
 
     public static Color PRIMARY;
 
-    static {
-        setColors("purple");
+    public static Image purpleThemeBG;
+    public static Image blueThemeBG;
+    public static Image greenThemeBG;
+
+    public static ArrayList<JComponent> themedComponents;
+
+    public static void loadThemeAssets() {
+        
+        // Loads the background into memory
+        try {
+            AppTheme.purpleThemeBG = ImageIO.read(new File("./resources/images/purple_bg.png"));
+            AppTheme.blueThemeBG = ImageIO.read(new File("./resources/images/blue_bg.png"));
+            AppTheme.greenThemeBG = ImageIO.read(new File("./resources/images/green_bg.png"));
+        } catch (IOException e) { e.printStackTrace(); }
+
+        AppTheme.themedComponents = new ArrayList<JComponent>();
+
+        setTheme("purple");
+        
     }
 
-    public static void setColors(String theme) {
+    public static void setTheme(String theme) {
         switch (theme) {
             case "purple":
                 PRIMARY = new Color(171, 49, 243);
+                MainPanel.setBG(AppTheme.purpleThemeBG);
+                break;
+            case "blue":
+                PRIMARY = new Color(0, 81, 255);
+                MainPanel.setBG(AppTheme.blueThemeBG);
+                break;
+            case "green":
+                PRIMARY = new Color(13, 191, 39);
+                MainPanel.setBG(AppTheme.greenThemeBG);
                 break;
         }
+        AppTheme.repaintThemedComponents();
     }
+
+    public static void addThemedComponent(JComponent c) {
+        AppTheme.themedComponents.add(c);
+    }
+
+    public static void repaintThemedComponents() {
+        for (JComponent c : AppTheme.themedComponents) {
+            c.setBackground(AppTheme.PRIMARY);
+        }
+    }
+
+
 }

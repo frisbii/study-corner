@@ -2,10 +2,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
@@ -23,9 +20,6 @@ public class MainPanel extends JPanel {
     private boolean toDoPanelIsOpen;
     private Timer spottTimer;
 
-    public static Image purpleBGImage;
-    public static Image blueBGImage;
-    public static Image greenBGImage;
     public static Image currentBG;
 
     /**
@@ -36,13 +30,6 @@ public class MainPanel extends JPanel {
         // Allows the use of absolute positioning
         this.setLayout(null);
 
-        // Loads the background into memory
-        try {
-            purpleBGImage = ImageIO.read(new File("./resources/images/purple_bg.png"));
-            blueBGImage = ImageIO.read(new File("./resources/images/blue_bg.png"));
-            greenBGImage = ImageIO.read(new File("./resources/images/green_bg.png"));
-        } catch (IOException e) { e.printStackTrace(); }
-        MainPanel.currentBG = blueBGImage;
 
         // Timer which implements to-do list sliding
         this.toDoSlideTimer = new Timer(5, new ActionListener() {
@@ -181,6 +168,10 @@ public class MainPanel extends JPanel {
     private void paintRoundRectBehindPanel(Graphics g, PanelBase panel, int aw, int ah) {
         g.setColor(panel.bgColor);
         g.fillRoundRect(panel.getX(), panel.getY(), panel.getWidth(), panel.getHeight(), aw, ah);
+    }
+
+    public static void setBG(Image bg) {
+        MainPanel.currentBG = bg;
     }
 
 }

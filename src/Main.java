@@ -34,7 +34,8 @@ public class Main {
             frame.setVisible(true);
             frame.setResizable(false);
 
-
+            //
+            AppTheme.loadThemeAssets();
         });
     }
 }
