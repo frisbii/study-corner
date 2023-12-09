@@ -141,8 +141,42 @@ class GamePanel extends JPanel{
         }
     }
 
-    //sets the values of all the cells and numbers in their various arrays
     private void setValues(){
+        WinningBoards winningBoards = new WinningBoards();
+        Random r = new Random();
+        int[][] boardSelected = winningBoards.boards.get(r.nextInt(winningBoards.boards.size()));
+
+        for(int i = 0; i < gridSize; i++){
+            for(int j = 0; j < gridSize; j++){
+                cells[i][j] = new Cell(i, j);
+                cells[i][j].assignInitialBoardState(boardSelected[i][j]);
+                //assign "clusters" to each cell
+                //integer division should result in only a 0 or a 1
+                if(i/2 == 0 && j/2 == 0) {cells[i][j].cluster = 1; cells[i][j].setBackground(Color.LIGHT_GRAY);}
+                else if(i/2 == 0 && j/2 == 1) cells[i][j].cluster = 2;
+                else if (i/2 == 1 && j/2 == 0) cells[i][j].cluster = 3;
+                else if(i/2 == 1 && j/2 == 1) {cells[i][j].cluster = 4; cells[i][j].setBackground(Color.LIGHT_GRAY);}
+            }
+        }
+
+        //now randomly set some values to zero but make sure to make them not the default board state first
+        int randRow;
+        int randCol;
+        int removeCellsCount = r.nextInt(3) + 11; //generates 11,12,13
+        for(int i = 0; i < removeCellsCount; i++){
+            randRow = r.nextInt(4);
+            randCol = r.nextInt(4);
+            System.out.println("Cell picked: r" + randRow + " c" + randCol);
+            if(cells[randRow][randCol].isDefault) {
+                cells[randRow][randCol].isDefault = false;
+                cells[randRow][randCol].setValue(0);
+            }
+        }
+
+    }
+
+    //sets the values of all the cells and numbers in their various arrays
+    private void setValuesOld(){
         
         //set default values of every cell to 0 before assigning random values to some
         for(int i = 0; i < gridSize; i++){
@@ -317,6 +351,7 @@ class Cell extends JPanel implements MouseListener{
         this.value = value;
         if(value != 0) valueText.setText(((Integer)value).toString());
         else valueText.setText(" ");
+        if(valueText.getForeground() != Color.BLACK && !isDefault) valueText.setForeground(Color.BLACK);
         this.revalidate();
         this.repaint();
     }
@@ -325,7 +360,6 @@ class Cell extends JPanel implements MouseListener{
         isDefault = true;
         valueText.setForeground(Color.BLUE);
         setValue(value);
-        System.out.println("Initial value for cell " + row + " " + column + " is " + value);
     }
 
     //mouse listener to determine if the cell is clicked on
@@ -348,4 +382,16 @@ class Cell extends JPanel implements MouseListener{
 
     }
 
+}
+
+class WinningBoards{
+
+    static List<int[][]> boards = new ArrayList();
+
+    static{
+        boards.add(new int[][]{{1,2,3,4}, {3,4,2,1}, {2,1,4,3}, {4,3,1,2}});
+        boards.add(new int[][]{{4,2,3,1}, {1,3,2,4}, {2,4,1,3}, {3,1,4,2}});
+        boards.add(new int[][]{{2,3,4,1}, {4,1,3,2}, {3,2,1,4}, {1,4,2,3}});
+        boards.add(new int[][]{{3,2,1,4}, {4,1,3,2}, {1,4,2,3}, {2,3,4,1}});
+    }
 }

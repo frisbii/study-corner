@@ -9,6 +9,7 @@ import java.awt.event.*;
 //TO DO: make JList prettier with box outline possibly
 //TO DO: actual check boxes in the tasks
 //note? someone see if you also occasionally see the tasks becoming three letters and then dot dot dot
+//TO DO: text for tasks larger???
 
 public class ToDoPanel extends PanelBase implements ItemListener, MouseListener, MouseMotionListener {
 
@@ -33,7 +34,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     boolean isMouseDragging;
     int dragInitial;
     boolean isPutAway;
-
 
 
     //constructor contains everything graphics related in the class essentially so that it can be added to MainPanel
