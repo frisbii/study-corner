@@ -20,7 +20,7 @@ public class TicTacToePanel2 extends JPanel {
     JButton oButton;
     String buttonType;
 
-    TicTacToeGamePanel ticTacToeTime;
+    static TicTacToeGamePanel ticTacToeTime;
 
     public TicTacToePanel2(){
         ticTacToeTime = new TicTacToeGamePanel();
@@ -71,6 +71,8 @@ class TicTacToeGamePanel extends JPanel{
     TicTacToeCell[][] cellsTicTac;
     boolean isSolved;
     int gridSize;
+    int squareCol; 
+    int squareRow;
 
     public TicTacToeGamePanel(){
         gridSize = 3;
@@ -93,7 +95,7 @@ class TicTacToeGamePanel extends JPanel{
 
     private void setValues(){
         
-        //set default values of every cell to 0 before assigning random values to some
+        //set default values of every cell to 0 
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
                 cellsTicTac[i][j] = new TicTacToeCell(i, j);
@@ -101,6 +103,22 @@ class TicTacToeGamePanel extends JPanel{
                 
             }
         }
+}
+
+public void setResponse(){
+  
+  squareCol = (int) (Math.random() * 3) + 1;
+  squareRow = (int) (Math.random() * 3) + 1;
+  
+  while (cellsTicTac[squareRow][squareCol].value != 0){
+  squareCol = (int) (Math.random() * 3) + 1;
+  squareRow = (int) (Math.random() * 3) + 1;
+  }
+  
+    cellsTicTac[squareRow][squareCol].setValue(2);
+  
+ 
+  
 }
 }
 
@@ -178,7 +196,8 @@ class TicTacToeCell extends JPanel implements MouseListener{
     }
     public void mouseClicked(MouseEvent e){
         if(mouseInCell){
-            if(!isDefault) setValue(valueToChangeTo);
+            setValue(valueToChangeTo);
+            TicTacToePanel2.ticTacToeTime.setResponse();
         }
 
     }
