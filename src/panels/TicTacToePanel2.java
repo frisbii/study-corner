@@ -107,17 +107,17 @@ class TicTacToeGamePanel extends JPanel{
 
 public void setResponse(){
   
-  squareCol = (int) (Math.random() * 3) + 1;
-  squareRow = (int) (Math.random() * 3) + 1;
-  
+  squareCol = (int) (Math.random() * 3);
+  squareRow = (int) (Math.random() * 3);
+
   while (cellsTicTac[squareRow][squareCol].value != 0){
-  squareCol = (int) (Math.random() * 3) + 1;
-  squareRow = (int) (Math.random() * 3) + 1;
+  squareCol = (int) (Math.random() * 3);
+  squareRow = (int) (Math.random() * 3);
   }
   
     cellsTicTac[squareRow][squareCol].setValue(2);
   
- 
+ // only working a select portion of the time 
   
 }
 }
@@ -198,6 +198,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
         if(mouseInCell){
             setValue(valueToChangeTo);
             TicTacToePanel2.ticTacToeTime.setResponse();
+            System.out.println("set cell");
         }
 
     }
