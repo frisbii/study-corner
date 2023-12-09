@@ -40,7 +40,7 @@ public class MainPanel extends JPanel {
         try {
             purpleBGImage = ImageIO.read(new File("./resources/images/purple_bg.png"));
             blueBGImage = ImageIO.read(new File("./resources/images/blue_bg.png"));
-            //greenBGImage = ImageIO.read(new File("./resources/images/green_bg.png"));
+            greenBGImage = ImageIO.read(new File("./resources/images/green_bg.png"));
         } catch (IOException e) { e.printStackTrace(); }
         MainPanel.currentBG = blueBGImage;
 
