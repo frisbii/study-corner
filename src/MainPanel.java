@@ -12,7 +12,6 @@ import javax.swing.Timer;
 
 public class MainPanel extends JPanel {
 
-    public Image bgImage;
     public ClockPanel clockPanel;
     public MenuButtonsPanel menuButtonsPanel;
     public TimerPanel timerPanel;
@@ -24,6 +23,11 @@ public class MainPanel extends JPanel {
     private boolean toDoPanelIsOpen;
     private Timer spottTimer;
 
+    public static Image purpleBGImage;
+    public static Image blueBGImage;
+    public static Image greenBGImage;
+    public static Image currentBG;
+
     /**
      * Constructs the main panel. This is where instances of all the 
      * panels within the main panel are instantiated and added.
@@ -34,8 +38,11 @@ public class MainPanel extends JPanel {
 
         // Loads the background into memory
         try {
-            bgImage = ImageIO.read(new File("./resources/images/winter_bg.png"));
+            purpleBGImage = ImageIO.read(new File("./resources/images/purple_bg.png"));
+            blueBGImage = ImageIO.read(new File("./resources/images/blue_bg.png"));
+            greenBGImage = ImageIO.read(new File("./resources/images/green_bg.png"));
         } catch (IOException e) { e.printStackTrace(); }
+        MainPanel.currentBG = blueBGImage;
 
         // Timer which implements to-do list sliding
         this.toDoSlideTimer = new Timer(5, new ActionListener() {
@@ -148,7 +155,7 @@ public class MainPanel extends JPanel {
     public void paintComponent(Graphics g) {
 
         // Draw the background image below other components
-        g.drawImage(bgImage, 0, 0, this.getWidth(), this.getHeight(), null);
+        g.drawImage(MainPanel.currentBG, 0, 0, this.getWidth(), this.getHeight(), null);
 
         // Draw the background rectangles under the components
         paintRoundRectBehindPanel(g, this.clockPanel, 15, 15);
