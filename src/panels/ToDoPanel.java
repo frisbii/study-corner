@@ -13,7 +13,7 @@ import java.awt.event.*;
 public class ToDoPanel extends PanelBase implements ItemListener, MouseListener, MouseMotionListener {
 
     private static int TODO_WIDTH = 500;
-    private static int TODO_HEIGHT = 500;
+    private static int TODO_HEIGHT = 650;
     private static Color TODO_COLOR = new Color(255, 255, 255, 180);
 
     public static int FPS = 60;
