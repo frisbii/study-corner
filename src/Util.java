@@ -9,47 +9,56 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
-import javax.swing.UIManager;
 
 import javax.imageio.*;
 import java.awt.Image;
 
 import javax.sound.sampled.*;
 
+/**
+ * Contains useful methods for use in debugging and in the program
+ */
 class Util {
+    
+    /**
+     * Get a random colour object
+     * 
+     * @return      Returns a colour object representing a random colour
+     */
     public static Color getRandomColor() {
         return new Color((int) (255 * Math.random()), (int) (255 * Math.random()), (int) (255 * Math.random()));
     }
 
+    /**
+     * Set the alpha of the given colour object
+     * 
+     * @param c     The colour object to edit
+     * @param a     The alpha to set
+     * @return      The colour object with the given colour and alpha
+     */
     public static Color setAlpha(Color c, int a) {
         return new Color(c.getRed(), c.getGreen(), c.getBlue(), a);
     }
 }
 
+/**
+ * Loads fonts into the program, and creates fonts of different sizes for
+ * use throughout the program
+ */
 class Fonts {
-    public static Font CUTIVE_UI;
 
     private static final String CUTIVE = "./resources/fonts/Cutive-Regular.ttf";
     private static final String SPACEMONO = "./resources/fonts/SpaceMono-Regular.ttf";
     private static final String SPACEMONO_BOLD = "./resources/fonts/SpaceMono-Bold.ttf";
 
-    public static void setUIFonts() {
-        try (InputStream is = new FileInputStream(new File(CUTIVE))) {
-            CUTIVE_UI = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(15f).deriveFont(AffineTransform.getTranslateInstance(0, 3));
-        } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
-        }
-
-        java.util.Enumeration<?> keys = UIManager.getDefaults().keys();
-        while (keys.hasMoreElements()) {
-            Object key = keys.nextElement();
-            Object value = UIManager.get (key);
-            if (value instanceof javax.swing.plaf.FontUIResource) {
-                UIManager.put (key, CUTIVE_UI);
-            }
-        }
-    }
-
+    /**
+     * Generate a Font object from a path (defined in this class).
+     * 
+     * @param path      The path to load from (defined in this class)
+     * @param size      The point size of the font to generate
+     * @param vShift    The vertical shift of the font to generate
+     * @return          Font object of specified path, size, and vShift
+     */
     private static Font generateFontFromPath(String path, int size, int vShift) {
         try (InputStream is = new FileInputStream(new File(path))) {
             Font f = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont((float) size).deriveFont(AffineTransform.getTranslateInstance(0, vShift));
@@ -60,34 +69,39 @@ class Fonts {
         }
     }
 
+    /**
+     * Generate a font from the SpaceMono file
+     * 
+     * @param size      The size to generate
+     * @return          Corresponding Font object
+     */
     public static Font generateSpaceMonoFont(int size) {
         return generateFontFromPath(SPACEMONO, size, 0);
     }
 
+    /**
+     * Generate a font from the SpaceMonoBold file
+     * 
+     * @param size      The size to generate
+     * @return          Corresponding Font object
+     */
     public static Font generateSpaceMonoBoldFont(int size) {
         return generateFontFromPath(SPACEMONO_BOLD, size, 0);
     }
 
+    /**
+     * Generate a font from the Cutive file
+     * 
+     * @param size      The size to generate
+     * @param vShift    The vShift of the Font
+     * @return          Corresponding Font object
+     */
     public static Font generateCutiveFont(int size, int vShift) {
         return generateFontFromPath(CUTIVE, size, vShift);
     }
 
-    
-
 }
 
-class Images{
-
-    Image toDoBackground;
-
-    public Images() {
-        try {
-            toDoBackground = ImageIO.read(new File("./resources/images/temp_background.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}
 
 class Sounds implements LineListener{
 
@@ -95,17 +109,14 @@ class Sounds implements LineListener{
     File nothingSound;
     private AudioInputStream chimeStream;
     private AudioInputStream audioInputStreamN;
-    private boolean isPlaybackCompleted;
 
     public Sounds(){
-        isPlaybackCompleted = false;
         chimeSound = new File("./resources/sounds/gentle_end_sound_16bit.wav");
         //sound from freesounds.org (copyright free)
 
         nothingSound = new File("./resources/sounds/nothingness.wav");
 
         try{
-            isPlaybackCompleted = false;
             audioInputStreamN = AudioSystem.getAudioInputStream(nothingSound);
             Clip clip = AudioSystem.getClip();
             clip.addLineListener(this);
@@ -116,16 +127,8 @@ class Sounds implements LineListener{
         catch(Exception e){}
     }
 
-    //line listener update method for sound things
-    public void update(LineEvent e){
-        if (LineEvent.Type.STOP == e.getType()) {
-            isPlaybackCompleted = true;
-        }
-    }
-
     public void playChimes(){
         try{
-            isPlaybackCompleted = false;
             chimeStream = AudioSystem.getAudioInputStream(chimeSound);
             Clip clip = AudioSystem.getClip();
             clip.addLineListener(this);
@@ -135,10 +138,16 @@ class Sounds implements LineListener{
         }
         catch(Exception e){System.out.println("Error with sound: " + e);}
     }
-
+    
+    @Override
+    public void update(LineEvent e){
+    }
 }
 
 
+/**
+ * Contains theme assets and methods to set the theme of the app
+ */
 class AppTheme {
 
     public static Color PRIMARY;
@@ -149,9 +158,12 @@ class AppTheme {
 
     public static ArrayList<JComponent> themedComponents;
 
+    /**
+     * Loads theme assets into memory 
+     */
     public static void loadThemeAssets() {
         
-        // Loads the background into memory
+        // Loads the backgrounds into memory
         try {
             AppTheme.purpleThemeBG = ImageIO.read(new File("./resources/images/purple_bg.png"));
             AppTheme.blueThemeBG = ImageIO.read(new File("./resources/images/blue_bg.png"));
@@ -164,6 +176,11 @@ class AppTheme {
         
     }
 
+    /**
+     * Set the app theme from a string denoting the theme
+     * 
+     * @param theme     The theme to set
+     */
     public static void setTheme(String theme) {
         switch (theme) {
             case "purple":
@@ -182,10 +199,18 @@ class AppTheme {
         AppTheme.repaintThemedComponents();
     }
 
+    /**
+     * Add a component which needs theming to the themedComponents arrayList
+     *  
+     * @param c     The component to add
+     */
     public static void addThemedComponent(JComponent c) {
         AppTheme.themedComponents.add(c);
     }
 
+    /**
+     * Repaints the components in the themedComponents arrayList when the theme colour changes
+     */
     public static void repaintThemedComponents() {
         for (JComponent c : AppTheme.themedComponents) {
             c.setBackground(AppTheme.PRIMARY);

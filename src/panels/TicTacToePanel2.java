@@ -7,6 +7,7 @@ import java.util.Random;
 
 // TODO: fix sleep
 // TODO: write interface
+// TODO: write win sequence
 
 
 public class TicTacToePanel2 extends JPanel {
@@ -63,14 +64,19 @@ class TicTacToeGamePanel extends JPanel{
     public static final int height = 525;
 
     TicTacToeCell[][] cellsTicTac;
-    boolean isSolved;
     int gridSize;
     int squareCol; 
     int squareRow;
+    boolean won;
+    boolean lost;
+    boolean tie;
+
 
     public TicTacToeGamePanel(){
         gridSize = 3;
-        isSolved = false;
+        won = false;
+        lost = false;
+        tie = false;
 
         cellsTicTac = new TicTacToeCell[gridSize][gridSize];
         setValues();
@@ -150,6 +156,83 @@ public void setResponse(){
 
         return xContained;
   }
+
+  public void checkWin(){
+    // check rows
+    int rowXCount = 0;
+    int rowOCount = 0;
+    for(int row = 0; row < gridSize; row++){
+            for(int col = 0; col < cellsTicTac[row].length; col++){
+                // System.out.println(rowXCount);
+                // System.out.println(rowOCount);
+                if (cellsTicTac[row][col].value == 1){
+                    rowXCount++;
+                }
+                if (cellsTicTac[row][col].value == 2){
+                    rowOCount++;
+                }
+                if(rowXCount == 3){
+                    won = true;
+                     System.out.println("won row");
+                }
+                if(rowOCount == 3){
+                    lost = true;
+                    System.out.println("lost row");
+                }
+            }
+            rowXCount = 0;
+            rowOCount = 0;
+        }
+    // check columns
+    int colXCount = 0;
+    int colOCount = 0;
+    for(int col = 0; col < cellsTicTac[0].length; col++){
+            for(int row = 0; row < gridSize; row++){
+                // System.out.println(colXCount);
+                // System.out.println(colOCount);
+                if (cellsTicTac[row][col].value == 1){
+                    colXCount++;
+                }
+                if (cellsTicTac[row][col].value == 2){
+                    colOCount++;
+                }
+                if(colXCount == 3){
+                    won = true;
+                     System.out.println("won col");
+                }
+                if(colOCount == 3){
+                    lost = true;
+                    System.out.println("lost col");
+                }
+            }
+            colXCount = 0;
+            colOCount = 0;
+        }
+    
+        // check diagonal 
+
+
+    if(cellsTicTac[0][0].value == 1 && cellsTicTac[1][1].value == 1 && cellsTicTac[2][2].value == 1){
+        won = true;
+        System.out.print("diagonal win");
+    }
+
+    if(cellsTicTac[0][0].value == 2 && cellsTicTac[1][1].value == 2 && cellsTicTac[2][2].value == 2){
+        lost = true;
+        System.out.print("diagonal lose");
+    }
+
+    if(cellsTicTac[0][2].value == 1 && cellsTicTac[1][1].value == 1 && cellsTicTac[2][0].value == 1){
+        won = true;
+        System.out.print("diagonal win");
+    }
+
+    if(cellsTicTac[0][2].value == 2 && cellsTicTac[1][1].value == 2 && cellsTicTac[2][0].value == 2){
+        lost = true;
+        System.out.print("diagonal lose");
+    }
+
+  }
 }
 
 
@@ -180,8 +263,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
         this.setLayout(new FlowLayout());
 
         valueText = new JLabel(" ");
-        Fonts.setUIFonts();
-        valueText.setFont(new Font(Fonts.CUTIVE_UI.getName(), Font.PLAIN, 100));
+        valueText.setFont(Fonts.generateCutiveFont(100, 28));
         valueText.setForeground(Color.BLACK);
         this.add(valueText);
         valueText.setVisible(true);
@@ -219,6 +301,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
 
     }
     public void mouseClicked(MouseEvent e){
+        TicTacToePanel2.ticTacToeTime.checkWin();
        if (TicTacToePanel2.ticTacToeTime.checkBoardFull()){
         if(mouseInCell && notClicked){
             setValue(valueToChangeTo);
@@ -235,7 +318,12 @@ class TicTacToeCell extends JPanel implements MouseListener{
         
         }
     }
+
+    TicTacToePanel2.ticTacToeTime.checkWin();
+    
     }
+
+    
 
 }
 
