@@ -205,7 +205,7 @@ public class TimerPanel extends PanelBase {
 
     class TimerButton extends JLabel implements MouseListener {
 
-        private static int TIMERBUTTON_SIZE = 60;
+        private int TIMERBUTTON_SIZE = 60;
 
         private Image icon;
         private int duration;

@@ -133,24 +133,7 @@ public class MainPanel extends JPanel {
         this.add(this.toDoSlideButton);
     
         this.spott = new Spott(this);
-        this.spott.setLocation(0, this.getHeight() - 100);
-
-    }
-
-
-    @Override
-    public void paintComponent(Graphics g) {
-
-        // Draw the background image below other components
-        g.drawImage(MainPanel.currentBG, 0, 0, this.getWidth(), this.getHeight(), null);
-
-        // Draw the background rectangles under the components
-        paintRoundRectBehindPanel(g, this.clockPanel, 15, 15);
-        paintRoundRectBehindPanel(g, this.timerPanel, 15, 15);
-        paintRoundRectBehindPanel(g, this.todoPanel, 0, 0);
-
-        this.spott.draw(g);
-
+        this.spott.setLocation(0, this.getHeight() - this.spott.size);
 
     }
 
@@ -170,8 +153,31 @@ public class MainPanel extends JPanel {
         g.fillRoundRect(panel.getX(), panel.getY(), panel.getWidth(), panel.getHeight(), aw, ah);
     }
 
+    /**
+     * Set the background for MainPanel
+     * Called by AppTheme on startup and from the settings panel
+     * 
+     * @param bg    The background to set on MainPanel
+     */
     public static void setBG(Image bg) {
         MainPanel.currentBG = bg;
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+
+        // Draw the background image below other components
+        g.drawImage(MainPanel.currentBG, 0, 0, this.getWidth(), this.getHeight(), null);
+
+        // Draw the background rectangles under the components which need them
+        paintRoundRectBehindPanel(g, this.clockPanel, 15, 15);
+        paintRoundRectBehindPanel(g, this.timerPanel, 15, 15);
+        paintRoundRectBehindPanel(g, this.todoPanel, 0, 0);
+
+        // Draw spott
+        this.spott.draw(g);
+
+
     }
 
 }

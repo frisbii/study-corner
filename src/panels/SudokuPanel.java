@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-//TO DO: game win and game try again screen
 //TO DO: exit upon win game
 
 public class SudokuPanel extends JPanel{
@@ -26,12 +25,18 @@ public class SudokuPanel extends JPanel{
 
     JButton checkSolution;
 
-    GamePanel sudokuTime;
+    GamePanel sudokuTime; //houses the grid of squares where 
 
+    /**
+     * constructs the main window the sudoku game is seen in,
+     * adding all the buttons needed for the user to interact with the game properly
+     */
     public SudokuPanel(){
+        //creates grid within the main jpanel
         sudokuTime = new GamePanel();
         buttonType = "x";
 
+        //sets background and layout, adds GamePanel with grid board
         Color lightPurple = new Color (156, 145, 188);
         this.setBackground(lightPurple);
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
@@ -93,6 +98,7 @@ public class SudokuPanel extends JPanel{
             }
         });
 
+        //clears every square on the board that was filled in by the user, leaves the inital puzzle state alone
         buttonClear = new JButton("clear board");
         buttonClear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -104,7 +110,7 @@ public class SudokuPanel extends JPanel{
             }
         });
 
-        //TO DO: make button panel bigger
+        //adds buttons in their panel to the layout of the main sudokupanel
         JPanel buttonPanel = new JPanel(new GridLayout(8,1,5,5));
         buttonPanel.add(buttonCheck);
         buttonPanel.add(buttonClear);
@@ -123,6 +129,8 @@ public class SudokuPanel extends JPanel{
     }
 }
 
+//houses the grid where the actual puzzle lives
+//includes methods to determine whether the puzzle is solved and to assign initial values to the puzzle
 class GamePanel extends JPanel{
 
     public static final int width = 525;
@@ -132,6 +140,7 @@ class GamePanel extends JPanel{
     boolean isSolved;
     int gridSize;
 
+    //constructor for the puzzle board itself
     public GamePanel(){
         gridSize = 4;
         isSolved = false;
@@ -139,11 +148,12 @@ class GamePanel extends JPanel{
         cells = new Cell[gridSize][gridSize];
         setValues();
 
-        //arrange cells in game panel
+        //arrange cells in game panel using GridLayout because it's a grid
         setLayout(new GridLayout(gridSize, gridSize,5,5));
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         setBackground(Color.BLACK);
         setPreferredSize(new java.awt.Dimension(width, height));
+        //adds all cells into grid
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
                 this.add(cells[i][j]);
@@ -151,17 +161,20 @@ class GamePanel extends JPanel{
         }
     }
 
+    //sets initial game state values for the puzzle
     private void setValues(){
+        //generates initial state by referencing solved boards and randomly removing elements from them
         WinningBoards winningBoards = new WinningBoards();
         Random r = new Random();
+        //randomly detemrines which board to use
         int[][] boardSelected = winningBoards.boards.get(r.nextInt(winningBoards.boards.size()));
 
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
                 cells[i][j] = new Cell(i, j);
                 cells[i][j].assignInitialBoardState(boardSelected[i][j]);
-                //assign "clusters" to each cell
-                //integer division should result in only a 0 or a 1
+                //assign "clusters" to each cell (the 4 groups of 2x2 squares that are important in sudoku)
+                //integer division results in only a 0 or a 1
                 if(i/2 == 0 && j/2 == 0) {cells[i][j].cluster = 1; cells[i][j].setBackground(Color.LIGHT_GRAY);}
                 else if(i/2 == 0 && j/2 == 1) cells[i][j].cluster = 2;
                 else if (i/2 == 1 && j/2 == 0) cells[i][j].cluster = 3;
@@ -172,11 +185,12 @@ class GamePanel extends JPanel{
         //now randomly set some values to zero but make sure to make them not the default board state first
         int randRow;
         int randCol;
-        int removeCellsCount = r.nextInt(3) + 11; //generates 11,12,13
+        int removeCellsCount = r.nextInt(3) + 12; //generates 12,13,14
         for(int i = 0; i < removeCellsCount; i++){
             randRow = r.nextInt(4);
             randCol = r.nextInt(4);
             if(cells[randRow][randCol].isDefault) {
+                //if the cell has not been set to zero yet, make sure it is not part of the default game state anymore and set it to zero
                 cells[randRow][randCol].isDefault = false;
                 cells[randRow][randCol].setValue(0);
             }
@@ -184,38 +198,39 @@ class GamePanel extends JPanel{
 
     }
 
+    //checks if the puzzle has been solved (if the current state is correct)
     public boolean isSolved(){
         List<Integer> fourSet = new ArrayList<Integer>();
         //check that every cell has a number
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
-                if(cells[i][j].value == 0) {System.out.println("Not completely full"); return false;}
+                if(cells[i][j].value == 0) return false;
             }
         }
         
-        //check rows
+        //check rows (fails if any number 1-4 is not in a particular row)
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
                 fourSet.add(cells[i][j].value);
             }
             for(int k = 1; k < gridSize + 1; k++){
-                if(!fourSet.contains(k)) {System.out.println("Rows failed " + i); return false;}
+                if(!fourSet.contains(k)) return false;
             }
             fourSet.clear();
         }
         
-        //check columns
+        //check columns (fails if any number 1-4 is not in a particular column)
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
                 fourSet.add(cells[j][i].value);
             }
             for(int k = 1; k < gridSize + 1; k++){
-                if(!fourSet.contains(k)) {System.out.println("Columns failed " + i); return false;}
+                if(!fourSet.contains(k)) return false;
             }
             fourSet.clear();
         }
 
-        //check each square group of 4 squares
+        //check each square group of 4 squares (fails if any cluster does not contain all the numbers 1-4)
         for(int i = 0; i < gridSize; i++){
             //add numbers with the correct cluster to fourSet
             for(int j = 0; j < gridSize; j++){
@@ -226,7 +241,7 @@ class GamePanel extends JPanel{
             }
             //check
             for(int k = 1; k < gridSize + 1; k++){
-                if(!fourSet.contains(k)) {System.out.println("Cluster failed " + (i+1)); return false;}
+                if(!fourSet.contains(k)) return false;
             }
         }
 
@@ -235,14 +250,14 @@ class GamePanel extends JPanel{
 
 }
 
+//cell class represents a single cell with a single number in it
 class Cell extends JPanel implements MouseListener{
 
     public static final int width = 125;
     public static final int height = 125;
 
-    boolean full;
     boolean isDefault; //used to determine if the cell was one of the ones filled upon generation of the game
-    boolean mouseInCell;
+    boolean mouseInCell; //determines if the mouse is in this particular cell
 
     int row;
     int column;
@@ -250,12 +265,17 @@ class Cell extends JPanel implements MouseListener{
     int value;
     JLabel valueText;
 
-    static int valueToChangeTo;
+    static int valueToChangeTo; //the number value of the most recent button pressed on the main panel
 
+    /**
+     * constructs a cell, assigns its row and column, and sets the default JLabel
+     * 
+     * @param r   the row of the cell
+     * @param c   the column of the cell
+     */
     public Cell (int r, int c){
         row = r;
         column = c;
-        full = false;
         mouseInCell = false;
         addMouseListener(this);
         isDefault = false;
@@ -265,40 +285,42 @@ class Cell extends JPanel implements MouseListener{
         this.setLayout(new FlowLayout());
 
         valueText = new JLabel(" ");
-        Fonts.setUIFonts();
-        valueText.setFont(new Font(Fonts.CUTIVE_UI.getName(), Font.PLAIN, 100));
+        valueText.setFont(Fonts.generateCutiveFont(100, 28));
         valueText.setForeground(Color.BLACK);
         this.add(valueText);
         valueText.setVisible(true);
     }
 
-    public void setValue(int value){
-        this.value = value;
-        if(value != 0) valueText.setText(((Integer)value).toString());
+    /**
+     * assigns the cell a value and makes sure the color of the text is correct 
+     * based on whether or not the cell is part of the default game state
+     * @param v the value assigned to the cell
+     */
+    public void setValue(int v){
+        this.value = v;
+        if(v != 0) valueText.setText(((Integer)v).toString());
         else valueText.setText(" ");
         if(valueText.getForeground() != Color.BLACK && !isDefault) valueText.setForeground(Color.BLACK);
         this.revalidate();
         this.repaint();
     }
 
-    public void assignInitialBoardState(int value){
+    /**
+     * assigns the cell a value and sets the cell to be part of the initial game state of the board
+     * @param v the value assign to the cell
+     */
+    public void assignInitialBoardState(int v){
         isDefault = true;
         valueText.setForeground(Color.BLUE);
-        setValue(value);
+        setValue(v);
     }
 
-    //mouse listener to determine if the cell is clicked on
-    public void mousePressed(MouseEvent e){
-
-    }
+    //mouse listener events to determine if the mouse is inside the cell when it is clicked
     public void mouseEntered(MouseEvent e){
         mouseInCell = true;
     }
     public void mouseExited(MouseEvent e){
         mouseInCell = false;
-    }
-    public void mouseReleased(MouseEvent e){
-
     }
     public void mouseClicked(MouseEvent e){
         if(mouseInCell){
@@ -306,9 +328,15 @@ class Cell extends JPanel implements MouseListener{
         }
 
     }
+    //these two are not used in the class but needed them for implements reasons
+    public void mouseReleased(MouseEvent e){
+    }
+    public void mousePressed(MouseEvent e){
+    }
 
 }
 
+//static class that has a list of fully solved sudoku boards that are used to assign initial values in GamePanel class
 class WinningBoards{
 
     static List<int[][]> boards = new ArrayList<int[][]>();
