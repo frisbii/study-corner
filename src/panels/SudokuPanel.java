@@ -340,8 +340,7 @@ class Cell extends JPanel implements MouseListener{
         this.setLayout(new FlowLayout());
 
         valueText = new JLabel(" ");
-        Fonts.setUIFonts();
-        valueText.setFont(new Font(Fonts.CUTIVE_UI.getName(), Font.PLAIN, 100));
+        valueText.setFont(Fonts.generateCutiveFont(100, 28));
         valueText.setForeground(Color.BLACK);
         this.add(valueText);
         valueText.setVisible(true);
