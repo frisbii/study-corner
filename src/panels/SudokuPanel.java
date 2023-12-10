@@ -166,7 +166,6 @@ class GamePanel extends JPanel{
         for(int i = 0; i < removeCellsCount; i++){
             randRow = r.nextInt(4);
             randCol = r.nextInt(4);
-            System.out.println("Cell picked: r" + randRow + " c" + randCol);
             if(cells[randRow][randCol].isDefault) {
                 cells[randRow][randCol].isDefault = false;
                 cells[randRow][randCol].setValue(0);
@@ -234,7 +233,6 @@ class GamePanel extends JPanel{
             }
         }
         //check cluster of cell for the same number
-        int inCellTally = 0;
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
                 if(cells[i][j] != cellChecked && cells[i][j].cluster == cellChecked.cluster){
@@ -297,15 +295,6 @@ class GamePanel extends JPanel{
         }
 
         return true;
-    }
-
-    private void printCells(){
-        for(int i = 0; i < gridSize; i++){
-            for(int j = 0; j < gridSize; j++){
-                System.out.print(cells[i][j].value + ", ");
-            }
-            System.out.println();
-        }
     }
 
 }
@@ -386,7 +375,7 @@ class Cell extends JPanel implements MouseListener{
 
 class WinningBoards{
 
-    static List<int[][]> boards = new ArrayList();
+    static List<int[][]> boards = new ArrayList<int[][]>();
 
     static{
         boards.add(new int[][]{{1,2,3,4}, {3,4,2,1}, {2,1,4,3}, {4,3,1,2}});
