@@ -28,7 +28,7 @@ public class MenuButtonsPanel extends PanelBase {
 
         JLabel gb = new JLabel("open games menu");
         gb.setPreferredSize(new Dimension(gbWidth, gbHeight));
-        gb.setBackground(Util.setAlpha(AppColors.PRIMARY, 150));
+        gb.setBackground(Util.setAlpha(AppTheme.PRIMARY, 150));
         gb.setForeground(Color.WHITE);
         gb.setOpaque(true);
         gb.setFont(Fonts.generateCutiveFont(17, 1));
@@ -40,6 +40,7 @@ public class MenuButtonsPanel extends PanelBase {
                 System.out.println("games button clicked");
             }
         });
+        AppTheme.addThemedComponent(gb);
         
         JLabel sb = new JLabel();
         sb.setPreferredSize(new Dimension(sbWidth, sbWidth));

@@ -20,16 +20,20 @@ public class SettingsFrame extends JDialog implements ActionListener {
     
     public SettingsFrame() {
         super((JFrame) null, true);
+        this.setLocation(300, 250);
         
         JToggleButton purple = new JToggleButton();
-        purple.setIcon(new ImageIcon(MainPanel.purpleBGImage.getScaledInstance(384, 216, Image.SCALE_SMOOTH)));
+        purple.setIcon(new ImageIcon(AppTheme.purpleThemeBG.getScaledInstance(384, 216, Image.SCALE_SMOOTH)));
         purple.setMargin(new Insets(10, 10, 10, 10));
+        purple.setActionCommand("purple");
         JToggleButton blue = new JToggleButton();
-        blue.setIcon(new ImageIcon(MainPanel.blueBGImage.getScaledInstance(384, 216, Image.SCALE_SMOOTH)));
+        blue.setIcon(new ImageIcon(AppTheme.blueThemeBG.getScaledInstance(384, 216, Image.SCALE_SMOOTH)));
         blue.setMargin(new Insets(10, 10, 10, 10));
+        blue.setActionCommand("blue");
         JToggleButton green = new JToggleButton();
-        green.setIcon(new ImageIcon(MainPanel.greenBGImage.getScaledInstance(384, 216, Image.SCALE_SMOOTH)));
+        green.setIcon(new ImageIcon(AppTheme.greenThemeBG.getScaledInstance(384, 216, Image.SCALE_SMOOTH)));
         green.setMargin(new Insets(10, 10, 10, 10));
+        green.setActionCommand("green");
 
         ButtonGroup buttons = new ButtonGroup();
         buttons.add(purple);
@@ -60,7 +64,7 @@ public class SettingsFrame extends JDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        AppTheme.setTheme(e.getActionCommand());
     }
     
     
