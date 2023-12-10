@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-// TODO: implement play against computer
-// TODO: fix orientation of buttons
+// TODO: fix sleep
 // TODO: write interface
+
+
 public class TicTacToePanel2 extends JPanel {
    
     public static final int WIDTH = 1024;
@@ -17,7 +18,6 @@ public class TicTacToePanel2 extends JPanel {
     // buttons for x vs o
 
     JButton xButton;
-    JButton oButton;
     String buttonType;
 
     static TicTacToeGamePanel ticTacToeTime;
@@ -41,20 +41,14 @@ public class TicTacToePanel2 extends JPanel {
             }
         });
 
-        oButton = new JButton ("o");
-        oButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                buttonType = "O";
-                TicTacToeCell.valueToChangeTo = 2; 
-            }
-        });
+      
 
         JPanel buttonPanel = new JPanel(new GridLayout(2,1,0,5));
         JPanel clearPanel = new JPanel();
         clearPanel.setBackground(new Color(0,0,0,0));
         buttonPanel.add(clearPanel);
         buttonPanel.add(xButton);
-        buttonPanel.add(oButton);
+
         
         
         buttonPanel.setBackground(new Color(0,0,0,0));
@@ -106,13 +100,18 @@ class TicTacToeGamePanel extends JPanel{
 }
 
 public void setResponse(){
+
+    //  try{
+    //         Thread.sleep(4000);
+    //     	}
+    //     catch(InterruptedException c){}
   
-  squareCol = (int) (Math.random() * 3) + 1;
-  squareRow = (int) (Math.random() * 3) + 1;
-  
+  squareCol = (int) (Math.random() * 3);
+  squareRow = (int) (Math.random() * 3);
+
   while (cellsTicTac[squareRow][squareCol].value != 0){
-  squareCol = (int) (Math.random() * 3) + 1;
-  squareRow = (int) (Math.random() * 3) + 1;
+  squareCol = (int) (Math.random() * 3);
+  squareRow = (int) (Math.random() * 3);
   }
   
     cellsTicTac[squareRow][squareCol].setValue(2);
@@ -120,6 +119,37 @@ public void setResponse(){
  
   
 }
+
+  public boolean checkBoardFull(){
+    boolean full = true;
+    int spaceLeft = 0;
+    for(int i = 0; i < gridSize; i++){
+            for(int j = 0; j < gridSize; j++){
+                if (cellsTicTac[i][j].value == 0){
+                    spaceLeft ++;
+                }
+            }
+        }
+
+        if (spaceLeft <= 2){
+          full = false;
+        }
+    
+        return full;
+  }
+
+  public boolean containsX(){
+    boolean xContained = false;
+    for(int i = 0; i < gridSize; i++){
+            for(int j = 0; j < gridSize; j++){
+                if (cellsTicTac[i][j].value == 1){
+                    xContained = true;
+                }
+            }
+        }
+
+        return xContained;
+  }
 }
 
 
@@ -128,8 +158,6 @@ class TicTacToeCell extends JPanel implements MouseListener{
     public static final int width = 125;
     public static final int height = 125;
 
-    boolean full;
-    boolean isDefault; //used to determine if the cell was one of the ones filled upon generation of the game
     boolean mouseInCell;
 
     int row;
@@ -137,16 +165,15 @@ class TicTacToeCell extends JPanel implements MouseListener{
     int cluster;
     int value;
     JLabel valueText;
+    boolean notClicked = true;
 
     static int valueToChangeTo;
 
     public TicTacToeCell (int r, int c){
         row = r;
         column = c;
-        full = false;
         mouseInCell = false;
         addMouseListener(this);
-        isDefault = false;
 
         this.setMaximumSize(new java.awt.Dimension(width, height));
         this.setBackground(Color.WHITE);
@@ -163,9 +190,11 @@ class TicTacToeCell extends JPanel implements MouseListener{
         this.value = value;
         if(value == 1) {
          valueText.setText("X");
+         notClicked = false;
         } 
          else if (value == 2) {
             valueText.setText("O");
+            notClicked = false;
         } else { 
             valueText.setText(" ");
         }
@@ -173,12 +202,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
         this.repaint();
     }
 
-    public void assignInitialBoardState(int value){
-        isDefault = true;
-        valueText.setForeground(Color.BLUE);
-        setValue(value);
-        System.out.println("Initial value for cell " + row + " " + column + " is " + value);
-    }
+   
 
     //mouse listener to determine if the cell is clicked on
     public void mousePressed(MouseEvent e){
@@ -194,11 +218,22 @@ class TicTacToeCell extends JPanel implements MouseListener{
 
     }
     public void mouseClicked(MouseEvent e){
-        if(mouseInCell){
+       if (TicTacToePanel2.ticTacToeTime.checkBoardFull()){
+        if(mouseInCell && notClicked){
             setValue(valueToChangeTo);
+            
+          if (TicTacToePanel2.ticTacToeTime.containsX()){
             TicTacToePanel2.ticTacToeTime.setResponse();
+          }
         }
+    }
 
+    if (TicTacToePanel2.ticTacToeTime.checkBoardFull() == false){
+        if(mouseInCell && notClicked){
+            setValue(valueToChangeTo);
+        
+        }
+    }
     }
 
 }
