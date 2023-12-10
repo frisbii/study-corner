@@ -58,7 +58,7 @@ public class TimerPanel extends PanelBase {
                 updateTimer();
                 if (secondsLeft <= 0) {
                     stopTimer();
-                    playFinishSound();
+                    timerFinished();
                 }
             }
         });
@@ -197,9 +197,10 @@ public class TimerPanel extends PanelBase {
         this.timerProgressBar.setValue(this.secondsLeft);
     }
 
-    public void playFinishSound() {
-        System.out.println("Chime sounds TimerPanel");
+    
+    public void timerFinished() {
         sounds.playChimes();
+        new GameInfoPanel();
     }
 
 

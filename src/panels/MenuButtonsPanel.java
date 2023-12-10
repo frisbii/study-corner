@@ -10,7 +10,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 public class MenuButtonsPanel extends PanelBase {
@@ -37,7 +36,6 @@ public class MenuButtonsPanel extends PanelBase {
             @Override
             public void mouseClicked(MouseEvent e) {
                 new GameInfoPanel();
-                System.out.println("games button clicked");
             }
         });
         AppTheme.addThemedComponent(gb);
@@ -54,7 +52,6 @@ public class MenuButtonsPanel extends PanelBase {
         sb.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //new SettingsFrame();
                 new SettingsFrame();
             }
         });
