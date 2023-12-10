@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 // TODO: fix sleep
-// TODO: make so can play the last square
-// TODO: fix orientation of buttons
 // TODO: write interface
+// TODO: not place o upon first click 
+
 public class TicTacToePanel2 extends JPanel {
    
     public static final int WIDTH = 1024;
@@ -119,6 +119,24 @@ public void setResponse(){
  // only working a select portion of the time 
   
 }
+
+  public boolean checkBoardFull(){
+    boolean full = true;
+    int spaceLeft = 0;
+    for(int i = 0; i < gridSize; i++){
+            for(int j = 0; j < gridSize; j++){
+                if (cellsTicTac[i][j].value == 0){
+                    spaceLeft ++;
+                }
+            }
+        }
+
+        if (spaceLeft <= 2){
+          full = false;
+        }
+    
+        return full;
+  }
 }
 
 
@@ -192,6 +210,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
 
     }
     public void mouseClicked(MouseEvent e){
+       if (TicTacToePanel2.ticTacToeTime.checkBoardFull()){
         if(mouseInCell && notClicked){
             setValue(valueToChangeTo);
             
@@ -199,7 +218,14 @@ class TicTacToeCell extends JPanel implements MouseListener{
             TicTacToePanel2.ticTacToeTime.setResponse();
         
         }
+    }
 
+    if (TicTacToePanel2.ticTacToeTime.checkBoardFull() == false){
+        if(mouseInCell && notClicked){
+            setValue(valueToChangeTo);
+        
+        }
+    }
     }
 
 }
