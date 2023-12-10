@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-//TO DO: ensure that initial creation is always actually solvable.. NO MORE ILLEGAL SUDOKU!!
 //TO DO: game win and game try again screen
 //TO DO: exit upon win game
 
@@ -79,7 +78,12 @@ public class SudokuPanel extends JPanel{
         buttonCheck = new JButton("check solution");
         buttonCheck.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                System.out.println("Solved? " + sudokuTime.isSolved());
+                if(sudokuTime.isSolved()){
+                    JOptionPane.showMessageDialog(null, "Congrats! You solved the puzzle!");
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Not quite correct! Keep trying!");
+                }
             }
         });
 
@@ -172,80 +176,6 @@ class GamePanel extends JPanel{
             }
         }
 
-    }
-
-    //sets the values of all the cells and numbers in their various arrays
-    private void setValuesOld(){
-        
-        //set default values of every cell to 0 before assigning random values to some
-        for(int i = 0; i < gridSize; i++){
-            for(int j = 0; j < gridSize; j++){
-                cells[i][j] = new Cell(i, j);
-                cells[i][j].setValue(0);
-                //assign "clusters" to each cell
-                //integer division should result in only a 0 or a 1
-                if(i/2 == 0 && j/2 == 0) {cells[i][j].cluster = 1; cells[i][j].setBackground(Color.LIGHT_GRAY);}
-                else if(i/2 == 0 && j/2 == 1) cells[i][j].cluster = 2;
-                else if (i/2 == 1 && j/2 == 0) cells[i][j].cluster = 3;
-                else if(i/2 == 1 && j/2 == 1) {cells[i][j].cluster = 4; cells[i][j].setBackground(Color.LIGHT_GRAY);}
-            }
-        }
-
-        Random rand = new Random();
-        int randRow;
-        int randCol;
-        List<Integer> numOptions = new ArrayList<Integer>();
-        int originalCellsCount = rand.nextInt(5) + 4;
-        for(int i = 0; i < originalCellsCount; i++){
-            randRow = rand.nextInt(4);
-            randCol = rand.nextInt(4);
-            System.out.println("Cell picked: r" + randRow + " c" + randCol);
-            numOptions.add(1);
-            numOptions.add(2);
-            numOptions.add(3);
-            numOptions.add(4);
-            if(!cells[randRow][randCol].isDefault) {
-                int cellInput = numOptions.get(rand.nextInt(numOptions.size()));
-                cells[randRow][randCol].assignInitialBoardState(cellInput);
-                //ensure that no cluster has more than three initially assigned values
-                while(!isInitiallyValid(randRow, randCol) && !numOptions.isEmpty()){
-                    numOptions.remove(cellInput);
-                    cellInput = numOptions.get(rand.nextInt(numOptions.size()));
-                    cells[randRow][randCol].assignInitialBoardState(cellInput);
-                }
-            }
-        }
-
-    }
-
-    private boolean isInitiallyValid(int row, int col){
-        Cell cellChecked = cells[row][col];
-        //check row of cell
-        for(int i = 0; i < gridSize; i++){
-            if(cells[row][i] != cellChecked){
-                if(cells[row][i].value == cellChecked.value) {System.out.println("Not set bc row"); return false;}
-            }
-        }
-        //check col of cell
-        for(int i = 0; i < gridSize; i++){
-            if(cells[i][col] != cellChecked){
-                if(cells[i][col].value == cellChecked.value) {System.out.println("Not set bc column"); return false;}
-            }
-        }
-        //check cluster of cell for the same number
-        for(int i = 0; i < gridSize; i++){
-            for(int j = 0; j < gridSize; j++){
-                if(cells[i][j] != cellChecked && cells[i][j].cluster == cellChecked.cluster){
-                    //check if the number is already in th cell
-                    if(cells[i][j].value == cellChecked.value) {System.out.println("Not set bc cluster"); return false;}
-
-                }
-            }
-        }
-
-        //check if this answer will make unsolveable. somehow.
-
-        return true;
     }
 
     public boolean isSolved(){
