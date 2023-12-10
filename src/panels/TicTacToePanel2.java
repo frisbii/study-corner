@@ -7,7 +7,7 @@ import java.util.Random;
 
 // TODO: fix sleep
 // TODO: write interface
-// TODO: not place o upon first click 
+
 
 public class TicTacToePanel2 extends JPanel {
    
@@ -137,6 +137,19 @@ public void setResponse(){
     
         return full;
   }
+
+  public boolean containsX(){
+    boolean xContained = false;
+    for(int i = 0; i < gridSize; i++){
+            for(int j = 0; j < gridSize; j++){
+                if (cellsTicTac[i][j].value == 1){
+                    xContained = true;
+                }
+            }
+        }
+
+        return xContained;
+  }
 }
 
 
@@ -210,9 +223,9 @@ class TicTacToeCell extends JPanel implements MouseListener{
         if(mouseInCell && notClicked){
             setValue(valueToChangeTo);
             
-
+          if (TicTacToePanel2.ticTacToeTime.containsX()){
             TicTacToePanel2.ticTacToeTime.setResponse();
-        
+          }
         }
     }
 

@@ -80,6 +80,12 @@ public class SudokuPanel extends JPanel{
             public void actionPerformed(ActionEvent arg0) {
                 if(sudokuTime.isSolved()){
                     JOptionPane.showMessageDialog(null, "Congrats! You solved the puzzle!");
+                    // try{
+                    //         Thread.sleep(3000);
+                    //     	}
+                    //     catch(InterruptedException c){}
+                    //         GameInfoPanel.frame.dispose();
+                
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Not quite correct! Keep trying!");
