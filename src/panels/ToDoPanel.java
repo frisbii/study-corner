@@ -1,7 +1,6 @@
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +9,6 @@ import java.awt.event.*;
 //TO DO: deselect a to do list task when clicking outside of the list itself -> focus listener?
 //might need custom cell renderer for the task list
 //solve dot dot dot by setting fixed width of tasks and changing when list edited?
-//key listener delete to remove the selected task also?
 
 public class ToDoPanel extends PanelBase implements ItemListener, MouseListener, MouseMotionListener {
 
@@ -18,7 +16,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     private static int TODO_HEIGHT = 650;
     private static Color TODO_COLOR = new Color(255, 255, 255, 180);
 
-    public static int FPS = 60;
     static ToDoPanel toDoModel;
     ToDoData data;
     JList<String> taskList;
@@ -29,8 +26,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     JButton deleteTaskButton;
     JTextFieldWithPrompt newTask;
     JPanel flowPanel;
-    JPanel putAwayPanel;
-    JLabel mainTask;
 
     boolean isMouseDragging;
     int dragInitial;
@@ -44,7 +39,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
 
         data = new ToDoData(); //creates the model part of the MVC where all the data for the task list is stored
         flowPanel = new JPanel();
-        putAwayPanel = new JPanel();
         isMouseDragging = false;
 
         //JList containing JCheckBox
@@ -57,17 +51,45 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         taskList.addMouseMotionListener(this);
         taskList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         taskList.setFixedCellHeight(25);
-        setMainTask();
+        taskList.addKeyListener(new KeyListener(){
+            public void keyPressed(KeyEvent e){
+                int key = e.getKeyCode();
+                if(key == 127){
+                    try {
+                    if(!taskList.isSelectionEmpty()){
+                        String removeMe = (String)taskList.getSelectedValue();
+                        data.removeTask(removeMe);
+                        listModel.removeElement(removeMe);
+                    }
+                }
+                catch(Exception ex) {System.out.println("Exception " + ex);}
+                }
+            }
+            public void keyReleased(KeyEvent e){
+            }
+            public void keyTyped(KeyEvent e){
+            }
+        });
 
         //button to add task to the to do list
         addTaskButton = new JButton("Add");
         addTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 try {
-                    if(newTask.getText().length() <= 40 && data.tasks.size() < 20){
-                        data.addTask(newTask.getText());
-                        listModel.addElement(newTask.getText());
-                        newTask.setText("Enter task here...");
+                    if(!newTask.getText().equals(newTask.placeholder) && data.tasks.size() < 20){
+                        if(newTask.getText().length() <= 40){
+                            if(!data.tasks.contains(newTask.getText())){
+                                data.addTask(newTask.getText());
+                                listModel.addElement(newTask.getText());
+                                newTask.setText("Enter task here...");
+                            }
+                            else{
+                            JOptionPane.showMessageDialog(null, "Oops! Task is already in the list.");
+                            }  
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "Oops! Please make your task 40 characters or less.");
+                        }
                     }
                 }
                 catch(Exception e) {System.out.println("Exception " + e);}
@@ -80,14 +102,24 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         newTask.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0){
                 try {
-                    if(newTask.getText().length() <= 40 && data.tasks.size() < 20){
-                        data.addTask(newTask.getText());
-                        listModel.addElement(newTask.getText());
-                        newTask.setText("Enter task here...");
-                        //brute force remove focus from textfield so that "enter task here" placeholder reappears
-                        newTask.setFocusable(false);
-                        //but it need to be focusable again so focus true again
-                        newTask.setFocusable(true);
+                    if(!newTask.getText().equals(newTask.placeholder) && data.tasks.size() < 20){
+                        if(newTask.getText().length() <= 40){
+                            if(!data.tasks.contains(newTask.getText())){
+                                data.addTask(newTask.getText());
+                                listModel.addElement(newTask.getText());
+                                newTask.setText("Enter task here...");
+                                //brute force remove focus from textfield so that "enter task here" placeholder reappears
+                                newTask.setFocusable(false);
+                                //but it need to be focusable again so focus true again
+                                newTask.setFocusable(true);
+                            }
+                            else{
+                            JOptionPane.showMessageDialog(null, "Oops! Task is already in the list.");
+                            }  
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "Oops! Please make your task 40 characters or less.");
+                            }
                     }
                 }
                 catch(Exception e) {System.out.println("Exception " + e);}
@@ -106,7 +138,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
                     }
                 }
                 catch(Exception e) {System.out.println("Exception " + e);}
-                setMainTask();
             }
         });
         deleteTaskButton.setBorder(emptyBorder);
@@ -182,14 +213,8 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         this.add(flowPanel);
     }
 
-    private void setMainTask(){
-        if(mainTask == null) mainTask = new JLabel();
-        if(!data.tasks.isEmpty()) mainTask.setText(data.tasks.get(0));
-    }
-
     public void itemStateChanged(ItemEvent event){
     }
-
 
     public void mousePressed(MouseEvent e){
         dragInitial = taskList.getSelectedIndex();
@@ -212,7 +237,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
             taskList.setSelectedIndex(dragTarget);
         }
         isMouseDragging = false;
-        setMainTask();
     }
 
     public void mouseClicked(MouseEvent e){
