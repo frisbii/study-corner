@@ -86,9 +86,9 @@ public class GameInfoPanel {
         ticTacToeButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // creating instance of ticTacToe panel and setting the panel to show this
-              TicTacToePanel2 main = new TicTacToePanel2();
+              TicTacToePanel2 mainTic = new TicTacToePanel2();
               
-              frame.add(main);
+              frame.add(mainTic);
               System.out.println("tic tac toe button pressed");
               frame.remove(infoPanel);
               frame.revalidate();
@@ -100,9 +100,9 @@ public class GameInfoPanel {
          sudokuButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
               
-                SudokuPanel main = new SudokuPanel();
+                SudokuPanel mainSudoku = new SudokuPanel();
               
-                frame.add(main);
+                frame.add(mainSudoku);
                 System.out.println("sudoku button pressed");
                 frame.remove(infoPanel);
                 frame.revalidate();
@@ -110,7 +110,56 @@ public class GameInfoPanel {
             }
          }
          );
+
+         // TODO: write win/lose panels 
     
+        //  // exiting the sudoku panel upon win 
+        //  if (sudokuPanel.sudokuWon){
+
+        //     SudokuWinPanel sudokuWin = new SudokuWinPanel();
+        //     frame.add(sudokuWin);
+        //      frame.remove(mainSudoku);
+        //      frame.revalidate();
+        //      frame.repaint();
+        //       try{
+        //     Thread.sleep(3000);
+        // 	}
+        // catch(InterruptedException c){}
+        //     frame.dispose();
+
+        //  }
+
+        //  // exiting the tictactoe panel upon win 
+        //  if (ticTacToePanel2.ticWon){
+
+        //     ticWinPanel ticWin = new ticWinPanel();
+        //     frame.add(ticWin);
+        //      frame.remove(mainTic);
+        //      frame.revalidate();
+        //      frame.repaint();
+        //       try{
+        //     Thread.sleep(3000);
+        // 	}
+        // catch(InterruptedException c){}
+        //     frame.dispose();
+
+        //  }
+
+        //  // exiting the tictactoe panel upon loss
+        //  if (ticTacToePanel2.ticLost){
+
+        //     ticLostPanel ticLost = new ticLostPanel();
+        //     frame.add(ticLost);
+        //      frame.remove(mainTic);
+        //      frame.revalidate();
+        //      frame.repaint();
+        //       try{
+        //     Thread.sleep(3000);
+        // 	}
+        // catch(InterruptedException c){}
+        //     frame.dispose();
+
+        //  }
    
     }
 
