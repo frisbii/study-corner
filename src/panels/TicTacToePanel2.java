@@ -7,7 +7,7 @@ import java.util.Random;
 
 // TODO: fix sleep
 // TODO: write interface
-// TODO: write win sequence
+// TODO: write program change based on if any of the final outcomes are true 
 
 
 public class TicTacToePanel2 extends JPanel {
@@ -232,6 +232,20 @@ public void setResponse(){
         System.out.print("diagonal lose");
     }
 
+    // check tie
+    int fullBoard = 0;
+    for(int i = 0; i < gridSize; i++){
+            for(int j = 0; j < gridSize; j++){
+                if (cellsTicTac[i][j].value == 0){
+                    fullBoard ++;
+                }
+            }
+        }
+        if (fullBoard == 0){
+           tie = true;
+           System.out.println("tie");
+        }
+
   }
 }
 
@@ -320,7 +334,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
     }
 
     TicTacToePanel2.ticTacToeTime.checkWin();
-    
+
     }
 
     
