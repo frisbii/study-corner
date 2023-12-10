@@ -7,7 +7,7 @@ import java.util.Random;
 
 // TODO: fix sleep
 // TODO: write interface
-// TODO: not place o upon first click 
+
 
 public class TicTacToePanel2 extends JPanel {
    
@@ -116,7 +116,7 @@ public void setResponse(){
   
     cellsTicTac[squareRow][squareCol].setValue(2);
   
- // only working a select portion of the time 
+ 
   
 }
 
@@ -137,6 +137,19 @@ public void setResponse(){
     
         return full;
   }
+
+  public boolean containsX(){
+    boolean xContained = false;
+    for(int i = 0; i < gridSize; i++){
+            for(int j = 0; j < gridSize; j++){
+                if (cellsTicTac[i][j].value == 1){
+                    xContained = true;
+                }
+            }
+        }
+
+        return xContained;
+  }
 }
 
 
@@ -145,8 +158,6 @@ class TicTacToeCell extends JPanel implements MouseListener{
     public static final int width = 125;
     public static final int height = 125;
 
-    boolean full;
-    boolean isDefault; //used to determine if the cell was one of the ones filled upon generation of the game
     boolean mouseInCell;
 
     int row;
@@ -161,10 +172,8 @@ class TicTacToeCell extends JPanel implements MouseListener{
     public TicTacToeCell (int r, int c){
         row = r;
         column = c;
-        full = false;
         mouseInCell = false;
         addMouseListener(this);
-        isDefault = false;
 
         this.setMaximumSize(new java.awt.Dimension(width, height));
         this.setBackground(Color.WHITE);
@@ -214,9 +223,9 @@ class TicTacToeCell extends JPanel implements MouseListener{
         if(mouseInCell && notClicked){
             setValue(valueToChangeTo);
             
-
+          if (TicTacToePanel2.ticTacToeTime.containsX()){
             TicTacToePanel2.ticTacToeTime.setResponse();
-        
+          }
         }
     }
 

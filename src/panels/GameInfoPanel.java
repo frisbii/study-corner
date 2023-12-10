@@ -14,12 +14,13 @@ public class GameInfoPanel {
     public JLabel title;
     public Color lightBlue = new Color (121,183,224);
     public Color purple = new Color (197,153,222);
+    static JFrame frame;
 
     // create frame for pop up
     public GameInfoPanel(){
         
          GridBagLayout layout = new GridBagLayout();
-         JFrame frame = new JFrame("game info");
+          frame = new JFrame("game info");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel infoPanel = new JPanel(layout);
