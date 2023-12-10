@@ -29,7 +29,7 @@ Using the program:
 
     To use the to do list:
         The to do list remembers any tasks you added or remove last time you were in the program
-        Add a task by typing it into the text box and pressing "add task"
+        Add a task by typing it into the text box and pressing "add task" OR pressing enter after you type a task in to the box
         Remove a task by selecting it from the list and pressing "remove task"
         Reorder tasks by clicking a task and dragging
         Slide the to do list off the page and page on by pressing "to do list"

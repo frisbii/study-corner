@@ -22,7 +22,7 @@ public class Main {
             FlatLightLaf.setup();
 
             //Create and set up the window.
-            JFrame frame = new JFrame("help");
+            JFrame frame = new JFrame("✨ study corner 🌇");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
             //Set up the content pane.

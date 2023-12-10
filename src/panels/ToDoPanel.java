@@ -1,15 +1,16 @@
 
 import javax.swing.*;
 import javax.swing.border.Border;
-
+import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
 
-//TO DO: make JList prettier with box outline possibly
 //TO DO: actual check boxes in the tasks
-//note? someone see if you also occasionally see the tasks becoming three letters and then dot dot dot
-//TO DO: text for tasks larger???
+//TO DO: deselect a to do list task when clicking outside of the list itself -> focus listener?
+//might need custom cell renderer for the task list
+//solve dot dot dot by setting fixed width of tasks and changing when list edited?
+//key listener delete to remove the selected task also?
 
 public class ToDoPanel extends PanelBase implements ItemListener, MouseListener, MouseMotionListener {
 
@@ -20,7 +21,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     public static int FPS = 60;
     static ToDoPanel toDoModel;
     ToDoData data;
-    JList<String> taskList; //declare the generic
+    JList<String> taskList;
     DefaultListModel<String> listModel;
     Graphics g;
 
@@ -34,17 +35,17 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     boolean isMouseDragging;
     int dragInitial;
     boolean isPutAway;
+    boolean notInList;
 
 
     //constructor contains everything graphics related in the class essentially so that it can be added to MainPanel
     public ToDoPanel() {
         super(TODO_WIDTH, TODO_HEIGHT, TODO_COLOR);
 
-        data = new ToDoData();
+        data = new ToDoData(); //creates the model part of the MVC where all the data for the task list is stored
         flowPanel = new JPanel();
         putAwayPanel = new JPanel();
         isMouseDragging = false;
-        isPutAway = false;
 
         //JList containing JCheckBox
         listModel = new DefaultListModel<>();
@@ -55,9 +56,10 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         taskList.addMouseListener(this);
         taskList.addMouseMotionListener(this);
         taskList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        taskList.setFixedCellHeight(25);
         setMainTask();
 
-        //button to add tasl to the to do list
+        //button to add task to the to do list
         addTaskButton = new JButton("Add");
         addTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -75,6 +77,22 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         addTaskButton.setBorder(emptyBorder);
 
         newTask = new JTextFieldWithPrompt(15, "Enter task here...");
+        newTask.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0){
+                try {
+                    if(newTask.getText().length() <= 40 && data.tasks.size() < 20){
+                        data.addTask(newTask.getText());
+                        listModel.addElement(newTask.getText());
+                        newTask.setText("Enter task here...");
+                        //brute force remove focus from textfield so that "enter task here" placeholder reappears
+                        newTask.setFocusable(false);
+                        //but it need to be focusable again so focus true again
+                        newTask.setFocusable(true);
+                    }
+                }
+                catch(Exception e) {System.out.println("Exception " + e);}
+            }
+        });
 
         //button to delete tasks
         deleteTaskButton = new JButton("Remove selected task");
@@ -92,18 +110,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
             }
         });
         deleteTaskButton.setBorder(emptyBorder);
-
-
-        putAwayPanel.setLayout(new BoxLayout(putAwayPanel, BoxLayout.PAGE_AXIS));
-        JPanel emptyPanel = new JPanel();
-        putAwayPanel.add(emptyPanel);
-        JPanel currentTaskPanel = new JPanel();
-        currentTaskPanel.setLayout(new FlowLayout());
-        currentTaskPanel.add(new JLabel("Current task: "));
-        currentTaskPanel.add(mainTask);
-        putAwayPanel.add(currentTaskPanel);
-
-        emptyPanel.setBackground(new Color(0,0,0,0));
 
 
         JLabel title = new JLabel("To Do: ");
@@ -172,29 +178,13 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         panel2.setBackground(new Color(0,0,0,0));
         panel3.setBackground(new Color(0,0,0,0));
         flowPanel.setBackground(new Color(0,0,0,0));
-        putAwayPanel.setBackground(new Color(0,0,0,0));
 
         this.add(flowPanel);
     }
 
-    
-/*     private void panelSlideTime(){
-        isPutAway = !isPutAway;
-        if(!isPutAway){
-            this.remove(flowPanel);
-            this.add(putAwayPanel);
-        } else {
-            this.remove(putAwayPanel);
-            this.add(flowPanel);
-        }
-        this.revalidate();
-        this.repaint();
-    } */
-
     private void setMainTask(){
         if(mainTask == null) mainTask = new JLabel();
         if(!data.tasks.isEmpty()) mainTask.setText(data.tasks.get(0));
-        //repaint();
     }
 
     public void itemStateChanged(ItemEvent event){
@@ -204,9 +194,10 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     public void mousePressed(MouseEvent e){
         dragInitial = taskList.getSelectedIndex();
     }
-    public void mouseEntered(MouseEvent e){
 
+    public void mouseEntered(MouseEvent e){
     }
+
     public void mouseReleased(MouseEvent e){
         if (isMouseDragging) {        
             int dragTarget = taskList.getSelectedIndex();
@@ -222,29 +213,30 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         }
         isMouseDragging = false;
         setMainTask();
-
     }
-    public void mouseClicked(MouseEvent e){
 
+    public void mouseClicked(MouseEvent e){
+        if(notInList) taskList.clearSelection();
     }
     public void mouseDragged(MouseEvent e){
         isMouseDragging = true;
     }
     public void mouseMoved(MouseEvent e){
-
     }
     public void mouseExited(MouseEvent e){
-
     }
 
 }
 
+//text field that has input text which disappears upon the user clicking it
 class JTextFieldWithPrompt extends JTextField{
 
     String placeholder;
 
+    //JTextField default constructor but with focus listener to determine when to set placeholder text
     public JTextFieldWithPrompt(){
         super();
+        //determines if component has user focus (did user click on the textfield to type something into it)
         this.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e){
@@ -252,15 +244,19 @@ class JTextFieldWithPrompt extends JTextField{
                     setText("");
                 }
             }
+            //when the user removes focus, if there is no text, set the placeholder text
             public void focusLost(FocusEvent e){
                 if(getText().isEmpty()){
                     setText(placeholder);
                 }
             }
-
         });
     }
 
+    /**
+     * JTextField contructor that creates a textfield with the preferred with in columns and also has a focuslistener
+     * @param cols columns, or width, of text field
+    */
     public JTextFieldWithPrompt(int cols){
         super(cols);
         this.addFocusListener(new FocusListener() {
@@ -279,6 +275,11 @@ class JTextFieldWithPrompt extends JTextField{
         });
     }
 
+    /**constructor that creates a default JTextField with preferred width in columns, has a focus listener
+     * also sets the placeholder text
+     * @param cols columns, or width, of textfield
+     * @param s string that will be the placeholder text in the text field
+    */
     public JTextFieldWithPrompt(int cols, String s){
         super(cols);
         placeholder = s;
@@ -302,8 +303,6 @@ class JTextFieldWithPrompt extends JTextField{
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-
-
     }
 
     public void setPlaceholder(String s){
