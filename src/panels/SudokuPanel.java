@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-//TO DO: game win and game try again screen
 //TO DO: exit upon win game
 
 public class SudokuPanel extends JPanel{
