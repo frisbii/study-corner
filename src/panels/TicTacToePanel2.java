@@ -315,46 +315,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
         this.repaint();
     }
 
-   
-
-    //mouse listener to determine if the cell is clicked on
-    public void mousePressed(MouseEvent e){
-
-    }
-    public void mouseEntered(MouseEvent e){
-        mouseInCell = true;
-    }
-    public void mouseExited(MouseEvent e){
-        mouseInCell = false;
-    }
-    public void mouseReleased(MouseEvent e){
-
-    }
-    public void mouseClicked(MouseEvent e){
-      
-        
-    
-       if (TicTacToePanel2.ticTacToeTime.checkBoardFull()){
-        if(mouseInCell && notClicked && TicTacToePanel2.ticTacToeTime.notThinking){
-            setValue(valueToChangeTo);
-            
-          if (TicTacToePanel2.ticTacToeTime.containsX()){
-            if (TicTacToePanel2.ticTacToeTime.won == false && TicTacToePanel2.ticTacToeTime.lost == false && TicTacToePanel2.ticTacToeTime.tie == false){
-            TicTacToePanel2.ticTacToeTime.notThinking = false;
-                TicTacToePanel2.ticTacToeTime.responseTimer.start();
-            
-            }
-          }
-        }
-    }
-
-    if (TicTacToePanel2.ticTacToeTime.checkBoardFull() == false){
-        if(mouseInCell && notClicked && TicTacToePanel2.ticTacToeTime.notThinking){
-            setValue(valueToChangeTo);
-        
-        }
-    }
-
+   public void endGame(){
     TicTacToePanel2.ticTacToeTime.isSolved();
 
         if(TicTacToePanel2.ticTacToeTime.won){
@@ -393,6 +354,87 @@ class TicTacToeCell extends JPanel implements MouseListener{
                 TicTacToePanel2.ticTacToeTime.tie = false;
                 TicTacToePanel2.gameDone = true;
         }
+   }
+
+    //mouse listener to determine if the cell is clicked on
+    public void mousePressed(MouseEvent e){
+
+    }
+    public void mouseEntered(MouseEvent e){
+        mouseInCell = true;
+    }
+    public void mouseExited(MouseEvent e){
+        mouseInCell = false;
+    }
+    public void mouseReleased(MouseEvent e){
+
+    }
+    public void mouseClicked(MouseEvent e){
+      
+        
+    
+       if (TicTacToePanel2.ticTacToeTime.checkBoardFull()){
+        if(mouseInCell && notClicked && TicTacToePanel2.ticTacToeTime.notThinking){
+            setValue(valueToChangeTo);
+            
+          if (TicTacToePanel2.ticTacToeTime.containsX()){
+            if (TicTacToePanel2.ticTacToeTime.won == false && TicTacToePanel2.ticTacToeTime.lost == false && TicTacToePanel2.ticTacToeTime.tie == false){
+            TicTacToePanel2.ticTacToeTime.notThinking = false;
+            
+                TicTacToePanel2.ticTacToeTime.responseTimer.start();
+                endGame();
+            
+            }
+          }
+        }
+    }
+
+    if (TicTacToePanel2.ticTacToeTime.checkBoardFull() == false){
+        if(mouseInCell && notClicked && TicTacToePanel2.ticTacToeTime.notThinking){
+            setValue(valueToChangeTo);
+            endGame();
+        
+        }
+    }
+
+    // TicTacToePanel2.ticTacToeTime.isSolved();
+
+    //     if(TicTacToePanel2.ticTacToeTime.won){
+    //                 JOptionPane.showMessageDialog(null, "Congrats! You Won!");
+    //                   for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
+    //                 for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
+    //                      TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].setValue(0);
+    //                      TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].notClicked = true;
+    //                 }
+    //             }
+    //             TicTacToePanel2.ticTacToeTime.won = false;
+    //             TicTacToePanel2.gameDone = true;
+                
+    //     }
+    //     if(TicTacToePanel2.ticTacToeTime.lost){
+    //                 JOptionPane.showMessageDialog(null, "Sorry You Lost! Try Again Next Time!");
+    //                 for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
+    //                 for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
+    //                      TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].setValue(0);
+    //                      TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].notClicked = true;
+    //                 }
+    //             }
+    //             TicTacToePanel2.ticTacToeTime.lost = false;
+    //             System.out.println("lost the game");
+    //             TicTacToePanel2.gameDone = true;
+
+    //     } 
+    //     if(TicTacToePanel2.ticTacToeTime.tie) {
+    //                 JOptionPane.showMessageDialog(null, "It's a Tie!");
+    //                for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
+    //                 for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
+    //                      TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].setValue(0);
+    //                       TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].notClicked = true;
+    //                 }
+    //             }
+    //             TicTacToePanel2.ticTacToeTime.tie = false;
+    //             TicTacToePanel2.gameDone = true;
+    //     }
 
     }
 
