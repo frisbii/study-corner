@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-// TODO: fix sleep
 
-
+// TODO: really need x button?
+// TODO: doesnt register losing, still working algorithmically, not displaying the lose screen, not accessing the loss until the next square is playedaccurately displaying though
 
 public class TicTacToePanel2 extends JPanel {
    
@@ -77,6 +77,7 @@ class TicTacToeGamePanel extends JPanel{
     boolean won;
     boolean lost;
     boolean tie;
+    boolean notThinking = true;
 
     public Timer responseTimer;
 
@@ -100,12 +101,14 @@ class TicTacToeGamePanel extends JPanel{
             }
         }
 
-        this.responseTimer = new Timer(2000, new ActionListener() {
+        this.responseTimer = new Timer(1000, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                notThinking = true;
                 setResponse();
                 responseTimer.stop();
+                
             }
             
         });
@@ -125,11 +128,6 @@ class TicTacToeGamePanel extends JPanel{
 
 public void setResponse(){
 
-    //  try{
-    //         Thread.sleep(4000);
-    //     	}
-    //     catch(InterruptedException c){}
-  
   squareCol = (int) (Math.random() * 3);
   squareRow = (int) (Math.random() * 3);
 
@@ -260,7 +258,7 @@ public void setResponse(){
                 }
             }
         }
-        if (fullBoard == 0){
+        if (fullBoard == 0 && lost == false && won == false){
            tie = true;
            System.out.println("tie");
         }
@@ -337,20 +335,21 @@ class TicTacToeCell extends JPanel implements MouseListener{
         
     
        if (TicTacToePanel2.ticTacToeTime.checkBoardFull()){
-        if(mouseInCell && notClicked){
+        if(mouseInCell && notClicked && TicTacToePanel2.ticTacToeTime.notThinking){
             setValue(valueToChangeTo);
             
           if (TicTacToePanel2.ticTacToeTime.containsX()){
-            TicTacToePanel2.ticTacToeTime.isSolved();
             if (TicTacToePanel2.ticTacToeTime.won == false && TicTacToePanel2.ticTacToeTime.lost == false && TicTacToePanel2.ticTacToeTime.tie == false){
-            TicTacToePanel2.ticTacToeTime.responseTimer.start();
+            TicTacToePanel2.ticTacToeTime.notThinking = false;
+                TicTacToePanel2.ticTacToeTime.responseTimer.start();
+            
             }
           }
         }
     }
 
     if (TicTacToePanel2.ticTacToeTime.checkBoardFull() == false){
-        if(mouseInCell && notClicked){
+        if(mouseInCell && notClicked && TicTacToePanel2.ticTacToeTime.notThinking){
             setValue(valueToChangeTo);
         
         }
@@ -370,7 +369,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
                 TicTacToePanel2.gameDone = true;
                 
         }
-        else if(TicTacToePanel2.ticTacToeTime.lost){
+        if(TicTacToePanel2.ticTacToeTime.lost){
                     JOptionPane.showMessageDialog(null, "Sorry You Lost! Try Again Next Time!");
                     for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
                     for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
@@ -379,9 +378,11 @@ class TicTacToeCell extends JPanel implements MouseListener{
                     }
                 }
                 TicTacToePanel2.ticTacToeTime.lost = false;
+                System.out.println("lost the game");
                 TicTacToePanel2.gameDone = true;
 
-        } else if(TicTacToePanel2.ticTacToeTime.tie) {
+        } 
+        if(TicTacToePanel2.ticTacToeTime.tie) {
                     JOptionPane.showMessageDialog(null, "It's a Tie!");
                    for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
                     for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){

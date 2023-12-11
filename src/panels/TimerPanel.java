@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -83,6 +84,8 @@ public class TimerPanel extends PanelBase {
         this.timerButtons = new JPanel();
         this.timerButtons.setLayout(new BoxLayout(this.timerButtons, BoxLayout.Y_AXIS));
         this.timerButtons.setOpaque(false);
+        this.timerButtons.add(new TimerButton());
+        this.timerButtons.add(Box.createRigidArea(new Dimension(0, 15)));
         this.timerButtons.add(new TimerButton(5));
         this.timerButtons.add(Box.createRigidArea(new Dimension(0, 15)));
         this.timerButtons.add(new TimerButton(15));
@@ -160,7 +163,7 @@ public class TimerPanel extends PanelBase {
         c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight = 1;
-        this.add(Box.createRigidArea(new Dimension(400, 0)), c);
+        this.add(Box.createRigidArea(new Dimension(400, 20)), c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -173,6 +176,7 @@ public class TimerPanel extends PanelBase {
         this.add(this.timerProgressBar, c);
         
         c.gridy = 3;
+        c.insets = new Insets(-30, 0, 0, 0);
         this.add(controlButtons, c);
 
         SwingUtilities.invokeLater(this::afterLoad);
@@ -228,26 +232,37 @@ public class TimerPanel extends PanelBase {
 
     class TimerButton extends JLabel implements MouseListener {
 
-        private int TIMERBUTTON_SIZE = 60;
+        private int TIMERBUTTON_SIZE = 50;
 
         private Image icon;
-        private int duration;
+        private int durationMins;
+        private int durationSecs;
 
         public TimerButton(int d) {
+            this(String.format("./resources/images/buttons/%d.png", d));
+            this.durationMins = d;
+        }
+
+        public TimerButton() {
+            this("./resources/images/buttons/test.png");
+            this.durationSecs = 10;
+        }
+
+        private TimerButton(String path) {
             this.setOpaque(false);
             this.addMouseListener(this);
 
-            this.duration = d;
             try {
-                this.icon = ImageIO.read(new File(String.format("./resources/images/buttons/%d.png", duration)));
+                this.icon = ImageIO.read(new File(path));
                 this.icon = this.icon.getScaledInstance(TIMERBUTTON_SIZE, TIMERBUTTON_SIZE, Image.SCALE_SMOOTH);
             } catch (IOException e) { e.printStackTrace(); }
             this.setIcon(new ImageIcon(this.icon));
+
         }
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            setTimer(duration, 0);
+            setTimer(durationMins, durationSecs);
         }
 
         @Override
@@ -286,7 +301,7 @@ public class TimerPanel extends PanelBase {
             this.popupTimer = new Timer(timerDelay, new ActionListener() {
                 
                 int elapsedFrames;
-                int numSpinFrames = 60;
+                int numSpinFrames = 55;
 
                 {
                     elapsedFrames = 0;
