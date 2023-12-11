@@ -61,6 +61,7 @@ public class TicTacToePanel2 extends JPanel {
         buttonPanel.setBackground(new Color(0,0,0,0));
 
         this.add(buttonPanel);
+        JOptionPane.showMessageDialog(null, "Press the X button and then choose squares on the grid to make your move!");
     }
 }
 
