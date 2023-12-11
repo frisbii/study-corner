@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-// TODO: fix sleep
 
 
 
@@ -77,6 +76,7 @@ class TicTacToeGamePanel extends JPanel{
     boolean won;
     boolean lost;
     boolean tie;
+    boolean notThinking = true;
 
     public Timer responseTimer;
 
@@ -104,8 +104,10 @@ class TicTacToeGamePanel extends JPanel{
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                notThinking = true;
                 setResponse();
                 responseTimer.stop();
+                
             }
             
         });
@@ -125,11 +127,6 @@ class TicTacToeGamePanel extends JPanel{
 
 public void setResponse(){
 
-    //  try{
-    //         Thread.sleep(4000);
-    //     	}
-    //     catch(InterruptedException c){}
-  
   squareCol = (int) (Math.random() * 3);
   squareRow = (int) (Math.random() * 3);
 
@@ -337,20 +334,21 @@ class TicTacToeCell extends JPanel implements MouseListener{
         
     
        if (TicTacToePanel2.ticTacToeTime.checkBoardFull()){
-        if(mouseInCell && notClicked){
+        if(mouseInCell && notClicked && TicTacToePanel2.ticTacToeTime.notThinking){
             setValue(valueToChangeTo);
             
           if (TicTacToePanel2.ticTacToeTime.containsX()){
-            TicTacToePanel2.ticTacToeTime.isSolved();
             if (TicTacToePanel2.ticTacToeTime.won == false && TicTacToePanel2.ticTacToeTime.lost == false && TicTacToePanel2.ticTacToeTime.tie == false){
-            TicTacToePanel2.ticTacToeTime.responseTimer.start();
+            TicTacToePanel2.ticTacToeTime.notThinking = false;
+                TicTacToePanel2.ticTacToeTime.responseTimer.start();
+            
             }
           }
         }
     }
 
     if (TicTacToePanel2.ticTacToeTime.checkBoardFull() == false){
-        if(mouseInCell && notClicked){
+        if(mouseInCell && notClicked && TicTacToePanel2.ticTacToeTime.notThinking){
             setValue(valueToChangeTo);
         
         }
