@@ -164,7 +164,7 @@ public void setResponse(){
   }
   
 
-  public void checkWin(){
+  public void isSolved(){
     // check rows
     int rowXCount = 0;
     int rowOCount = 0;
@@ -341,7 +341,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
         }
     }
 
-    TicTacToePanel2.ticTacToeTime.checkWin();
+    TicTacToePanel2.ticTacToeTime.isSolved();
 
         if(TicTacToePanel2.ticTacToeTime.won){
                     JOptionPane.showMessageDialog(null, "Congrats! You Won!");
