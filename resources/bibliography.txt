@@ -23,23 +23,24 @@ https://stackoverflow.com/questions/2715118/how-to-change-the-size-of-the-font-o
 Serin:
 
 Allison:
+//source of sound played when timer ends
+https://freesound.org/people/Slaking_97/sounds/332024/
+
+//coding assistance
 https://www.codejava.net/java-se/swing/jlist-basic-tutorial-and-examples
 https://web.mit.edu/6.005/www/sp14/psets/ps4/java-6-tutorial/components.html
 https://stackoverflow.com/questions/30656473/how-to-use-gridbaglayout
 https://stackoverflow.com/questions/3804361/how-to-enable-drag-and-drop-inside-jlist
 https://stackoverflow.com/questions/8292773/checking-if-a-jtextfield-is-selected-or-not
 https://docs.oracle.com/javase/tutorial/uiswing/components/list.html
-https://www.reddit.com/r/javahelp/comments/h9qw6j/is_there_a_way_to_add_the_same_button_multiple/
-https://freesound.org/people/Slaking_97/sounds/332024/
 https://www.baeldung.com/java-play-sound
 https://docs.oracle.com/javase/8/docs/api/java/awt/GridBagLayout.html
 https://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html
 http://www.fredosaurus.com/notes-java/GUI/components/10labels/12labelfontcolor.html
 https://docs.oracle.com/javase/8/docs/api/javax/swing/JOptionPane.html
-
-https://www3.ntu.edu.sg/home/ehchua/programming/java/JavaGame_Sudoku.html
+https://stackoverflow.com/questions/9602683/how-to-find-out-a-java-component-being-displayed-on-screen
+https://stackoverflow.com/questions/22072796/how-to-repaint-a-jpanel-every-x-seconds
 https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/JList.html
-https://www.codejava.net/java-se/swing/jlist-basic-tutorial-and-examples
-https://docs.oracle.com/javase/tutorial/uiswing/examples/components/CheckBoxDemoProject/src/components/CheckBoxDemo.java
-
-
+https://stackoverflow.com/questions/1234912/how-to-programmatically-close-a-jframe
+https://stackoverflow.com/questions/9596204/how-to-deselect-jlist-item-on-some-event-in-java#:~:text=1%20Answer&text=Try%20myJList.,be%20deselected%20via%20this%20method.
+https://docs.oracle.com/javase/8/docs/api/javax/swing/ListCellRenderer.html
