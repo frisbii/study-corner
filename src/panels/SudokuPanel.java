@@ -24,6 +24,7 @@ public class SudokuPanel extends JPanel{
     String buttonType; //to determine which button has been pressed most recently
 
     JButton checkSolution;
+    boolean solvedFinal; //used to send a message to GameInfoPanel to determine if the game is over and the JFrame should be closed
 
     GamePanel sudokuTime; //houses the grid of squares where 
 
@@ -33,6 +34,7 @@ public class SudokuPanel extends JPanel{
      */
     public SudokuPanel(){
         //creates grid within the main jpanel
+        solvedFinal = false;
         sudokuTime = new GamePanel();
         buttonType = "x";
 
@@ -85,12 +87,7 @@ public class SudokuPanel extends JPanel{
             public void actionPerformed(ActionEvent arg0) {
                 if(sudokuTime.isSolved()){
                     JOptionPane.showMessageDialog(null, "Congrats! You solved the puzzle!");
-                    // try{
-                    //         Thread.sleep(3000);
-                    //     	}
-                    //     catch(InterruptedException c){}
-                    //         GameInfoPanel.frame.dispose();
-                
+                    solvedFinal = true;
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Not quite correct! Keep trying!");
@@ -126,6 +123,9 @@ public class SudokuPanel extends JPanel{
         buttonPanel.setBackground(new Color(0,0,0,0));
 
         this.add(buttonPanel);
+
+        //show instructions to user
+        JOptionPane.showMessageDialog(null, "Press the number buttons and click to place a number. X clears the space you click. Try to get 1-4 in every row, column, and quadrant!");
     }
 }
 

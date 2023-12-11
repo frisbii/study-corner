@@ -6,22 +6,24 @@ import java.awt.*;
 import java.awt.event.*;
 
 //TO DO: actual check boxes in the tasks
-//TO DO: deselect a to do list task when clicking outside of the list itself -> focus listener?
 //might need custom cell renderer for the task list
 //solve dot dot dot by setting fixed width of tasks and changing when list edited?
 
 public class ToDoPanel extends PanelBase implements ItemListener, MouseListener, MouseMotionListener {
 
+    //sets values needed for PanelBase
     private static int TODO_WIDTH = 500;
     private static int TODO_HEIGHT = 650;
     private static Color TODO_COLOR = new Color(255, 255, 255, 180);
 
+    //things for the task list itself
     static ToDoPanel toDoModel;
     ToDoData data;
     JList<String> taskList;
     DefaultListModel<String> listModel;
     Graphics g;
 
+    //buttons and panel layout
     JButton addTaskButton;
     JButton deleteTaskButton;
     JTextFieldWithPrompt newTask;
@@ -37,7 +39,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     public ToDoPanel() {
         super(TODO_WIDTH, TODO_HEIGHT, TODO_COLOR);
 
-        data = new ToDoData(); //creates the model part of the MVC where all the data for the task list is stored
+        data = new ToDoData(); //creates the ToDoData where all the data for the tsks and writing to the file, etc, is done
         flowPanel = new JPanel();
         isMouseDragging = false;
 
@@ -50,7 +52,8 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         taskList.addMouseListener(this);
         taskList.addMouseMotionListener(this);
         taskList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        taskList.setFixedCellHeight(25);
+        taskList.setFixedCellHeight(25); //add some spacing between tasks
+        //key listener so that the "del" key can be used to remove tasks from the list when one is selected
         taskList.addKeyListener(new KeyListener(){
             public void keyPressed(KeyEvent e){
                 int key = e.getKeyCode();
@@ -76,8 +79,10 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         addTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 try {
+                    //add if there is enough room in the list AND the user has replaced the placeholder
                     if(!newTask.getText().equals(newTask.placeholder) && data.tasks.size() < 20){
                         if(newTask.getText().length() <= 40){
+                            //only add task if it isn't on the list already
                             if(!data.tasks.contains(newTask.getText())){
                                 data.addTask(newTask.getText());
                                 listModel.addElement(newTask.getText());
@@ -98,10 +103,13 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         Border emptyBorder = BorderFactory.createEmptyBorder();
         addTaskButton.setBorder(emptyBorder);
 
+        //JTextField where the user inputs new tasks
         newTask = new JTextFieldWithPrompt(15, "Enter task here...");
+        //action listener so that the enter key can also be used to enter tassk (enter is default action on JTextField)
         newTask.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0){
                 try {
+                    //same criteria for adding a task as the "add task" button above
                     if(!newTask.getText().equals(newTask.placeholder) && data.tasks.size() < 20){
                         if(newTask.getText().length() <= 40){
                             if(!data.tasks.contains(newTask.getText())){
@@ -126,7 +134,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
             }
         });
 
-        //button to delete tasks
+        //button to delete tasks, same criteria as the "del" key remove task
         deleteTaskButton = new JButton("Remove selected task");
         deleteTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -149,11 +157,12 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         titlePanel.setLayout(new FlowLayout());
         titlePanel.add(title);
 
-        //layout stuff
+        //GridBagLayout shenanigans to make things look pretty start here
         GridBagLayout toDoLayout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         flowPanel.setLayout(toDoLayout);
 
+        //anchor is at the top of the page
         c.anchor = GridBagConstraints.PAGE_START;
         c.fill = GridBagConstraints.BOTH;
 
@@ -166,7 +175,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         this.flowPanel.add(titlePanel);
         c.gridwidth = GridBagConstraints.REMAINDER;
 
-        //smaller borders btwn elements
         JPanel panel1 = new JPanel();
         panel1.add(taskList);
         JPanel panel2 = new JPanel();
@@ -204,6 +212,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         this.flowPanel.add(panel1);
         c.gridwidth = GridBagConstraints.REMAINDER;
 
+        //setting background of every other panel component in the panel to have a clear background
         titlePanel.setBackground(new Color(0,0,0,0));
         panel1.setBackground(new Color(0,0,0,0));
         panel2.setBackground(new Color(0,0,0,0));
@@ -213,20 +222,26 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         this.add(flowPanel);
     }
 
+    //necessary for item listener
     public void itemStateChanged(ItemEvent event){
     }
 
+    //mouse listener events 
     public void mousePressed(MouseEvent e){
+        //if mouse clicked, get index where it clicked in case we start dragging the mouse to rearrange tasks
         dragInitial = taskList.getSelectedIndex();
     }
 
     public void mouseEntered(MouseEvent e){
     }
 
+    //used to rearrange tasks by clicking and dragging
     public void mouseReleased(MouseEvent e){
         if (isMouseDragging) {        
+            //if mouse is dragging, the placae where we are dragging the dragInital task to is the task where the mouse ended up
             int dragTarget = taskList.getSelectedIndex();
             String dragElement = listModel.get(dragInitial);
+            //move the dragInitial task to the index of dragTarget in the list
             listModel.remove(dragInitial);
             listModel.add(dragTarget, dragElement);
             try{
@@ -242,9 +257,12 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     public void mouseClicked(MouseEvent e){
         if(notInList) taskList.clearSelection();
     }
+
+    //determine if the mouse is being dragged, so if it is, stuff in mouseReleased happens
     public void mouseDragged(MouseEvent e){
         isMouseDragging = true;
     }
+
     public void mouseMoved(MouseEvent e){
     }
     public void mouseExited(MouseEvent e){
