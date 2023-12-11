@@ -124,15 +124,13 @@ public class TimerPanel extends PanelBase {
             }
         });
         
-        SpinnerModel model = new SpinnerNumberModel(60, 0, 6000, 1);
+        SpinnerModel model = new SpinnerNumberModel(60, 1, 6000, 1);
         this.timerSetSpinner = new JSpinner(model);
         this.timerSetSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 JSpinner spinner = (JSpinner) (e.getSource());
                 timerSetting = (int) spinner.getValue();
-                secondsLeft = timerSetting;
-                stopTimer();
-                updateTimer();
+                resetTimer();
             }
         });
 
