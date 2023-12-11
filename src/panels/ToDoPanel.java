@@ -55,7 +55,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
 
         //JList containing JCheckBox
         listModel = new DefaultListModel<>();
-        MyListCellRenderer renderer = new MyListCellRenderer();
+        MyListCellRenderer<String> renderer = new MyListCellRenderer<String>();
         for(String s : data.tasks){
             listModel.addElement(s);
         }
@@ -395,9 +395,13 @@ class JTextFieldWithPrompt extends JTextField{
 }
 
 //custom cell renderer class for the JList
-class MyListCellRenderer implements ListCellRenderer{
+class MyListCellRenderer<String> implements ListCellRenderer<String>{
 
     private final JLabel cell = new JLabel(" ", JLabel.LEFT);
+
+    public MyListCellRenderer(){
+        super();
+    }
 
     @Override
     public Component getListCellRendererComponent(JList jList, Object value, int index, boolean isSelected, boolean cellHasFocus){
