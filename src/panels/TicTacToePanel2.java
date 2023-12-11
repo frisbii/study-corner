@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-// TODO: really need x button?
+
 // TODO: doesnt register losing, still working algorithmically, not displaying the lose screen, not accessing the loss until the next square is playedaccurately displaying though
+
 
 public class TicTacToePanel2 extends JPanel {
    
@@ -19,9 +20,9 @@ public class TicTacToePanel2 extends JPanel {
 
     // buttons for x vs o
 
-    JButton xButton;
+    
     String buttonType;
-    JLabel directions; 
+     
 
     static TicTacToeGamePanel ticTacToeTime;
 
@@ -36,16 +37,8 @@ public class TicTacToePanel2 extends JPanel {
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
         this.add(ticTacToeTime);
 
-        // adding buttons to panel
-        directions = new JLabel("Select the X button and a square on the grid to make your move!");
-        xButton = new JButton ("x");
-        xButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                buttonType = "X";
-                TicTacToeCell.valueToChangeTo = 1; 
-                System.out.println("x button pressed"); 
-            }
-        });
+        
+        
 
       
 
@@ -53,15 +46,15 @@ public class TicTacToePanel2 extends JPanel {
         JPanel clearPanel = new JPanel();
         clearPanel.setBackground(new Color(0,0,0,0));
         buttonPanel.add(clearPanel);
-        buttonPanel.add(xButton);
-        // buttonPanel.add(directions);
+      
+        
 
         
         
         buttonPanel.setBackground(new Color(0,0,0,0));
 
         this.add(buttonPanel);
-        JOptionPane.showMessageDialog(null, "Press the X button and then choose squares on the grid to make your move!");
+        JOptionPane.showMessageDialog(null, "Choose squares on the grid to make your move and get three in a row!");
     }
 }
 
@@ -370,19 +363,19 @@ class TicTacToeCell extends JPanel implements MouseListener{
 
     }
     public void mouseClicked(MouseEvent e){
-      
-        
+
+        TicTacToePanel2.ticTacToeTime.isSolved();
     
        if (TicTacToePanel2.ticTacToeTime.checkBoardFull()){
         if(mouseInCell && notClicked && TicTacToePanel2.ticTacToeTime.notThinking){
-            setValue(valueToChangeTo);
-            
+            setValue(1);
+            TicTacToePanel2.ticTacToeTime.isSolved();
           if (TicTacToePanel2.ticTacToeTime.containsX()){
             if (TicTacToePanel2.ticTacToeTime.won == false && TicTacToePanel2.ticTacToeTime.lost == false && TicTacToePanel2.ticTacToeTime.tie == false){
             TicTacToePanel2.ticTacToeTime.notThinking = false;
             
                 TicTacToePanel2.ticTacToeTime.responseTimer.start();
-                endGame();
+              
             
             }
           }
@@ -391,51 +384,15 @@ class TicTacToeCell extends JPanel implements MouseListener{
 
     if (TicTacToePanel2.ticTacToeTime.checkBoardFull() == false){
         if(mouseInCell && notClicked && TicTacToePanel2.ticTacToeTime.notThinking){
-            setValue(valueToChangeTo);
-            endGame();
+            setValue(1);
+          
         
         }
     }
+    
+            endGame();  
 
-    // TicTacToePanel2.ticTacToeTime.isSolved();
-
-    //     if(TicTacToePanel2.ticTacToeTime.won){
-    //                 JOptionPane.showMessageDialog(null, "Congrats! You Won!");
-    //                   for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
-    //                 for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
-    //                      TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].setValue(0);
-    //                      TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].notClicked = true;
-    //                 }
-    //             }
-    //             TicTacToePanel2.ticTacToeTime.won = false;
-    //             TicTacToePanel2.gameDone = true;
-                
-    //     }
-    //     if(TicTacToePanel2.ticTacToeTime.lost){
-    //                 JOptionPane.showMessageDialog(null, "Sorry You Lost! Try Again Next Time!");
-    //                 for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
-    //                 for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
-    //                      TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].setValue(0);
-    //                      TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].notClicked = true;
-    //                 }
-    //             }
-    //             TicTacToePanel2.ticTacToeTime.lost = false;
-    //             System.out.println("lost the game");
-    //             TicTacToePanel2.gameDone = true;
-
-    //     } 
-    //     if(TicTacToePanel2.ticTacToeTime.tie) {
-    //                 JOptionPane.showMessageDialog(null, "It's a Tie!");
-    //                for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
-    //                 for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
-    //                      TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].setValue(0);
-    //                       TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].notClicked = true;
-    //                 }
-    //             }
-    //             TicTacToePanel2.ticTacToeTime.tie = false;
-    //             TicTacToePanel2.gameDone = true;
-    //     }
-
+ 
     }
 
     
