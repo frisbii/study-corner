@@ -71,6 +71,7 @@ public class TimerPanel extends PanelBase {
                 if (secondsLeft <= 0) {
                     stopTimer();
                     timerFinished();
+                    // TODO: THE START BUTTON NEEDS TO DISABLE WHEN THE TIMER FINISHES!
                 }
             }
 
@@ -226,7 +227,6 @@ public class TimerPanel extends PanelBase {
         sounds.playChimes();
         new GameInfoPanel();
     }
-
 
     class TimerButton extends JLabel implements MouseListener {
 
