@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -162,7 +163,7 @@ public class TimerPanel extends PanelBase {
         c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight = 1;
-        this.add(Box.createRigidArea(new Dimension(400, 0)), c);
+        this.add(Box.createRigidArea(new Dimension(400, 20)), c);
 
         c.gridx = 1;
         c.gridy = 1;
@@ -175,6 +176,7 @@ public class TimerPanel extends PanelBase {
         this.add(this.timerProgressBar, c);
         
         c.gridy = 3;
+        c.insets = new Insets(-30, 0, 0, 0);
         this.add(controlButtons, c);
 
         SwingUtilities.invokeLater(this::afterLoad);
@@ -299,7 +301,7 @@ public class TimerPanel extends PanelBase {
             this.popupTimer = new Timer(timerDelay, new ActionListener() {
                 
                 int elapsedFrames;
-                int numSpinFrames = 60;
+                int numSpinFrames = 55;
 
                 {
                     elapsedFrames = 0;
