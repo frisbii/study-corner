@@ -130,11 +130,15 @@ public class GameInfoPanel implements ActionListener {
     private void checkClosePanel(){
         if(!(mainSudoku == null)){
             if(mainSudoku.isVisible() && mainSudoku.solvedFinal){
+                mainSudoku.solvedFinal = false;
+                frame.remove(mainSudoku);
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             }
         }
         else if(!(mainTic == null)){
             if(mainTic.isVisible() && mainTic.gameDone){
+                mainTic.gameDone = false;
+                frame.remove(mainTic);
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             }
         }
