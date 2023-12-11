@@ -165,9 +165,9 @@ class AppTheme {
         
         // Loads the backgrounds into memory
         try {
-            AppTheme.purpleThemeBG = ImageIO.read(new File("./resources/images/purple_bg.png"));
-            AppTheme.blueThemeBG = ImageIO.read(new File("./resources/images/blue_bg.png"));
-            AppTheme.greenThemeBG = ImageIO.read(new File("./resources/images/green_bg.png"));
+            AppTheme.purpleThemeBG = ImageIO.read(new File("./resources/images/backgrounds/purple_bg.png"));
+            AppTheme.blueThemeBG = ImageIO.read(new File("./resources/images/backgrounds/blue_bg.png"));
+            AppTheme.greenThemeBG = ImageIO.read(new File("./resources/images/backgrounds/green_bg.png"));
         } catch (IOException e) { e.printStackTrace(); }
 
         AppTheme.themedComponents = new ArrayList<JComponent>();
