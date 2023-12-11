@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -7,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.Timer;
@@ -18,12 +21,15 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 
 public class TimerPanel extends PanelBase {
 
@@ -43,15 +49,21 @@ public class TimerPanel extends PanelBase {
     public int timerSetting;
     public int secondsLeft;
 
+    public PopupPane popupPane;
+
+
     public TimerPanel() {
         super(TIMER_WIDTH, TIMER_HEIGHT, TIMER_BGCOLOR);
-        //sounds
+        // Initialization tasks
+        
+        
         sounds = new Sounds();
 
         // Swing timer creation
         this.timerSetting = 60;
         this.secondsLeft = this.timerSetting;
         this.swingTimer = new Timer(1000, new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent ae) {
                 secondsLeft--;
@@ -61,7 +73,9 @@ public class TimerPanel extends PanelBase {
                     timerFinished();
                 }
             }
+
         });
+
         
 
         // Timer button panel
@@ -163,9 +177,20 @@ public class TimerPanel extends PanelBase {
         
         c.gridy = 3;
         this.add(controlButtons, c);
+
+        SwingUtilities.invokeLater(this::afterLoad);
+    }
+
+    public void afterLoad() {
+        this.popupPane = new PopupPane(this);
+        JFrame parent = (JFrame) javax.swing.FocusManager.getCurrentManager().getActiveWindow();
+        parent.setGlassPane(this.popupPane);
     }
 
     public void startTimer() {
+        if (this.secondsLeft == this.timerSetting) {
+            this.popupPane.showPopup();
+        }
         this.swingTimer.start();
         this.timerToggleButton.setText("Stop");
     }
@@ -197,8 +222,7 @@ public class TimerPanel extends PanelBase {
         this.timerProgressBar.setValue(this.secondsLeft);
     }
 
-    
-    public void timerFinished() {
+    private void timerFinished() {
         sounds.playChimes();
         new GameInfoPanel();
     }
@@ -243,6 +267,82 @@ public class TimerPanel extends PanelBase {
         @Override
         public void mouseExited(MouseEvent e) {
         }
+    }
+
+    class PopupPane extends JComponent {
+
+        private Pair topLeft = new Pair(607, 761);
+        private Pair center = new Pair(727, 881);
+        private int size = 240;
+        private TimerPanel parent;
+
+        private Timer popupTimer;
+        private int timerDelay = 20;
+        
+        private Image popupImage;
+        private Image transitionImage;
+
+        private AffineTransform transform;
+
+        public PopupPane(TimerPanel p) {
+            this.parent = p;
+            
+            // 
+            this.popupTimer = new Timer(timerDelay, new ActionListener() {
+                
+                int elapsedFrames;
+                int numSpinFrames = 60;
+
+                {
+                    elapsedFrames = 0;
+                }
+
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    elapsedFrames++;
+                    transform = new AffineTransform();
+                    if (elapsedFrames < numSpinFrames) {
+                        double scalingFactor = elapsedFrames * (1.0 / numSpinFrames);
+
+                        transform.translate(center.x - (scalingFactor * size / 2.0), center.y - (scalingFactor * size / 2.0));
+                        transform.rotate(elapsedFrames * ((24 * Math.PI) / numSpinFrames), scalingFactor * size / 2.0, scalingFactor * size / 2.0);
+                        transform.scale(scalingFactor, scalingFactor);
+                        //transform.translate(topLeft.x, topLeft.y);
+                    } else if (elapsedFrames < 100) {
+                        transform = AffineTransform.getTranslateInstance(topLeft.x, topLeft.y);
+                    } else {
+                        setVisible(false);
+                        popupTimer.stop();
+                        elapsedFrames = 0;
+                        transform = null;
+                    }
+                }
+
+            });
+
+            try{
+                this.popupImage = ImageIO.read(new File("./resources/images/spott/spott_popup.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        @Override
+        public void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D)g;
+            if (this.transform != null) {
+                g2.setTransform(this.transform);
+                g2.drawImage(this.popupImage, 0, 0, null);
+            }
+        }
+
+        public void showPopup() {
+            this.popupTimer.start();
+            this.setVisible(true);
+        }
+
+        
     }
     
 }
