@@ -182,7 +182,7 @@ public class TimerPanel extends PanelBase {
     }
 
     public void afterLoad() {
-        this.popupPane = new PopupPane(this);
+        this.popupPane = new PopupPane();
         JFrame parent = (JFrame) javax.swing.FocusManager.getCurrentManager().getActiveWindow();
         parent.setGlassPane(this.popupPane);
     }
@@ -274,18 +274,15 @@ public class TimerPanel extends PanelBase {
         private Pair topLeft = new Pair(607, 761);
         private Pair center = new Pair(727, 881);
         private int size = 240;
-        private TimerPanel parent;
 
         private Timer popupTimer;
         private int timerDelay = 20;
         
         private Image popupImage;
-        private Image transitionImage;
 
         private AffineTransform transform;
 
-        public PopupPane(TimerPanel p) {
-            this.parent = p;
+        public PopupPane() {
             
             // 
             this.popupTimer = new Timer(timerDelay, new ActionListener() {
