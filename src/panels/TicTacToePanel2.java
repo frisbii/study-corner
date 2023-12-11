@@ -7,6 +7,7 @@ import java.util.Random;
 
 // TODO: fix sleep
 // TODO: write interface
+// TODO: bug with tie 
 
 
 public class TicTacToePanel2 extends JPanel {
