@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 // TODO: fix sleep
-// TODO: write interface
-// TODO: bug with tie 
+
 
 
 public class TicTacToePanel2 extends JPanel {
@@ -62,8 +61,7 @@ public class TicTacToePanel2 extends JPanel {
         buttonPanel.setBackground(new Color(0,0,0,0));
 
         this.add(buttonPanel);
-
-        
+        JOptionPane.showMessageDialog(null, "Press the X button and then choose squares on the grid to make your move!");
     }
 }
 
@@ -343,7 +341,10 @@ class TicTacToeCell extends JPanel implements MouseListener{
             setValue(valueToChangeTo);
             
           if (TicTacToePanel2.ticTacToeTime.containsX()){
+            TicTacToePanel2.ticTacToeTime.isSolved();
+            if (TicTacToePanel2.ticTacToeTime.won == false && TicTacToePanel2.ticTacToeTime.lost == false && TicTacToePanel2.ticTacToeTime.tie == false){
             TicTacToePanel2.ticTacToeTime.responseTimer.start();
+            }
           }
         }
     }
