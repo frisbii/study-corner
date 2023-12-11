@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-
+// TODO: really need x button?
+// TODO: doesnt register losing, still working algorithmically, not displaying the lose screen, not accessing the loss until the next square is playedaccurately displaying though
 
 public class TicTacToePanel2 extends JPanel {
    
@@ -257,7 +258,7 @@ public void setResponse(){
                 }
             }
         }
-        if (fullBoard == 0){
+        if (fullBoard == 0 && lost == false && won == false){
            tie = true;
            System.out.println("tie");
         }
@@ -368,7 +369,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
                 TicTacToePanel2.gameDone = true;
                 
         }
-        else if(TicTacToePanel2.ticTacToeTime.lost){
+        if(TicTacToePanel2.ticTacToeTime.lost){
                     JOptionPane.showMessageDialog(null, "Sorry You Lost! Try Again Next Time!");
                     for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
                     for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
@@ -377,9 +378,11 @@ class TicTacToeCell extends JPanel implements MouseListener{
                     }
                 }
                 TicTacToePanel2.ticTacToeTime.lost = false;
+                System.out.println("lost the game");
                 TicTacToePanel2.gameDone = true;
 
-        } else if(TicTacToePanel2.ticTacToeTime.tie) {
+        } 
+        if(TicTacToePanel2.ticTacToeTime.tie) {
                     JOptionPane.showMessageDialog(null, "It's a Tie!");
                    for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
                     for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
