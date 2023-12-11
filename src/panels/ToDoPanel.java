@@ -5,10 +5,6 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
-//TO DO: actual check boxes in the tasks
-//might need custom cell renderer for the task list
-//solve dot dot dot by setting fixed width of tasks and changing when list edited?
-
 public class ToDoPanel extends PanelBase implements ItemListener, MouseListener, MouseMotionListener {
 
     //sets values needed for PanelBase
@@ -16,7 +12,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     private static int TODO_HEIGHT = 650;
     private static Color TODO_COLOR = new Color(255, 255, 255, 180);
 
-    //things for the task list itself
+    //variables for the task list itself
     static ToDoPanel toDoModel;
     ToDoData data;
     JList<String> taskList;
