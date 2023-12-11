@@ -7,19 +7,19 @@ import java.util.Random;
 
 // TODO: fix sleep
 // TODO: write interface
-// TODO: write program change based on if any of the final outcomes are true 
 
 
 public class TicTacToePanel2 extends JPanel {
    
-    public static final int WIDTH = 1024;
-    public static final int HEIGHT = 768;
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 600;
     public static int FPS = 60;
 
     // buttons for x vs o
 
     JButton xButton;
     String buttonType;
+    JLabel directions; 
 
     static TicTacToeGamePanel ticTacToeTime;
 
@@ -33,6 +33,7 @@ public class TicTacToePanel2 extends JPanel {
         this.add(ticTacToeTime);
 
         // adding buttons to panel
+        directions = new JLabel("Select the X button and a square on the grid to make your move!");
         xButton = new JButton ("x");
         xButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -49,6 +50,7 @@ public class TicTacToePanel2 extends JPanel {
         clearPanel.setBackground(new Color(0,0,0,0));
         buttonPanel.add(clearPanel);
         buttonPanel.add(xButton);
+        // buttonPanel.add(directions);
 
         
         
@@ -93,7 +95,7 @@ class TicTacToeGamePanel extends JPanel{
         }
     }
 
-    private void setValues(){
+    public void setValues(){
         
         //set default values of every cell to 0 
         for(int i = 0; i < gridSize; i++){
@@ -156,6 +158,7 @@ public void setResponse(){
 
         return xContained;
   }
+  
 
   public void checkWin(){
     // check rows
@@ -245,7 +248,6 @@ public void setResponse(){
            tie = true;
            System.out.println("tie");
         }
-
   }
 }
 
@@ -315,7 +317,9 @@ class TicTacToeCell extends JPanel implements MouseListener{
 
     }
     public void mouseClicked(MouseEvent e){
-        TicTacToePanel2.ticTacToeTime.checkWin();
+      
+        
+    
        if (TicTacToePanel2.ticTacToeTime.checkBoardFull()){
         if(mouseInCell && notClicked){
             setValue(valueToChangeTo);
@@ -334,6 +338,38 @@ class TicTacToeCell extends JPanel implements MouseListener{
     }
 
     TicTacToePanel2.ticTacToeTime.checkWin();
+
+        if(TicTacToePanel2.ticTacToeTime.won){
+                    JOptionPane.showMessageDialog(null, "Congrats! You Won!");
+                      for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
+                    for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
+                         TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].setValue(0);
+                         TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].notClicked = true;
+                    }
+                }
+                TicTacToePanel2.ticTacToeTime.won = false;
+                
+                }
+                else if(TicTacToePanel2.ticTacToeTime.lost){
+                    JOptionPane.showMessageDialog(null, "Sorry You Lost! Try Again Next Time!");
+                    for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
+                    for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
+                         TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].setValue(0);
+                         TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].notClicked = true;
+                    }
+                }
+                TicTacToePanel2.ticTacToeTime.lost = false;
+
+                } else if(TicTacToePanel2.ticTacToeTime.tie) {
+                    JOptionPane.showMessageDialog(null, "It's a Tie!");
+                   for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
+                    for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
+                         TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].setValue(0);
+                          TicTacToePanel2.ticTacToeTime.cellsTicTac[i][j].notClicked = true;
+                    }
+                }
+                TicTacToePanel2.ticTacToeTime.tie = false;
+                }
 
     }
 
