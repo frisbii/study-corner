@@ -15,6 +15,8 @@ public class TicTacToePanel2 extends JPanel {
     public static final int HEIGHT = 600;
     public static int FPS = 60;
 
+    public static boolean gameDone;
+
     // buttons for x vs o
 
     JButton xButton;
@@ -24,6 +26,7 @@ public class TicTacToePanel2 extends JPanel {
     static TicTacToeGamePanel ticTacToeTime;
 
     public TicTacToePanel2(){
+        gameDone = false;
         ticTacToeTime = new TicTacToeGamePanel();
         buttonType = " ";
 
@@ -348,9 +351,10 @@ class TicTacToeCell extends JPanel implements MouseListener{
                     }
                 }
                 TicTacToePanel2.ticTacToeTime.won = false;
+                TicTacToePanel2.gameDone = true;
                 
-                }
-                else if(TicTacToePanel2.ticTacToeTime.lost){
+        }
+        else if(TicTacToePanel2.ticTacToeTime.lost){
                     JOptionPane.showMessageDialog(null, "Sorry You Lost! Try Again Next Time!");
                     for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
                     for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
@@ -359,8 +363,9 @@ class TicTacToeCell extends JPanel implements MouseListener{
                     }
                 }
                 TicTacToePanel2.ticTacToeTime.lost = false;
+                TicTacToePanel2.gameDone = true;
 
-                } else if(TicTacToePanel2.ticTacToeTime.tie) {
+        } else if(TicTacToePanel2.ticTacToeTime.tie) {
                     JOptionPane.showMessageDialog(null, "It's a Tie!");
                    for(int i = 0; i < TicTacToePanel2.ticTacToeTime.gridSize; i++){
                     for(int j = 0; j < TicTacToePanel2.ticTacToeTime.gridSize; j++){
@@ -369,7 +374,8 @@ class TicTacToeCell extends JPanel implements MouseListener{
                     }
                 }
                 TicTacToePanel2.ticTacToeTime.tie = false;
-                }
+                TicTacToePanel2.gameDone = true;
+        }
 
     }
 

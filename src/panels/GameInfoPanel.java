@@ -2,8 +2,9 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.Timer;
 
-public class GameInfoPanel {
+public class GameInfoPanel implements ActionListener {
     // lag when pushing games button on main??
     //do we want the frame to be the same size or different?
     public static final int WIDTH = 800;
@@ -15,6 +16,10 @@ public class GameInfoPanel {
     public Color lightBlue = new Color (121,183,224);
     public Color purple = new Color (197,153,222);
     static JFrame frame;
+
+    SudokuPanel mainSudoku;
+    TicTacToePanel2 mainTic;
+    Timer timer = new Timer(1000, this);
 
     // create frame for pop up
     public GameInfoPanel(){
@@ -87,7 +92,7 @@ public class GameInfoPanel {
         ticTacToeButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // creating instance of ticTacToe panel and setting the panel to show this
-              TicTacToePanel2 mainTic = new TicTacToePanel2();
+              mainTic = new TicTacToePanel2();
               
               frame.add(mainTic);
               System.out.println("tic tac toe button pressed");
@@ -101,7 +106,7 @@ public class GameInfoPanel {
          sudokuButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
               
-                SudokuPanel mainSudoku = new SudokuPanel();
+                mainSudoku = new SudokuPanel();
               
                 frame.add(mainSudoku);
                 System.out.println("sudoku button pressed");
@@ -112,57 +117,28 @@ public class GameInfoPanel {
          }
          );
 
-         // TODO: write win/lose panels 
-    
-        //  // exiting the sudoku panel upon win 
-        //  if (sudokuPanel.sudokuWon){
-
-        //     SudokuWinPanel sudokuWin = new SudokuWinPanel();
-        //     frame.add(sudokuWin);
-        //      frame.remove(mainSudoku);
-        //      frame.revalidate();
-        //      frame.repaint();
-        //       try{
-        //     Thread.sleep(3000);
-        // 	}
-        // catch(InterruptedException c){}
-        //     frame.dispose();
-
-        //  }
-
-        //  // exiting the tictactoe panel upon win 
-        //  if (ticTacToePanel2.ticWon){
-
-        //     ticWinPanel ticWin = new ticWinPanel();
-        //     frame.add(ticWin);
-        //      frame.remove(mainTic);
-        //      frame.revalidate();
-        //      frame.repaint();
-        //       try{
-        //     Thread.sleep(3000);
-        // 	}
-        // catch(InterruptedException c){}
-        //     frame.dispose();
-
-        //  }
-
-        //  // exiting the tictactoe panel upon loss
-        //  if (ticTacToePanel2.ticLost){
-
-        //     ticLostPanel ticLost = new ticLostPanel();
-        //     frame.add(ticLost);
-        //      frame.remove(mainTic);
-        //      frame.revalidate();
-        //      frame.repaint();
-        //       try{
-        //     Thread.sleep(3000);
-        // 	}
-        // catch(InterruptedException c){}
-        //     frame.dispose();
-
-        //  }
-   
+         timer.start();
     }
 
-    
+    //every second, check if the games panel needs to be closed
+    public void actionPerformed(ActionEvent ev){
+            if(ev.getSource() == timer){
+              checkClosePanel();
+            }
+        
+        }
+
+    //listen for sudoku win
+    private void checkClosePanel(){
+        if(!(mainSudoku == null)){
+            if(mainSudoku.isVisible() && mainSudoku.solvedFinal){
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+            }
+        }
+        else if(!(mainTic == null)){
+            if(mainTic.isVisible() && mainTic.gameDone){
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+            }
+        }
+    }
 }
