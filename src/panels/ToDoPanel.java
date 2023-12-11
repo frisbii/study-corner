@@ -1,6 +1,7 @@
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -28,8 +29,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     boolean isMouseDragging;
     int dragInitial;
     boolean isPutAway;
-    boolean notInList;
-
 
     //constructor contains everything graphics related in the class essentially so that it can be added to MainPanel
     public ToDoPanel() {
@@ -38,13 +37,30 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         data = new ToDoData(); //creates the ToDoData where all the data for the tsks and writing to the file, etc, is done
         flowPanel = new JPanel();
         isMouseDragging = false;
+        //mouse listener so that highlighted cell selection goes away when clicking outside of the tasklist itself
+        addMouseListener(new MouseListener(){
+            public void mouseExited(MouseEvent e){
+            }
+            public void mouseEntered(MouseEvent e){
+            }
+            public void mouseClicked(MouseEvent e){
+                taskList.clearSelection();
+            }
+            public void mouseReleased(MouseEvent e){ 
+            }
+            public void mousePressed(MouseEvent e){
+            }
+        });
 
         //JList containing JCheckBox
         listModel = new DefaultListModel<>();
+        MyListCellRenderer renderer = new MyListCellRenderer();
         for(String s : data.tasks){
             listModel.addElement(s);
         }
         taskList = new JList<String>(listModel);
+        taskList.setCellRenderer(renderer);
+        //taskList.setBorder(new LineBorder(Color.BLACK));
         taskList.addMouseListener(this);
         taskList.addMouseMotionListener(this);
         taskList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -96,7 +112,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
                 catch(Exception e) {System.out.println("Exception " + e);}
             }
         });
-        Border emptyBorder = BorderFactory.createEmptyBorder();
         addTaskButton.setMargin(new Insets(2, 5, 2, 5));
 
         //JTextField where the user inputs new tasks
@@ -246,11 +261,9 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
             catch(Exception ex){System.out.println("Error dragging: " + ex);}
             taskList.setSelectedIndex(dragTarget);
         }
-        isMouseDragging = false;
     }
 
     public void mouseClicked(MouseEvent e){
-        if(notInList) taskList.clearSelection();
     }
 
     //determine if the mouse is being dragged, so if it is, stuff in mouseReleased happens
@@ -344,5 +357,27 @@ class JTextFieldWithPrompt extends JTextField{
 
     public void setPlaceholder(String s){
         placeholder = s;
+    }
+}
+
+class MyListCellRenderer implements ListCellRenderer{
+
+    private final JLabel cell = new JLabel(" ", JLabel.LEFT);
+
+    @Override
+    public Component getListCellRendererComponent(JList jList, Object value, int index, boolean isSelected, boolean cellHasFocus){
+        cell.setOpaque(true);
+        cell.setForeground(jList.getForeground());
+        cell.setText(value.toString());
+        if(isSelected) {
+            cell.setBorder(new LineBorder(Color.BLUE, 1));
+            cell.setBackground(new Color(200, 200, 255));
+        }
+        else {
+            cell.setBorder(new LineBorder(Color.BLACK, 1));
+            cell.setBackground(jList.getBackground());
+        }
+        
+        return cell;
     }
 }
