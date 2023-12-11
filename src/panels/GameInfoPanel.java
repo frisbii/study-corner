@@ -95,7 +95,6 @@ public class GameInfoPanel implements ActionListener {
               mainTic = new TicTacToePanel2();
               
               frame.add(mainTic);
-              System.out.println("tic tac toe button pressed");
               frame.remove(infoPanel);
               frame.revalidate();
               frame.repaint();
@@ -109,7 +108,6 @@ public class GameInfoPanel implements ActionListener {
                 mainSudoku = new SudokuPanel();
               
                 frame.add(mainSudoku);
-                System.out.println("sudoku button pressed");
                 frame.remove(infoPanel);
                 frame.revalidate();
                 frame.repaint();

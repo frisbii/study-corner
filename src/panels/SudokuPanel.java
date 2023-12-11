@@ -24,7 +24,7 @@ public class SudokuPanel extends JPanel{
     String buttonType; //to determine which button has been pressed most recently
 
     JButton checkSolution;
-    boolean solvedFinal;
+    boolean solvedFinal; //used to send a message to GameInfoPanel to determine if the game is over and the JFrame should be closed
 
     GamePanel sudokuTime; //houses the grid of squares where 
 
@@ -89,12 +89,6 @@ public class SudokuPanel extends JPanel{
                     JOptionPane.showMessageDialog(null, "Congrats! You solved the puzzle!");
                     solvedFinal = true;
                 }
-                    // try{
-                    //         Thread.sleep(3000);
-                    //     	}
-                    //     catch(InterruptedException c){}
-                    //         GameInfoPanel.frame.dispose();
-                
                 else{
                     JOptionPane.showMessageDialog(null, "Not quite correct! Keep trying!");
                 }
