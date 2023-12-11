@@ -83,8 +83,7 @@ public class MainPanel extends JPanel {
                 repaint();
             }
         });
-        // TODO for Serin: make it so that walking images switch feet at uniform intervals
-        // also have to account for pauses --> caan't just make them switch every two seconds because that might overlap with a pause
+
         this.spottTimer.start();
         this.spottTimer.setCoalesce(true);
 
