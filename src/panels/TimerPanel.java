@@ -83,6 +83,8 @@ public class TimerPanel extends PanelBase {
         this.timerButtons = new JPanel();
         this.timerButtons.setLayout(new BoxLayout(this.timerButtons, BoxLayout.Y_AXIS));
         this.timerButtons.setOpaque(false);
+        this.timerButtons.add(new TimerButton());
+        this.timerButtons.add(Box.createRigidArea(new Dimension(0, 15)));
         this.timerButtons.add(new TimerButton(5));
         this.timerButtons.add(Box.createRigidArea(new Dimension(0, 15)));
         this.timerButtons.add(new TimerButton(15));
@@ -228,26 +230,37 @@ public class TimerPanel extends PanelBase {
 
     class TimerButton extends JLabel implements MouseListener {
 
-        private int TIMERBUTTON_SIZE = 60;
+        private int TIMERBUTTON_SIZE = 50;
 
         private Image icon;
-        private int duration;
+        private int durationMins;
+        private int durationSecs;
 
         public TimerButton(int d) {
+            this(String.format("./resources/images/buttons/%d.png", d));
+            this.durationMins = d;
+        }
+
+        public TimerButton() {
+            this("./resources/images/buttons/test.png");
+            this.durationSecs = 10;
+        }
+
+        private TimerButton(String path) {
             this.setOpaque(false);
             this.addMouseListener(this);
 
-            this.duration = d;
             try {
-                this.icon = ImageIO.read(new File(String.format("./resources/images/buttons/%d.png", duration)));
+                this.icon = ImageIO.read(new File(path));
                 this.icon = this.icon.getScaledInstance(TIMERBUTTON_SIZE, TIMERBUTTON_SIZE, Image.SCALE_SMOOTH);
             } catch (IOException e) { e.printStackTrace(); }
             this.setIcon(new ImageIcon(this.icon));
+
         }
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            setTimer(duration, 0);
+            setTimer(durationMins, durationSecs);
         }
 
         @Override

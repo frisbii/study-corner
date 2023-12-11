@@ -101,7 +101,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
             }
         });
         Border emptyBorder = BorderFactory.createEmptyBorder();
-        addTaskButton.setBorder(emptyBorder);
+        addTaskButton.setMargin(new Insets(2, 5, 2, 5));
 
         //JTextField where the user inputs new tasks
         newTask = new JTextFieldWithPrompt(15, "Enter task here...");
@@ -148,8 +148,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
                 catch(Exception e) {System.out.println("Exception " + e);}
             }
         });
-        deleteTaskButton.setBorder(emptyBorder);
-
+        deleteTaskButton.setMargin(new Insets(2, 5, 2, 5));
 
         JLabel title = new JLabel("To Do: ");
         title.setHorizontalAlignment(JLabel.CENTER);
