@@ -4,8 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.Timer;
 
-public class GameInfoPanel implements ActionListener {
-    //do we want the frame to be the same size or different?
+public class GameInfoPanel implements ActionListener { 
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
 
