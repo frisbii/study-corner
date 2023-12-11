@@ -23,6 +23,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     //buttons and panel layout
     JButton addTaskButton;
     JButton deleteTaskButton;
+    JButton clearTasksButton;
     JTextFieldWithPrompt newTask;
     JPanel flowPanel;
 
@@ -161,6 +162,23 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         });
         deleteTaskButton.setMargin(new Insets(2, 5, 2, 5));
 
+        //button to clear all tasks, with a warning pane to confirm if the user actually wants to do that
+        clearTasksButton = new JButton("Clear all tasks");
+        clearTasksButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent arg0){
+                int result = JOptionPane.showConfirmDialog(null, "You are about to clear all tasks.", "Warning", JOptionPane.OK_CANCEL_OPTION);
+                if(result == JOptionPane.OK_OPTION){
+                    try{
+                        listModel.clear();
+                        data.tasks.clear();
+                        data.getFileFromList();
+                    }
+                    catch(Exception e){System.out.println("Error clearing task list: " + e);}
+                }
+            }
+        });
+        clearTasksButton.setMargin(new Insets(2, 5, 2, 5));
+
         JLabel title = new JLabel("To Do: ");
         title.setHorizontalAlignment(JLabel.CENTER);
         JPanel titlePanel = new JPanel();
@@ -176,6 +194,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         c.anchor = GridBagConstraints.PAGE_START;
         c.fill = GridBagConstraints.BOTH;
 
+        //set title
         c.gridx = 0;
         c.gridy = 0;
         c.weightx = 1;
@@ -185,8 +204,10 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         this.flowPanel.add(titlePanel);
         c.gridwidth = GridBagConstraints.REMAINDER;
 
+        //task list panel
         JPanel panel1 = new JPanel();
         panel1.add(taskList);
+        //panel with add task button
         JPanel panel2 = new JPanel();
         panel2.setLayout(new FlowLayout());
         panel2.add(newTask);
@@ -212,9 +233,20 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         this.flowPanel.add(panel3);
         c.gridwidth = GridBagConstraints.REMAINDER;
 
+        //gridbag for clear all button
+        JPanel panel4 = new JPanel();
+        panel4.add(clearTasksButton);
+        c.gridy = 3;
+        c.weightx = 1;
+        c.weighty = 1;
+        c.gridheight = 1;
+        toDoLayout.setConstraints(panel4, c);
+        this.flowPanel.add(panel4);
+        c.gridwidth = GridBagConstraints.REMAINDER;
+
         //gridbag for to do list
         c.anchor = GridBagConstraints.CENTER;
-        c.gridy = 3;
+        c.gridy = 4;
         c.weightx = 1;
         c.weighty = 4;
         c.gridheight = 3;
@@ -227,6 +259,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         panel1.setBackground(new Color(0,0,0,0));
         panel2.setBackground(new Color(0,0,0,0));
         panel3.setBackground(new Color(0,0,0,0));
+        panel4.setBackground(new Color(0,0,0,0));
         flowPanel.setBackground(new Color(0,0,0,0));
 
         this.add(flowPanel);
@@ -360,6 +393,7 @@ class JTextFieldWithPrompt extends JTextField{
     }
 }
 
+//custom cell renderer class for the JList
 class MyListCellRenderer implements ListCellRenderer{
 
     private final JLabel cell = new JLabel(" ", JLabel.LEFT);
@@ -370,8 +404,8 @@ class MyListCellRenderer implements ListCellRenderer{
         cell.setForeground(jList.getForeground());
         cell.setText(value.toString());
         if(isSelected) {
-            cell.setBorder(new LineBorder(Color.BLUE, 1));
-            cell.setBackground(new Color(200, 200, 255));
+            cell.setBorder(new LineBorder(new Color(40, 120, 220), 1));
+            cell.setBackground(new Color(220, 240, 255));
         }
         else {
             cell.setBorder(new LineBorder(Color.BLACK, 1));

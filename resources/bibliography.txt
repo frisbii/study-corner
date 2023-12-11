@@ -42,3 +42,5 @@ https://stackoverflow.com/questions/9602683/how-to-find-out-a-java-component-bei
 https://stackoverflow.com/questions/22072796/how-to-repaint-a-jpanel-every-x-seconds
 https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/JList.html
 https://stackoverflow.com/questions/1234912/how-to-programmatically-close-a-jframe
+https://stackoverflow.com/questions/9596204/how-to-deselect-jlist-item-on-some-event-in-java#:~:text=1%20Answer&text=Try%20myJList.,be%20deselected%20via%20this%20method.
+https://docs.oracle.com/javase/8/docs/api/javax/swing/ListCellRenderer.html
