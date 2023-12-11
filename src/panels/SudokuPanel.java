@@ -26,7 +26,7 @@ public class SudokuPanel extends JPanel{
     JButton checkSolution;
     boolean solvedFinal; //used to send a message to GameInfoPanel to determine if the game is over and the JFrame should be closed
 
-    GamePanel sudokuTime; //houses the grid of squares where 
+    SudokuGamePanel sudokuTime; //houses the grid of squares where 
 
     /**
      * constructs the main window the sudoku game is seen in,
@@ -35,10 +35,10 @@ public class SudokuPanel extends JPanel{
     public SudokuPanel(){
         //creates grid within the main jpanel
         solvedFinal = false;
-        sudokuTime = new GamePanel();
+        sudokuTime = new SudokuGamePanel();
         buttonType = "x";
 
-        //sets background and layout, adds GamePanel with grid board
+        //sets background and layout, adds SudokuGamePanel with grid board
         Color lightPurple = new Color (156, 145, 188);
         this.setBackground(lightPurple);
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
@@ -131,7 +131,7 @@ public class SudokuPanel extends JPanel{
 
 //houses the grid where the actual puzzle lives
 //includes methods to determine whether the puzzle is solved and to assign initial values to the puzzle
-class GamePanel extends JPanel{
+class SudokuGamePanel extends JPanel{
 
     public static final int width = 525;
     public static final int height = 525;
@@ -141,7 +141,7 @@ class GamePanel extends JPanel{
     int gridSize;
 
     //constructor for the puzzle board itself
-    public GamePanel(){
+    public SudokuGamePanel(){
         gridSize = 4;
         isSolved = false;
 
@@ -336,7 +336,7 @@ class Cell extends JPanel implements MouseListener{
 
 }
 
-//static class that has a list of fully solved sudoku boards that are used to assign initial values in GamePanel class
+//static class that has a list of fully solved sudoku boards that are used to assign initial values in SudokuGamePanel class
 class WinningBoards{
 
     static List<int[][]> boards = new ArrayList<int[][]>();
