@@ -26,6 +26,7 @@ public class TicTacToePanel2 extends JPanel {
 
     static TicTacToeGamePanel ticTacToeTime;
 
+
     public TicTacToePanel2(){
         gameDone = false;
         ticTacToeTime = new TicTacToeGamePanel();
@@ -61,6 +62,8 @@ public class TicTacToePanel2 extends JPanel {
         buttonPanel.setBackground(new Color(0,0,0,0));
 
         this.add(buttonPanel);
+
+        
     }
 }
 
@@ -77,6 +80,7 @@ class TicTacToeGamePanel extends JPanel{
     boolean lost;
     boolean tie;
 
+    public Timer responseTimer;
 
     public TicTacToeGamePanel(){
         gridSize = 3;
@@ -97,6 +101,16 @@ class TicTacToeGamePanel extends JPanel{
                 this.add(cellsTicTac[i][j]);
             }
         }
+
+        this.responseTimer = new Timer(2000, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setResponse();
+                responseTimer.stop();
+            }
+            
+        });
     }
 
     public void setValues(){
@@ -329,7 +343,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
             setValue(valueToChangeTo);
             
           if (TicTacToePanel2.ticTacToeTime.containsX()){
-            TicTacToePanel2.ticTacToeTime.setResponse();
+            TicTacToePanel2.ticTacToeTime.responseTimer.start();
           }
         }
     }

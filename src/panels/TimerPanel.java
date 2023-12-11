@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
+
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
@@ -71,7 +72,6 @@ public class TimerPanel extends PanelBase {
                 if (secondsLeft <= 0) {
                     stopTimer();
                     timerFinished();
-                    // TODO: THE START BUTTON NEEDS TO DISABLE WHEN THE TIMER FINISHES!
                 }
             }
 
@@ -120,9 +120,7 @@ public class TimerPanel extends PanelBase {
         this.timerResetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                secondsLeft = timerSetting;
-                stopTimer();
-                updateTimer();
+                resetTimer();
             }
         });
         
@@ -213,6 +211,7 @@ public class TimerPanel extends PanelBase {
 
     public void resetTimer() {
         this.secondsLeft = this.timerSetting;
+        this.timerToggleButton.setEnabled(true);
         this.updateTimer();
         this.stopTimer();
     }
@@ -225,6 +224,7 @@ public class TimerPanel extends PanelBase {
 
     private void timerFinished() {
         sounds.playChimes();
+        this.timerToggleButton.setEnabled(false);
         new GameInfoPanel();
     }
 
