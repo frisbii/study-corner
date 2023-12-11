@@ -5,7 +5,6 @@ import java.awt.event.*;
 import javax.swing.Timer;
 
 public class GameInfoPanel implements ActionListener {
-    // lag when pushing games button on main??
     //do we want the frame to be the same size or different?
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
@@ -126,7 +125,7 @@ public class GameInfoPanel implements ActionListener {
         
         }
 
-    //listen for sudoku win
+    //listen for sudoku win or tic tic toe win depending on the panel
     private void checkClosePanel(){
         if(!(mainSudoku == null)){
             if(mainSudoku.isVisible() && mainSudoku.solvedFinal){
