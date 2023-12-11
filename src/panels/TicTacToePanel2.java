@@ -100,7 +100,7 @@ class TicTacToeGamePanel extends JPanel{
             }
         }
 
-        this.responseTimer = new Timer(2000, new ActionListener() {
+        this.responseTimer = new Timer(1000, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
