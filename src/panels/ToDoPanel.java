@@ -55,7 +55,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
 
         //JList containing JCheckBox
         listModel = new DefaultListModel<>();
-        MyListCellRenderer renderer = new MyListCellRenderer();
+        MyListCellRenderer<String> renderer = new MyListCellRenderer<String>();
         for(String s : data.tasks){
             listModel.addElement(s);
         }
@@ -66,6 +66,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         taskList.addMouseMotionListener(this);
         taskList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         taskList.setFixedCellHeight(25); //add some spacing between tasks
+        taskList.setFixedCellWidth(450);
         //key listener so that the "del" key can be used to remove tasks from the list when one is selected
         taskList.addKeyListener(new KeyListener(){
             public void keyPressed(KeyEvent e){
@@ -94,7 +95,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
                 try {
                     //add if there is enough room in the list AND the user has replaced the placeholder
                     if(!newTask.getText().equals(newTask.placeholder) && data.tasks.size() < 20){
-                        if(newTask.getText().length() <= 40){
+                        if(newTask.getText().length() <= 42){
                             //only add task if it isn't on the list already
                             if(!data.tasks.contains(newTask.getText())){
                                 data.addTask(newTask.getText());
@@ -106,7 +107,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
                             }  
                         }
                         else{
-                            JOptionPane.showMessageDialog(null, "Oops! Please make your task 40 characters or less.");
+                            JOptionPane.showMessageDialog(null, "Oops! Please make your task 42 characters or less.");
                         }
                     }
                 }
@@ -123,7 +124,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
                 try {
                     //same criteria for adding a task as the "add task" button above
                     if(!newTask.getText().equals(newTask.placeholder) && data.tasks.size() < 20){
-                        if(newTask.getText().length() <= 40){
+                        if(newTask.getText().length() <= 42){
                             if(!data.tasks.contains(newTask.getText())){
                                 data.addTask(newTask.getText());
                                 listModel.addElement(newTask.getText());
@@ -138,7 +139,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
                             }  
                         }
                         else{
-                            JOptionPane.showMessageDialog(null, "Oops! Please make your task 40 characters or less.");
+                            JOptionPane.showMessageDialog(null, "Oops! Please make your task 42 characters or less.");
                             }
                     }
                 }
@@ -394,24 +395,33 @@ class JTextFieldWithPrompt extends JTextField{
 }
 
 //custom cell renderer class for the JList
-class MyListCellRenderer implements ListCellRenderer{
+class MyListCellRenderer<String> implements ListCellRenderer<String>{
 
     private final JLabel cell = new JLabel(" ", JLabel.LEFT);
+
+    public MyListCellRenderer(){
+        super();
+    }
 
     @Override
     public Component getListCellRendererComponent(JList jList, Object value, int index, boolean isSelected, boolean cellHasFocus){
         cell.setOpaque(true);
         cell.setForeground(jList.getForeground());
         cell.setText(value.toString());
+        JPanel p = new JPanel();
+        p.setBackground(new Color(0,0,0,0));
+        p.add(cell);
         if(isSelected) {
-            cell.setBorder(new LineBorder(new Color(40, 120, 220), 1));
+            p.setBorder(new LineBorder(new Color(40, 120, 220), 1));
+            p.setBackground(new Color(220, 240, 255));
             cell.setBackground(new Color(220, 240, 255));
         }
         else {
-            cell.setBorder(new LineBorder(Color.BLACK, 1));
+            p.setBorder(new LineBorder(Color.BLACK, 1));
+            p.setBackground(jList.getBackground());
             cell.setBackground(jList.getBackground());
         }
         
-        return cell;
+        return p;
     }
 }
