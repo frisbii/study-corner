@@ -1,8 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.Timer;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * GameInfoPanel class creates the menu screen when the main timer is completed or button action is taken
@@ -14,6 +16,7 @@ public class GameInfoPanel implements ActionListener {
     // Fields to create components and background elements of the game panel
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
+    public static Image gamePanelBG;
 
     public JButton ticTacToeButton;
     public JButton sudokuButton;
@@ -33,6 +36,12 @@ public class GameInfoPanel implements ActionListener {
         GridBagLayout layout = new GridBagLayout();
         frame = new JFrame("game info");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        try {
+          
+               gamePanelBG = ImageIO.read(new File("./resources/images/backgrounds/game_panel.PNG"));
+
+        } catch (IOException e) { e.printStackTrace(); }
+     
 
         JPanel infoPanel = new JPanel(layout);
     
@@ -91,7 +100,7 @@ public class GameInfoPanel implements ActionListener {
         infoPanel.add(ticTacToeButton);
         infoPanel.add(sudokuButton);
         infoPanel.add(title);
-        infoPanel.setBackground(lightBlue);
+        // infoPanel.setBackground();
         
         
         /**
@@ -161,4 +170,10 @@ public class GameInfoPanel implements ActionListener {
             }
         }
     }
+
+    
+    public void paintComponent(Graphics g){
+        g.drawImage(gamePanelBG, 0, 0, 800, 600, null);
+    }
+
 }
