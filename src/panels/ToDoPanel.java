@@ -406,7 +406,7 @@ class JTextFieldWithPrompt extends JTextField{
 }
 
 //custom cell renderer class for the JList
-class MyListCellRenderer<String> implements ListCellRenderer<String>{
+class MyListCellRenderer<E> implements ListCellRenderer<E>{
 
     //JLabel that represents every cell
     private final JLabel cell = new JLabel(" ", JLabel.LEFT);
