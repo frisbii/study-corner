@@ -4,7 +4,14 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.Timer;
 
+/**
+ * GameInfoPanel class creates the menu screen when the main timer is completed or button action is taken
+ * Switches to the individual game screens based on user input
+ * Creates additional pop-up JFrame that closes upon user action after winning 
+ */
 public class GameInfoPanel implements ActionListener { 
+    
+    // Fields to create components and background elements of the game panel
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
 
@@ -19,11 +26,12 @@ public class GameInfoPanel implements ActionListener {
     TicTacToePanel2 mainTic;
     Timer timer = new Timer(1000, this);
 
-    // create frame for pop up
+    // creating frame for pop up and laying out components
     public GameInfoPanel(){
         
-         GridBagLayout layout = new GridBagLayout();
-          frame = new JFrame("game info");
+        // Create window and layout
+        GridBagLayout layout = new GridBagLayout();
+        frame = new JFrame("game info");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel infoPanel = new JPanel(layout);
@@ -34,7 +42,7 @@ public class GameInfoPanel implements ActionListener {
         frame.setVisible(true);
         frame.setResizable(false);
          
-            // setting up buttons   
+        // setting up buttons   
         ticTacToeButton = new JButton("Tic Tac Toe");
         ticTacToeButton.setFont(Fonts.generateCutiveFont(24, 5));
         sudokuButton = new JButton("Sudoku");
@@ -48,9 +56,8 @@ public class GameInfoPanel implements ActionListener {
 
         title = new JLabel("Select a Game to Play!");
         title.setFont(Fonts.generateCutiveFont(32, 5));
-
-
        
+        // Orienting the components on the panel to display on the frame
         layout.setConstraints(ticTacToeButton, new GridBagConstraints(
             100, 100,
             1, 1,
@@ -80,13 +87,17 @@ public class GameInfoPanel implements ActionListener {
         ));
          
        
+        
         infoPanel.add(ticTacToeButton);
         infoPanel.add(sudokuButton);
         infoPanel.add(title);
         infoPanel.setBackground(lightBlue);
         
         
-      // adding action listeners to set content pane
+        /**
+         * If a button click action is taken on the tiTacToeButton, switch the content pane to the game
+         * @param e the event occurred 
+         */ 
         ticTacToeButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // creating instance of ticTacToe panel and setting the panel to show this
@@ -100,11 +111,14 @@ public class GameInfoPanel implements ActionListener {
          }
          );
 
+        /**
+         * If a button click action is taken on the sudoku Button, switch the content pane to the game
+         * @param e the event occurred 
+         */ 
          sudokuButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-              
                 mainSudoku = new SudokuPanel();
-              
+    
                 frame.add(mainSudoku);
                 frame.remove(infoPanel);
                 frame.revalidate();
@@ -116,7 +130,10 @@ public class GameInfoPanel implements ActionListener {
          timer.start();
     }
 
-    //every second, check if the games panel needs to be closed
+    /**
+     * whenever an action is performed, check if the event is timer based, and if so, check if the panels need to be closed
+     * @param ev the event that has occurred
+     */
     public void actionPerformed(ActionEvent ev){
             if(ev.getSource() == timer){
               checkClosePanel();
@@ -124,7 +141,10 @@ public class GameInfoPanel implements ActionListener {
         
         }
 
-    //listen for sudoku win or tic tic toe win depending on the panel
+    /**
+     * Conditional statements to check if game has been completed.
+     * If this is true, exiting the window based on window actions taken
+     */
     private void checkClosePanel(){
         if(!(mainSudoku == null)){
             if(mainSudoku.isVisible() && mainSudoku.solvedFinal){
