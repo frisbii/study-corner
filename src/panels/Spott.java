@@ -16,13 +16,26 @@ public class Spott {
 
     MainPanel mainPanel;
 
+    // current Spott image
     Image spott;
+
+    // forward facing Spott
     Image defaultSpott;
-    Image leftSpott1;
-    Image leftSpott2;
-    Image rightSpott1;
-    Image rightSpott2;
-    Image cheersSpott;
+
+    // 4 frame animation: walking right
+    Image right1;
+    Image right2;
+    Image right3;
+    Image right4;
+
+    // 4 frame animation: walking left
+    Image left1;
+    Image left2;
+    Image left3;
+    Image left4;
+
+    // celebration Spott
+    Image cheers;
 
     int timeOnFrame = 0; // amount of time that has been spent on Image spott
     int timePaused = 0; // amount of time that Spott has stopped for
@@ -36,19 +49,32 @@ public class Spott {
         velocity = new Pair(400, 0);
         size = 270;
 
-        // different from draw() in Pong.java because we're importing graphics
-        // importing default image once because spott is created once
         try{
             defaultSpott = ImageIO.read(new File("./resources/images/spott/default.png"));
-            leftSpott1 = ImageIO.read(new File("./resources/images/spott/left1.png"));
-            leftSpott2 = ImageIO.read(new File("./resources/images/spott/left2.png"));
-            rightSpott1 = ImageIO.read(new File("./resources/images/spott/right1.png"));
-            rightSpott2 = ImageIO.read(new File("./resources/images/spott/right2.png"));
-            //cheersSpott = ImageIO.read(new File("./resources/images/cheers_spott.png"));
+
+            right1 = ImageIO.read(new File("./resources/images/spott/right1.png"));
+            right2 = ImageIO.read(new File("./resources/images/spott/right2.png"));
+            right3 = ImageIO.read(new File("./resources/images/spott/right3.png"));
+            right4 = ImageIO.read(new File("./resources/images/spott/right4.png"));
+
+            left1 = ImageIO.read(new File("./resources/images/spott/left1.png"));
+            left2 = ImageIO.read(new File("./resources/images/spott/left2.png"));
+            left3 = ImageIO.read(new File("./resources/images/spott/left3.png"));
+            left4 = ImageIO.read(new File("./resources/images/spott/left4.png"));
+
+            //cheersSpott = ImageIO.read(new File("./resources/images/cheers.png"));
         }
         catch(Exception e){System.out.println("Error with Spott: " + e);}
 
         this.spott = defaultSpott;
+    }
+
+    public int getHeight() {
+        return size;
+    }
+
+    public void setLocation(int x, int y) {
+        position = new Pair(x, y);
     }
 
     // sole function is to draw Spott
@@ -57,57 +83,7 @@ public class Spott {
         g.drawImage(spott, (int) position.x, this.mainPanel.getHeight() - size, size, size, null);
     }
 
-    // setting the right image for Spott at the time the method is called --> gives draw() the correct image to draw
-    private void switchFrame()
-    {
-        if(velocity.x == 0) {
-            spott = defaultSpott;
-        }
-        else
-        {
-            // when Spott starts moving from a stopped position
-            if(spott.equals(defaultSpott))
-            {
-                if(velocity.x > 0)
-                {
-                    spott = rightSpott1;
-                    state = 1;
-                }
-                else // if velocity.x < 0
-                {
-                    spott = leftSpott1;
-                    state = -1;
-                }
-            }
-            if(timeOnFrame == 25) // "every 25 frames"
-            {
-                if(spott == leftSpott1)
-                {
-                    spott = leftSpott2;
-                }
-                else if(spott == leftSpott2)
-                {
-                    spott = leftSpott1;
-                }
-                else if(spott == rightSpott1)
-                {
-                    spott = rightSpott2;
-                }
-                else if(spott == rightSpott2)
-                {
-                    spott = rightSpott1;
-                }
-                timeOnFrame = 0; // resetting timeOnFrame once frame is switched
-            }
-            else
-            {
-                timeOnFrame++; // incrementing timeOnFrame --> eventually reaches 50 and switces frame
-            }
-        }
-    }
-   
     // default roaming around the screen
-    // note to Serin: update() is repeatedly called by actionPerformed() in MainPanel.java
     public void update(double time)
     {
         i++;
@@ -115,10 +91,105 @@ public class Spott {
         position.x += velocity.x * t;
         position.y += velocity.y * t;
         switchFrame();
-        turnAround(); // if Spott has reached a wall, turn around
-        pause(); // Spott pauses at random intervals
+        turnAround(); 
+        pause();
+    }
+    // note to Serin: update() is repeatedly called by actionPerformed() in MainPanel.java
+
+    // setting the right image for Spott at the time the method is called --> gives draw() the correct image to draw
+    private void switchFrame()
+    {
+        // if Spott is stopped, set image to default image
+        if(velocity.x == 0)
+        {
+            spott = defaultSpott;
+        }
+        else // if Spott is moving...
+        {
+            // when Spott starts moving from a stopped position
+            if(spott.equals(defaultSpott))
+            {
+                if(velocity.x > 0)
+                {
+                    spott = right1;
+                    state = 1;
+                }
+                else // if velocity.x < 0
+                {
+                    spott = left1;
+                    state = -1;
+                }
+            }
+            if(timeOnFrame == 25) // "every x number of frames"
+            {
+                // 4 frame walking animation: left
+                if(spott == left1)
+                {
+                    spott = left2;
+                }
+                else if(spott == left2)
+                {
+                    spott = left3;
+                }
+                else if(spott == left3)
+                {
+                    spott = left4;
+                }
+                else if(spott == left4)
+                {
+                    spott = left1;
+                }
+
+                // 4 frame walking animation: right
+                if(spott == right1)
+                {
+                    spott = right2;
+                }
+                else if(spott == right2)
+                {
+                    spott = right3;
+                }
+                else if(spott == right3)
+                {
+                    spott = right4;
+                }
+                else if(spott == right4)
+                {
+                    spott = right1;
+                }
+
+                // reset timeOnFrame once frame is switched
+                timeOnFrame = 0;
+            }
+            else
+            {
+                timeOnFrame++; // incrementing timeOnFrame --> eventually reaches end and switces frame
+            }
+        }
     }
 
+    // if Spott has reached a wall, turn around
+    private void turnAround()
+    {
+        if((position.x < 0) || (position.x + size > mainPanel.getWidth()))
+        {
+            // velocity.flipX();
+            if(velocity.x > 0)
+            {
+                state = -1;
+                velocity.x = -400;
+                spott = left1; // resetting the frame so that switchFrame() works properly
+            }
+            else if(velocity.x < 0)
+            {
+                state = 1;
+                velocity.x = 400;
+                spott = right1;
+            }
+        }
+    }
+
+    // Spott pauses at random intervals
     private void pause()
     {
         if(i % 300 == 0)
@@ -136,72 +207,13 @@ public class Spott {
                 velocity.x = -400;
             }
         }
-
-        /*
-        int checker = (int)(Math.random() * 10); // randomized number to decide whether Spott stops
-
-        // pause when i / 300 is proportional to randomized checker
-        if(i % 10 == checker)
-        {
-            velocity.x = 0;
-            timePaused = 0;
-        }
-
-        // resume when timePaused is equal to randomized checker
-        else if(timePaused == checker)
-        {
-            if(state == 1)
-            {
-                velocity.x = 50;
-            }
-            else if(state == -1)
-            {
-                velocity.x = -50;
-            }
-        }
-        
-        // increment timePaused while paused
-        while(velocity.x == 0)
-        {
-            timePaused++;
-        }
-        */
     }
 
     // task accomplished --> excited animation
     public void cheers(Graphics g)
     {
-        spott = cheersSpott;
+        spott = cheers;
         g.drawImage(spott, (int) position.x, this.mainPanel.getHeight() - size, size, size, null);
-    }
-
-    // turning around upon reaching the wall
-    private void turnAround()
-    {
-        if((position.x < 0) || (position.x + size > mainPanel.getWidth()))
-        {
-            // velocity.flipX();
-            if(velocity.x > 0)
-            {
-                state = -1;
-                velocity.x = -400;
-                spott = leftSpott1;
-            }
-            else if(velocity.x < 0)
-            {
-                state = 1;
-                velocity.x = 400;
-                spott = rightSpott1;
-            }
-        }
-    }
-
-    public int getHeight() {
-        return size;
-    }
-
-    public void setLocation(int x, int y) {
-        position = new Pair(x, y);
     }
 }
 
