@@ -187,7 +187,7 @@ public class Spott {
         }
     }
 
-    // Spott pauses at random intervals
+    // Spott pauses at "random" intervals (not actually random, appears random)
     private void pause()
     {
         if(i % 300 == 0)

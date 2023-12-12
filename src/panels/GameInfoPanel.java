@@ -42,7 +42,12 @@ public class GameInfoPanel implements ActionListener {
         } catch (IOException e) { e.printStackTrace(); }
      
 
-        JPanel infoPanel = new JPanel(layout);
+        JPanel infoPanel = new JPanel(layout) {
+            @Override
+            public void paintComponent(Graphics g) {
+                g.drawImage(gamePanelBG, 0, 0, this.getWidth(), this.getHeight(), null);
+            }
+        };
     
         //Size and display the window.
         frame.add(infoPanel);
@@ -168,11 +173,6 @@ public class GameInfoPanel implements ActionListener {
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             }
         }
-    }
-
-    
-    public void paintComponent(Graphics g){
-        g.drawImage(gamePanelBG, 0, 0, 800, 600, null);
     }
 
 }

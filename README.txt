@@ -1,7 +1,7 @@
 Study Corner; A cozy companion for your studies.
 
 
-VERY IMPORTANT!!!! To run the program through the command prompt:
+To run the program through the command prompt:
 
 Set your command directory to study-corner.
 
