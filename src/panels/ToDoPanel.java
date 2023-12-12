@@ -1,6 +1,5 @@
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import java.awt.*;
@@ -17,7 +16,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     static ToDoPanel toDoModel;
     ToDoData data;
     JList<String> taskList;
-    DefaultListModel<String> listModel;
+    DefaultListModel<String> listModel; //listmodel to more easily edit the data in jlist
     Graphics g;
 
     //buttons and panel layout
@@ -33,7 +32,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
 
     //constructor contains everything graphics related in the class essentially so that it can be added to MainPanel
     public ToDoPanel() {
-        super(TODO_WIDTH, TODO_HEIGHT, TODO_COLOR);
+        super(TODO_WIDTH, TODO_HEIGHT, TODO_COLOR); //references panel base superclass
 
         data = new ToDoData(); //creates the ToDoData where all the data for the tsks and writing to the file, etc, is done
         flowPanel = new JPanel();
@@ -60,8 +59,8 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
             listModel.addElement(s);
         }
         taskList = new JList<String>(listModel);
-        taskList.setCellRenderer(renderer);
-        //taskList.setBorder(new LineBorder(Color.BLACK));
+        taskList.setCellRenderer(renderer); //apply custom renderer to jlist
+        //adding event listener
         taskList.addMouseListener(this);
         taskList.addMouseMotionListener(this);
         taskList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
