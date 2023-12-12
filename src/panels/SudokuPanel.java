@@ -164,10 +164,9 @@ class SudokuGamePanel extends JPanel{
     //sets initial game state values for the puzzle
     private void setValues(){
         //generates initial state by referencing solved boards and randomly removing elements from them
-        WinningBoards winningBoards = new WinningBoards();
         Random r = new Random();
         //randomly detemrines which board to use
-        int[][] boardSelected = winningBoards.boards.get(r.nextInt(winningBoards.boards.size()));
+        int[][] boardSelected = WinningBoards.boards.get(r.nextInt(WinningBoards.boards.size()));
 
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
