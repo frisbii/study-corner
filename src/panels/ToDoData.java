@@ -1,19 +1,19 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.io.PrintWriter;
 
 class ToDoData{
 
-    public ArrayList<String> tasks;
+    public LinkedList<String> tasks;
     private String pathname = "./resources/data/TaskList.txt";
 
     /**
      * instantiates tasks, creates textFile and then puts strings in the list if the file is not empty
      */
     public ToDoData() {
-        tasks = new ArrayList<String>();
+        tasks = new LinkedList<String>();
         File textFile = new File(pathname);
         if(textFile.length() != 0) getListFromFile();
     }
@@ -21,7 +21,7 @@ class ToDoData{
     /**
      * fills the ArrayList tasks with strings by reading the task list file line by line
      */
-    public void getListFromFile() {
+    private void getListFromFile() {
         tasks.clear();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(pathname));
