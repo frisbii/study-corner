@@ -337,7 +337,6 @@ class TicTacToeCell extends JPanel implements MouseListener{
                     }
                 }
             TicTacToePanel2.ticTacToeTime.lost = false;
-            System.out.println("lost the game");
             TicTacToePanel2.gameDone = true;
 
         } 

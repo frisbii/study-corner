@@ -136,7 +136,7 @@ class Sounds implements LineListener{
             clip.start();
             chimeStream.close();
         }
-        catch(Exception e){System.out.println("Error with sound: " + e);}
+        catch(Exception e) {System.out.println("Error with sound: " + e);}
     }
     
     @Override
