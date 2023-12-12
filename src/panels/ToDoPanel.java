@@ -60,17 +60,19 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         }
         taskList = new JList<String>(listModel);
         taskList.setCellRenderer(renderer); //apply custom renderer to jlist
-        //adding event listener
+        //adding event listeners
         taskList.addMouseListener(this);
         taskList.addMouseMotionListener(this);
         taskList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        taskList.setFixedCellHeight(25); //add some spacing between tasks
+        //set spacing of tasks
+        taskList.setFixedCellHeight(25);
         taskList.setFixedCellWidth(450);
+
         //key listener so that the "del" key can be used to remove tasks from the list when one is selected
         taskList.addKeyListener(new KeyListener(){
             public void keyPressed(KeyEvent e){
                 int key = e.getKeyCode();
-                if(key == 127){
+                if(key == 127){ //if key pressed was delete, remove task
                     try {
                     if(!taskList.isSelectionEmpty()){
                         String removeMe = (String)taskList.getSelectedValue();
@@ -89,6 +91,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
 
         //button to add task to the to do list
         addTaskButton = new JButton("Add");
+        //action listener for when button pressed, add task
         addTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 try {
@@ -113,6 +116,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
                 catch(Exception e) {System.out.println("Exception " + e);}
             }
         });
+        //button margin spacing for appearance reasons
         addTaskButton.setMargin(new Insets(2, 5, 2, 5));
 
         //JTextField where the user inputs new tasks
@@ -179,6 +183,8 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         });
         clearTasksButton.setMargin(new Insets(2, 5, 2, 5));
 
+
+        //JLabel with panel title and a panel for it to go in in the GridBagLayout
         JLabel title = new JLabel("To Do: ");
         title.setHorizontalAlignment(JLabel.CENTER);
         JPanel titlePanel = new JPanel();
@@ -187,7 +193,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
 
         //GridBagLayout shenanigans to make things look pretty start here
         GridBagLayout toDoLayout = new GridBagLayout();
-        GridBagConstraints c = new GridBagConstraints();
+        GridBagConstraints c = new GridBagConstraints(); //GridBagConstraints used to fine tune positioning of individual items
         flowPanel.setLayout(toDoLayout);
 
         //anchor is at the top of the page
@@ -195,6 +201,11 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         c.fill = GridBagConstraints.BOTH;
 
         //set title
+        /*
+         * for future reference, in GridBagLayout, gridx is the x value gridy is the y value
+         * weightx is how much of the horizontal plane it takes up compared to other components
+         * weighty is how much vertical plane it takes up compared to other components
+         */
         c.gridx = 0;
         c.gridy = 0;
         c.weightx = 1;
@@ -207,6 +218,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         //task list panel
         JPanel panel1 = new JPanel();
         panel1.add(taskList);
+
         //panel with add task button
         JPanel panel2 = new JPanel();
         panel2.setLayout(new FlowLayout());
@@ -396,12 +408,16 @@ class JTextFieldWithPrompt extends JTextField{
 //custom cell renderer class for the JList
 class MyListCellRenderer<String> implements ListCellRenderer<String>{
 
+    //JLabel that represents every cell
     private final JLabel cell = new JLabel(" ", JLabel.LEFT);
 
+    //references regular ListCellRenderer constructor
     public MyListCellRenderer(){
         super();
     }
 
+    //returns a component specific with String value, with white background and grey border if unselected and blue background/border if selected
+    //cell added to a JPanel to add some padding around the cell and make it look nice
     @Override
     public Component getListCellRendererComponent(JList jList, Object value, int index, boolean isSelected, boolean cellHasFocus){
         cell.setOpaque(true);
@@ -410,6 +426,7 @@ class MyListCellRenderer<String> implements ListCellRenderer<String>{
         JPanel p = new JPanel();
         p.setBackground(new Color(0,0,0,0));
         p.add(cell);
+        //change color if cell selected
         if(isSelected) {
             p.setBorder(new LineBorder(new Color(40, 120, 220), 1));
             p.setBackground(new Color(220, 240, 255));
