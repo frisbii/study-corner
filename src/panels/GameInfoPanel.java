@@ -16,13 +16,13 @@ public class GameInfoPanel implements ActionListener {
     // Fields to create components and background elements of the game panel
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
-    public static Image gamePanelBG;
+    private static Image gamePanelBG;
 
-    public JButton ticTacToeButton;
-    public JButton sudokuButton;
-    public JLabel title;
-    public Color purple = new Color (217,195,230);
-    static JFrame frame;
+    private JButton ticTacToeButton;
+    private JButton sudokuButton;
+    private JLabel title;
+    private Color purple = new Color (217,195,230);
+    private static JFrame frame;
 
     SudokuPanel mainSudoku;
     TicTacToePanel2 mainTic;
