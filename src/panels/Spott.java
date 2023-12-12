@@ -185,11 +185,13 @@ public class Spott {
             {
                 state = -1;
                 velocity.x = -400;
+                spott = leftSpott1;
             }
             else if(velocity.x < 0)
             {
                 state = 1;
                 velocity.x = 400;
+                spott = rightSpott1;
             }
         }
     }
