@@ -168,6 +168,8 @@ class AppTheme {
             AppTheme.purpleThemeBG = ImageIO.read(new File("./resources/images/backgrounds/purple_bg.png"));
             AppTheme.blueThemeBG = ImageIO.read(new File("./resources/images/backgrounds/blue_bg.png"));
             AppTheme.greenThemeBG = ImageIO.read(new File("./resources/images/backgrounds/green_bg.png"));
+            
+
         } catch (IOException e) { e.printStackTrace(); }
 
         AppTheme.themedComponents = new ArrayList<JComponent>();
