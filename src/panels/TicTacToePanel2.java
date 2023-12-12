@@ -2,15 +2,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Overall class to to create the panel to display the tic tac toe game
+ */
 public class TicTacToePanel2 extends JPanel {
    
+    // Fields for the main panel
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
     public static int FPS = 60;
 
     public static boolean gameDone;
 
-    // buttons for x vs o
+    /**
+     * Constructor to establish object, create pop up message, and make main panel
+     */
     static TicTacToeGamePanel ticTacToeTime;
 
     public TicTacToePanel2(){
@@ -26,11 +32,19 @@ public class TicTacToePanel2 extends JPanel {
     }
 }
 
+/**
+ * Class to create game panel for the board
+ * Establishes 2d array of cells
+ * creates methods to use on the grid of cells
+ */
 class TicTacToeGamePanel extends JPanel{
 
     public static final int width = 525;
     public static final int height = 525;
 
+    /** 
+     * Creating fields to store cells and check current game conditions
+     */
     TicTacToeCell[][] cellsTicTac;
     int gridSize;
     int squareCol; 
@@ -41,7 +55,10 @@ class TicTacToeGamePanel extends JPanel{
     boolean notThinking = true;
 
     public Timer responseTimer;
-
+ 
+    /**
+     * Constructor to set intial game conditions and construct initial grid
+     */
     public TicTacToeGamePanel(){
         gridSize = 3;
         won = false;
@@ -75,6 +92,10 @@ class TicTacToeGamePanel extends JPanel{
         // });
     }
 
+    /**
+     * Method establishes all cells of the grid as blank to start and reset the game
+     */
+
     public void setValues(){
         
         //set default values of every cell to 0 
@@ -86,6 +107,11 @@ class TicTacToeGamePanel extends JPanel{
         }
 }
 
+/**
+ * Implements AI for user to play against computer
+ * selects random square values to place response
+ * if the square is already filled, reselect value
+ */
 public void setResponse(){
 
   squareCol = (int) (Math.random() * 3);
@@ -99,6 +125,10 @@ public void setResponse(){
     cellsTicTac[squareRow][squareCol].setValue(2);
 }
 
+/**
+ * Checks each value of the grid to determine how many moves are left
+ * @return full if the board has more than two spaces left to place values
+ */
   public boolean checkBoardFull(){
     boolean full = true;
     int spaceLeft = 0;
@@ -117,6 +147,11 @@ public void setResponse(){
         return full;
   }
 
+/**
+ * Checks if any move has been placed on the board
+ * If so, response is able to be placed
+ * @return if the board contains any square with an X value
+ */
   public boolean containsX(){
     boolean xContained = false;
     for(int i = 0; i < gridSize; i++){
