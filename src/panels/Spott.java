@@ -18,8 +18,6 @@ public class Spott {
 
     Image spott;
     Image defaultSpott;
-    // Image leftSpott;
-    // Image rightSpott;
     Image leftSpott1;
     Image leftSpott2;
     Image rightSpott1;
@@ -35,18 +33,15 @@ public class Spott {
         this.mainPanel = mp;
         
         position = new Pair(0, Main.H - size);
-        velocity = new Pair(50, 0);
+        velocity = new Pair(400, 0);
         size = 270;
 
         // different from draw() in Pong.java because we're importing graphics
         // importing default image once because spott is created once
         try{
-            // defaultSpott = ImageIO.read(new File("./resources/images/spott/spott.png"));
             defaultSpott = ImageIO.read(new File("./resources/images/spott/default.png"));
-            // leftSpott = ImageIO.read(new File("./resources/images/spott/left_spott.png"));
             leftSpott1 = ImageIO.read(new File("./resources/images/spott/left1.png"));
             leftSpott2 = ImageIO.read(new File("./resources/images/spott/left2.png"));
-            // rightSpott = ImageIO.read(new File("./resources/images/spott/right_spott.png"));
             rightSpott1 = ImageIO.read(new File("./resources/images/spott/right1.png"));
             rightSpott2 = ImageIO.read(new File("./resources/images/spott/right2.png"));
             //cheersSpott = ImageIO.read(new File("./resources/images/cheers_spott.png"));
@@ -59,14 +54,6 @@ public class Spott {
     // sole function is to draw Spott
     public void draw(Graphics g)
     {
-        // code for placeholder rectangle
-        /*
-        g.setColor(Color.RED);
-        g.fillRect((int) position.x, (int)  position.y, (int) size, (int) size);
-        */
-
-        // changing to other images when spott changes direction
-        
         g.drawImage(spott, (int) position.x, this.mainPanel.getHeight() - size, size, size, null);
     }
 
@@ -84,43 +71,37 @@ public class Spott {
                 if(velocity.x > 0)
                 {
                     spott = rightSpott1;
+                    state = 1;
                 }
-                else
+                else // if velocity.x < 0
+                {
+                    spott = leftSpott1;
+                    state = -1;
+                }
+            }
+            if(timeOnFrame == 25) // "every 25 frames"
+            {
+                if(spott == leftSpott1)
+                {
+                    spott = leftSpott2;
+                }
+                else if(spott == leftSpott2)
                 {
                     spott = leftSpott1;
                 }
-            }
-            if(timeOnFrame == 10) // "every 10 frames"
-            {
-                // if Spott does not have to turn around
-                /*
-                if(!((position.x < 0) || (position.x + size > mainPanel.getWidth())))
+                else if(spott == rightSpott1)
                 {
-                    */
-                    if(spott == leftSpott1)
-                    {
-                        spott = leftSpott2;
-                    }
-                    else if(spott == leftSpott2)
-                    {
-                        spott = leftSpott1;
-                    }
-                    else if(spott == rightSpott1)
-                    {
-                        spott = rightSpott2;
-                    }
-                    else if(spott == rightSpott2)
-                    {
-                        spott = rightSpott1;
-                    }
-                    /*
+                    spott = rightSpott2;
                 }
-                */
+                else if(spott == rightSpott2)
+                {
+                    spott = rightSpott1;
+                }
                 timeOnFrame = 0; // resetting timeOnFrame once frame is switched
             }
             else
             {
-                timeOnFrame++; // incrementing timeOnFrame --> eventually reaches 10 and switces frame
+                timeOnFrame++; // incrementing timeOnFrame --> eventually reaches 50 and switces frame
             }
         }
     }
@@ -148,11 +129,11 @@ public class Spott {
         {
             if(state == 1)
             {
-                velocity.x = 50;
+                velocity.x = 400;
             }
-            else if(state == -1)
+            if(state == -1)
             {
-                velocity.x = -50;
+                velocity.x = -400;
             }
         }
 
@@ -187,7 +168,7 @@ public class Spott {
         */
     }
 
-     // task accomplished --> excited animation
+    // task accomplished --> excited animation
     public void cheers(Graphics g)
     {
         spott = cheersSpott;
@@ -199,7 +180,17 @@ public class Spott {
     {
         if((position.x < 0) || (position.x + size > mainPanel.getWidth()))
         {
-            velocity.flipX();
+            // velocity.flipX();
+            if(velocity.x > 0)
+            {
+                state = -1;
+                velocity.x = -400;
+            }
+            else if(velocity.x < 0)
+            {
+                state = 1;
+                velocity.x = 400;
+            }
         }
     }
 
@@ -211,10 +202,6 @@ public class Spott {
         position = new Pair(x, y);
     }
 }
-
-
-
-
 
 class Pair
 {
