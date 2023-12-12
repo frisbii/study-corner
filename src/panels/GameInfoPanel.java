@@ -100,11 +100,11 @@ public class GameInfoPanel implements ActionListener {
          }
          );
 
+         //if sudoku button pressed, replace the selection pane with a sudoku panel
          sudokuButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-              
                 mainSudoku = new SudokuPanel();
-              
+    
                 frame.add(mainSudoku);
                 frame.remove(infoPanel);
                 frame.revalidate();
@@ -116,7 +116,10 @@ public class GameInfoPanel implements ActionListener {
          timer.start();
     }
 
-    //every second, check if the games panel needs to be closed
+    /**
+     * whenever an action is performed, check if the event is timer based, and if so, check if the panels need to be closed
+     * @param ev the event that has occurred
+     */
     public void actionPerformed(ActionEvent ev){
             if(ev.getSource() == timer){
               checkClosePanel();
