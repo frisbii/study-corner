@@ -21,8 +21,7 @@ public class GameInfoPanel implements ActionListener {
     public JButton ticTacToeButton;
     public JButton sudokuButton;
     public JLabel title;
-    public Color lightBlue = new Color (121,183,224);
-    public Color purple = new Color (197,153,222);
+    public Color purple = new Color (217,195,230);
     static JFrame frame;
 
     SudokuPanel mainSudoku;
@@ -43,7 +42,12 @@ public class GameInfoPanel implements ActionListener {
         } catch (IOException e) { e.printStackTrace(); }
      
 
-        JPanel infoPanel = new JPanel(layout);
+        JPanel infoPanel = new JPanel(layout) {
+            @Override
+            public void paintComponent(Graphics g) {
+                g.drawImage(gamePanelBG, 0, 0, this.getWidth(), this.getHeight(), null);
+            }
+        };
     
         //Size and display the window.
         frame.add(infoPanel);
@@ -163,17 +167,12 @@ public class GameInfoPanel implements ActionListener {
             }
         }
         else if(!(mainTic == null)){
-            if(mainTic.isVisible() && mainTic.gameDone){
-                mainTic.gameDone = false;
+            if(mainTic.isVisible() && TicTacToePanel2.gameDone){
+                TicTacToePanel2.gameDone = false;
                 frame.remove(mainTic);
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             }
         }
-    }
-
-    
-    public void paintComponent(Graphics g){
-        g.drawImage(gamePanelBG, 0, 0, 800, 600, null);
     }
 
 }
