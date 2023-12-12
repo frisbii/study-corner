@@ -94,17 +94,17 @@ class TicTacToeGamePanel extends JPanel{
             }
         }
 
-        this.responseTimer = new Timer(1000, new ActionListener() {
+        // this.responseTimer = new Timer(1000, new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                notThinking = true;
-                setResponse();
-                responseTimer.stop();
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         notThinking = true;
+        //         setResponse();
+        //         responseTimer.stop();
                 
-            }
+        //     }
             
-        });
+        // });
     }
 
     public void setValues(){
@@ -367,14 +367,18 @@ class TicTacToeCell extends JPanel implements MouseListener{
         TicTacToePanel2.ticTacToeTime.isSolved();
     
        if (TicTacToePanel2.ticTacToeTime.checkBoardFull()){
-        if(mouseInCell && notClicked && TicTacToePanel2.ticTacToeTime.notThinking){
+        if(mouseInCell && notClicked 
+        // && TicTacToePanel2.ticTacToeTime.notThinking
+        ){
             setValue(1);
             TicTacToePanel2.ticTacToeTime.isSolved();
+           
           if (TicTacToePanel2.ticTacToeTime.containsX()){
             if (TicTacToePanel2.ticTacToeTime.won == false && TicTacToePanel2.ticTacToeTime.lost == false && TicTacToePanel2.ticTacToeTime.tie == false){
-            TicTacToePanel2.ticTacToeTime.notThinking = false;
-            
-                TicTacToePanel2.ticTacToeTime.responseTimer.start();
+            // TicTacToePanel2.ticTacToeTime.notThinking = false;
+                 TicTacToePanel2.ticTacToeTime.setResponse();
+                // TicTacToePanel2.ticTacToeTime.responseTimer.start();
+                // TicTacToePanel2.ticTacToeTime.isSolved();
               
             
             }
@@ -383,14 +387,16 @@ class TicTacToeCell extends JPanel implements MouseListener{
     }
 
     if (TicTacToePanel2.ticTacToeTime.checkBoardFull() == false){
-        if(mouseInCell && notClicked && TicTacToePanel2.ticTacToeTime.notThinking){
+        if(mouseInCell && notClicked 
+        // && TicTacToePanel2.ticTacToeTime.notThinking
+        ){
             setValue(1);
           
         
         }
     }
     
-            endGame();  
+          endGame();  
 
  
     }
