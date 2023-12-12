@@ -46,7 +46,7 @@ public class Spott {
         this.mainPanel = mp;
         
         position = new Pair(0, Main.H - size);
-        velocity = new Pair(400, 0);
+        velocity = new Pair(70, 0);
         size = 270;
 
         try{
@@ -120,7 +120,7 @@ public class Spott {
                     state = -1;
                 }
             }
-            if(timeOnFrame == 25) // "every x number of frames"
+            if(timeOnFrame == 30) // "every x number of frames"
             {
                 // 4 frame walking animation: left
                 if(spott == left1)
@@ -177,13 +177,13 @@ public class Spott {
             if(velocity.x > 0)
             {
                 state = -1;
-                velocity.x = -400;
+                velocity.x = -70;
                 spott = left1; // resetting the frame so that switchFrame() works properly
             }
             else if(velocity.x < 0)
             {
                 state = 1;
-                velocity.x = 400;
+                velocity.x = 70;
                 spott = right1;
             }
         }
@@ -200,11 +200,11 @@ public class Spott {
         {
             if(state == 1)
             {
-                velocity.x = 400;
+                velocity.x = 70;
             }
             if(state == -1)
             {
-                velocity.x = -400;
+                velocity.x = -70;
             }
         }
     }
