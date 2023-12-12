@@ -3,7 +3,7 @@ Study Corner; A cozy companion for your studies.
 
 To run the program through the command prompt:
 
-Set your command directory to study-corner.
+Set your console directory to study-corner.
 
 To compile, use the following command:
     javac -cp lib/flatlaf-3.2.5.jar -d classes src/*.java src/panels/*.java 
