@@ -21,8 +21,7 @@ public class GameInfoPanel implements ActionListener {
     public JButton ticTacToeButton;
     public JButton sudokuButton;
     public JLabel title;
-    public Color lightBlue = new Color (121,183,224);
-    public Color purple = new Color (197,153,222);
+    public Color purple = new Color (217,195,230);
     static JFrame frame;
 
     SudokuPanel mainSudoku;
