@@ -16,8 +16,9 @@ To run, use the following command:
 Using the program:
 
     Welcome to Study Corner!
-    The program currently houses many features, including a clock, timer, to do list, and multiplie mini games and backgrounds.
-    All background and character art is our own
+    The program currently houses many features, including a clock, timer, to-do list, and multiplie mini games and backgrounds.
+    The to-do list is preloaded with some helpful pointers to the program's features.
+    All background and character art is our own.
 
     To use the timer:
         Press one of the number buttons on the side of the timer panel to automatically set the timer to 5, 15, 25, or 30 minutes
@@ -27,12 +28,12 @@ Using the program:
         Press the reset button to reset the timer in accordance with the amount of time you most recently set it to
         When the timer ends, a sound will play and the games panel will open
 
-    To use the to do list:
-        The to do list remembers any tasks you added or remove last time you were in the program
+    To use the to-do list:
+        The to-do list remembers any tasks you added or remove last time you were in the program
         Add a task by typing it into the text box and pressing "add task" OR pressing enter after you type a task in to the box
         Remove a task by selecting it from the list and pressing "remove task"
         Reorder tasks by clicking a task and dragging
-        Slide the to do list off the page and page on by pressing "to do list"
+        Slide the to-do list off the page and page on by pressing "to-do list"
 
     To change the background:
         Press the settings gear button (grey background) and select one of the backgrounds available
