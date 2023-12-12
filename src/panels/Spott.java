@@ -173,19 +173,17 @@ public class Spott {
     {
         if((position.x < 0) || (position.x + size > mainPanel.getWidth()))
         {
-            // velocity.flipX();
             if(velocity.x > 0)
             {
                 state = -1;
-                velocity.x = -70;
                 spott = left1; // resetting the frame so that switchFrame() works properly
             }
             else if(velocity.x < 0)
             {
                 state = 1;
-                velocity.x = 70;
                 spott = right1;
             }
+            velocity.flipX();
         }
     }
 
