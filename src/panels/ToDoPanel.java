@@ -417,7 +417,7 @@ class MyListCellRenderer<String> implements ListCellRenderer<String>{
             cell.setBackground(new Color(220, 240, 255));
         }
         else {
-            p.setBorder(new LineBorder(Color.BLACK, 1));
+            p.setBorder(new LineBorder(Color.LIGHT_GRAY, 1));
             p.setBackground(jList.getBackground());
             cell.setBackground(jList.getBackground());
         }
