@@ -22,8 +22,8 @@ public class GameInfoPanel implements ActionListener {
     // create frame for pop up
     public GameInfoPanel(){
         
-         GridBagLayout layout = new GridBagLayout();
-          frame = new JFrame("game info");
+        GridBagLayout layout = new GridBagLayout();
+        frame = new JFrame("game info");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel infoPanel = new JPanel(layout);
@@ -34,7 +34,7 @@ public class GameInfoPanel implements ActionListener {
         frame.setVisible(true);
         frame.setResizable(false);
          
-            // setting up buttons   
+        // setting up buttons   
         ticTacToeButton = new JButton("Tic Tac Toe");
         ticTacToeButton.setFont(Fonts.generateCutiveFont(24, 5));
         sudokuButton = new JButton("Sudoku");
@@ -49,8 +49,6 @@ public class GameInfoPanel implements ActionListener {
         title = new JLabel("Select a Game to Play!");
         title.setFont(Fonts.generateCutiveFont(32, 5));
 
-
-       
         layout.setConstraints(ticTacToeButton, new GridBagConstraints(
             100, 100,
             1, 1,
