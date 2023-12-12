@@ -167,8 +167,8 @@ public class GameInfoPanel implements ActionListener {
             }
         }
         else if(!(mainTic == null)){
-            if(mainTic.isVisible() && mainTic.gameDone){
-                mainTic.gameDone = false;
+            if(mainTic.isVisible() && TicTacToePanel2.gameDone){
+                TicTacToePanel2.gameDone = false;
                 frame.remove(mainTic);
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             }
