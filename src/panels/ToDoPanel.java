@@ -74,6 +74,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
                     if(!taskList.isSelectionEmpty()){
                         String removeMe = (String)taskList.getSelectedValue();
                         data.removeTask(removeMe);
+                        MainPanel.spott.cheers();
                         listModel.removeElement(removeMe);
                     }
                 }
@@ -155,6 +156,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
                     if(!taskList.isSelectionEmpty()){
                         String removeMe = (String)taskList.getSelectedValue();
                         data.removeTask(removeMe);
+                        MainPanel.spott.cheers();
                         listModel.removeElement(removeMe);
                     }
                 }

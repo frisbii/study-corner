@@ -5,6 +5,11 @@ import javax.swing.*;
 
 
 /**
+ * 
+ */
+
+
+/**
  *  The TextIcon will paint a String of text as an Icon. The Icon
  *  can be used by any Swing component that supports icons.
  *

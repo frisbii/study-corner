@@ -46,7 +46,7 @@ public class Spott {
         
         position = new Pair(0, Main.H - size);
         velocity = 70;
-        size = 270;
+        size = 220;
 
         try{
             defaultSpott = ImageIO.read(new File("./resources/images/spott/default.png"));
@@ -61,7 +61,7 @@ public class Spott {
             left3 = ImageIO.read(new File("./resources/images/spott/left3.png"));
             left4 = ImageIO.read(new File("./resources/images/spott/left4.png"));
 
-            //cheersSpott = ImageIO.read(new File("./resources/images/cheers.png"));
+            cheers = ImageIO.read(new File("./resources/images/spott/cheers.png"));
         }
         catch(Exception e){System.out.println("Error with Spott: " + e);}
 
@@ -207,10 +207,9 @@ public class Spott {
     }
 
     // task accomplished --> excited animation
-    public void cheers(Graphics g)
+    public void cheers()
     {
         spott = cheers;
-        g.drawImage(spott, (int) position.x, this.mainPanel.getHeight() - size, size, size, null);
     }
 }
 
