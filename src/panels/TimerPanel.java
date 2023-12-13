@@ -352,7 +352,6 @@ public class TimerPanel extends PanelBase {
         private int size = 240;
 
         private Timer popupTimer;
-        private int timerDelay = 20;
         
         private Image popupImage;
 
@@ -364,7 +363,7 @@ public class TimerPanel extends PanelBase {
         public PopupPane() {
             
             // Timer used for animation
-            this.popupTimer = new Timer(timerDelay, new ActionListener() {
+            this.popupTimer = new Timer(20, new ActionListener() {
                 
                 int elapsedFrames;
                 int numSpinFrames = 55;
