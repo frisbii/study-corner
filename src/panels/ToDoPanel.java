@@ -198,12 +198,12 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         c.anchor = GridBagConstraints.PAGE_START;
         c.fill = GridBagConstraints.BOTH;
 
-        //set title
         /*
          * for future reference, in GridBagLayout, gridx is the x value gridy is the y value
          * weightx is how much of the horizontal plane it takes up compared to other components
          * weighty is how much vertical plane it takes up compared to other components
          */
+        //set title
         c.gridx = 0;
         c.gridy = 0;
         c.weightx = 1;

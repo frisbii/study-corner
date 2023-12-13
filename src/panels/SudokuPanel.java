@@ -9,24 +9,18 @@ import java.util.Random;
 
 public class SudokuPanel extends JPanel{
 
-    public static final int WIDTH = 1024;
-    public static final int HEIGHT = 768;
-    public static int FPS = 60;
-
     //buttons to add numbers to the sudoku board
-    JButton buttonCheck;
-    JButton buttonClear;
-    JButton button1;
-    JButton button2;
-    JButton button3;
-    JButton button4;
-    JButton buttonX;
-    String buttonType; //to determine which button has been pressed most recently
+    private JButton buttonCheck;
+    private JButton buttonClear;
+    private JButton button1;
+    private JButton button2;
+    private JButton button3;
+    private JButton button4;
+    private JButton buttonX;
 
-    JButton checkSolution;
-    boolean solvedFinal; //used to send a message to GameInfoPanel to determine if the game is over and the JFrame should be closed
+    public boolean solvedFinal; //used to send a message to GameInfoPanel to determine if the game is over and the JFrame should be closed
 
-    SudokuGamePanel sudokuTime; //houses the grid of squares where 
+    private static SudokuGamePanel sudokuTime; //houses the grid of squares where the actual game is
 
     /**
      * constructs the main window the sudoku game is seen in,
@@ -36,7 +30,6 @@ public class SudokuPanel extends JPanel{
         //creates grid within the main jpanel
         solvedFinal = false;
         sudokuTime = new SudokuGamePanel();
-        buttonType = "x";
 
         //sets background and layout, adds SudokuGamePanel with grid board
         Color lightPurple = new Color (156, 145, 188);
@@ -48,35 +41,30 @@ public class SudokuPanel extends JPanel{
         button1 = new JButton("1");
         button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                buttonType = "1";
                 SudokuCell.valueToChangeTo = 1;
             }
         });
         button2 = new JButton("2");
         button2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                buttonType = "2";
                 SudokuCell.valueToChangeTo = 2;
             }
         });
         button3 = new JButton("3");
         button3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                buttonType = "3";
                 SudokuCell.valueToChangeTo = 3;
             }
         });
         button4 = new JButton("4");
         button4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                buttonType = "4";
                 SudokuCell.valueToChangeTo = 4;
             }
         });
         buttonX = new JButton("X");
         buttonX.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                buttonType = "x";
                 SudokuCell.valueToChangeTo = 0;
             }
         });
@@ -133,12 +121,12 @@ public class SudokuPanel extends JPanel{
 //includes methods to determine whether the puzzle is solved and to assign initial values to the puzzle
 class SudokuGamePanel extends JPanel{
 
-    public static final int width = 525;
-    public static final int height = 525;
+    private static final int width = 525;
+    private static final int height = 525;
 
-    SudokuCell[][] cells;
-    boolean isSolved;
-    int gridSize;
+    protected SudokuCell[][] cells;
+    protected boolean isSolved;
+    protected int gridSize;
 
     //constructor for the puzzle board itself
     public SudokuGamePanel(){
@@ -252,19 +240,19 @@ class SudokuGamePanel extends JPanel{
 //cell class represents a single cell with a single number in it
 class SudokuCell extends JPanel implements MouseListener{
 
-    public static final int width = 125;
-    public static final int height = 125;
+    private static final int width = 125;
+    private static final int height = 125;
 
-    boolean isDefault; //used to determine if the cell was one of the ones filled upon generation of the game
-    boolean mouseInCell; //determines if the mouse is in this particular cell
+    public boolean isDefault; //used to determine if the cell was one of the ones filled upon generation of the game
+    private boolean mouseInCell; //determines if the mouse is in this particular cell
 
-    int row;
-    int column;
-    int cluster;
-    int value;
-    JLabel valueText;
+    public int row;
+    public int column;
+    public int cluster;
+    public int value;
+    private JLabel valueText;
 
-    static int valueToChangeTo; //the number value of the most recent button pressed on the main panel
+    public static int valueToChangeTo; //the number value of the most recent button pressed on the main panel
 
     /**
      * constructs a cell, assigns its row and column, and sets the default JLabel
@@ -338,7 +326,7 @@ class SudokuCell extends JPanel implements MouseListener{
 //static class that has a list of fully solved sudoku boards that are used to assign initial values in SudokuGamePanel class
 class WinningBoards{
 
-    static List<int[][]> boards = new ArrayList<int[][]>();
+    public static ArrayList<int[][]> boards = new ArrayList<int[][]>();
 
     static{
         boards.add(new int[][]{{1,2,3,4}, {3,4,2,1}, {2,1,4,3}, {4,3,1,2}});

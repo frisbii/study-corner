@@ -87,7 +87,8 @@ public class Spott {
     {
         i++;
         double t = time / 1000;
-        position.x += velocity * t;
+        position.add(new Pair(velocity * t, 0));
+        // position.x += velocity * t;
         switchFrame();
         turnAround(); 
         pause();
@@ -222,11 +223,6 @@ class Pair
     {
         this.x = x;
         this.y = y;
-    }
-
-    public Pair times(double time)
-    {
-        return new Pair(this.x * time, this.y * time);
     }
 
     public Pair add(Pair pair)
