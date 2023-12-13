@@ -131,8 +131,8 @@ public class MainPanel extends JPanel {
         });
         this.add(this.toDoSlideButton);
     
-        spott = new Spott(this);
-        spott.setLocation(0, this.getHeight() - spott.size);
+        MainPanel.spott = new Spott(this);
+        MainPanel.spott.setLocation(0, this.getHeight() - MainPanel.spott.size);
 
     }
 
@@ -174,7 +174,9 @@ public class MainPanel extends JPanel {
         paintRoundRectBehindPanel(g, this.todoPanel, 0, 0);
 
         // Draw spott
-        spott.draw(g);
+        MainPanel.spott.draw(g);
+
+
     }
 
 }

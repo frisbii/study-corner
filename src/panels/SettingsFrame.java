@@ -17,12 +17,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+/**
+ * Creates the frame which holds the background picker screen.
+ */
 public class SettingsFrame extends JDialog implements ActionListener {
     
+    /**
+     * Constructs the frame; adds and lays out components
+     */
     public SettingsFrame() {
+        // Super call satisfies JDialog subclass requirements
         super((JFrame) null, true);
-        this.setLocation(150, 150);
         
+        // Create the three background buttons and add the background images to them
         JToggleButton purple = new JToggleButton();
         purple.setIcon(new ImageIcon(AppTheme.purpleThemeBG.getScaledInstance(384, 216, Image.SCALE_SMOOTH)));
         purple.setMargin(new Insets(10, 10, 10, 10));
@@ -36,6 +43,7 @@ public class SettingsFrame extends JDialog implements ActionListener {
         green.setMargin(new Insets(10, 10, 10, 10));
         green.setActionCommand("green");
 
+        // Add the buttons to a button group to ensure only one is selectable at a time
         ButtonGroup buttons = new ButtonGroup();
         buttons.add(purple);
         buttons.add(blue);
@@ -45,11 +53,13 @@ public class SettingsFrame extends JDialog implements ActionListener {
         blue.addActionListener(this);
         green.addActionListener(this);
     
+        // Wrap the button group in a JPanel
         JPanel center = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
         center.add(purple);
         center.add(blue);
         center.add(green);
 
+        // Create the heading text label
         JLabel header = new JLabel("Choose a background!");
         header.setAlignmentX(Component.CENTER_ALIGNMENT);
         
@@ -69,6 +79,7 @@ public class SettingsFrame extends JDialog implements ActionListener {
         // Set the dialog to be visible
         this.setTitle("Settings");
         this.setSize(1300, 330);
+        this.setLocation(150, 150);
         this.setResizable(false);
         this.setVisible(true);
 
@@ -80,10 +91,4 @@ public class SettingsFrame extends JDialog implements ActionListener {
     }
     
     
-}
-
-class BGChoice extends JPanel {
-    public BGChoice() {
-
-    }
 }
