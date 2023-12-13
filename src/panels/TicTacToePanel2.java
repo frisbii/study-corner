@@ -52,8 +52,6 @@ class TicTacToeGamePanel extends JPanel{
     boolean won;
     boolean lost;
     boolean tie;
-
-    public Timer responseTimer;
  
     /**
      * Constructor to set intial game conditions and construct initial grid
