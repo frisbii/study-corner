@@ -4,6 +4,14 @@ import java.awt.Graphics;
 import java.awt.RenderingHints;
 import javax.swing.Icon;
 
+
+/**
+ * Used under the MIT License, taken from
+ * https://tips4java.wordpress.com/2009/04/06/rotated-icon/
+ * and created by Rob Camick.
+ */
+
+
 /**
  *  The RotatedIcon allows you to change the orientation of an Icon by
  *  rotating the Icon before it is painted. This class supports the following
