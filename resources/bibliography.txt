@@ -9,6 +9,10 @@ https://tips4java.wordpress.com/2009/04/06/rotated-icon/
 // under the Apache 2.0 license
 https://www.formdev.com/flatlaf/
 
+// Fonts used in the program (Cutive, CutiveMono, SpaceMono) downloaded
+// from Google Fonts under the Open Font License
+https://openfontlicense.org/
+
 
 Emma:
 // General code assistance
