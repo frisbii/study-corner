@@ -107,8 +107,8 @@ class Fonts {
  */
 class Sounds implements LineListener{
 
-    File chimeSound;
-    File nothingSound;
+    private File chimeSound;
+    private File nothingSound;
     private AudioInputStream chimeStream;
     private AudioInputStream audioInputStreamN;
 

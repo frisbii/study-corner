@@ -46,7 +46,7 @@ public class Spott {
         
         position = new Pair(0, Main.H - size);
         velocity = 70;
-        size = 270;
+        size = 220;
 
         try{
             defaultSpott = ImageIO.read(new File("./resources/images/spott/default.png"));
