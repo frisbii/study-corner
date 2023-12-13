@@ -13,7 +13,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     private static Color TODO_COLOR = new Color(255, 255, 255, 180);
 
     //variables for the task list itself
-    public static ToDoPanel toDoModel;
     private ToDoData data;
     private JList<String> taskList;
     private DefaultListModel<String> listModel; //listmodel to more easily edit the data in jlist
