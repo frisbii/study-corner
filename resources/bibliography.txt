@@ -29,6 +29,7 @@ Serin:
 
 Allison:
 //source of sound played when timer ends
+//available under a creative commons license
 https://freesound.org/people/Slaking_97/sounds/332024/
 
 //to do panel drag and drop based on these
