@@ -34,7 +34,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
 /**
- * 
+ * Panel on the MainPanel which contains the timer and its associated controls
  */
 public class TimerPanel extends PanelBase {
 
@@ -56,7 +56,10 @@ public class TimerPanel extends PanelBase {
 
     public PopupPane popupPane;
 
-
+    /**
+     * Constructs the TimerPanel;
+     * Sets size/position, initializes timers, adds and lays out components
+     */
     public TimerPanel() {
         super(TIMER_WIDTH, TIMER_HEIGHT, TIMER_BGCOLOR);
         // Initialization tasks
@@ -67,12 +70,15 @@ public class TimerPanel extends PanelBase {
         // Swing timer creation
         this.timerSetting = 60;
         this.secondsLeft = this.timerSetting;
+        // Fires every second
         this.swingTimer = new Timer(1000, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
+                // Decrement the internal count, update the timer
                 secondsLeft--;
                 updateTimer();
+                // If finished, stop the timer and call the timerFinished method
                 if (secondsLeft <= 0) {
                     stopTimer();
                     timerFinished();
@@ -130,6 +136,7 @@ public class TimerPanel extends PanelBase {
             }
         });
         
+        // Time set spinner
         SpinnerModel model = new SpinnerNumberModel(60, 1, 6000, 1);
         this.timerSetSpinner = new JSpinner(model);
         this.timerSetSpinner.addChangeListener(new ChangeListener() {
@@ -182,15 +189,23 @@ public class TimerPanel extends PanelBase {
         c.insets = new Insets(-30, 0, 0, 0);
         this.add(controlButtons, c);
 
+        // Invoked after the component is realized and dimensions are set, in order for the
+        // glass pane to appear on top of the panel
         SwingUtilities.invokeLater(this::afterLoad);
     }
 
+    /**
+     * Method which initializes and adds the glass pane (for the pop-up) to the panel
+     */
     public void afterLoad() {
         this.popupPane = new PopupPane();
         JFrame parent = (JFrame) javax.swing.FocusManager.getCurrentManager().getActiveWindow();
         parent.setGlassPane(this.popupPane);
     }
 
+    /**
+     * Start the timer, toggle button text, show pop-up if first run
+     */
     public void startTimer() {
         if (this.secondsLeft == this.timerSetting) {
             this.popupPane.showPopup();
@@ -199,21 +214,38 @@ public class TimerPanel extends PanelBase {
         this.timerToggleButton.setText("Stop");
     }
     
+    /**
+     * Stop the timer, toggle button text
+     */
     public void stopTimer() {
         this.swingTimer.stop();
         this.timerToggleButton.setText("Start");
     }
 
+    /**
+     * Set the timer, given minutes and seconds
+     * @param minutes   Minutes to set the timer to
+     * @param seconds   Seconds to set the timer to
+     */
     public void setTimer(int minutes, int seconds) {
         this.setTimer(minutes * 60 + seconds);
     }
 
+    /**
+     * Set the timer, given seconds
+     * @param seconds   Seconds to set the timer to
+     */
     public void setTimer(int seconds) {
         this.timerSetting = seconds;
+        // In case the timerButtons are used instead of the spinner,
+        // update the spinner label
         this.timerSetSpinner.setValue(seconds);
         this.resetTimer();
     }
 
+    /**
+     * Reset the timer to its set value, toggle start button, stop timer
+     */
     public void resetTimer() {
         this.secondsLeft = this.timerSetting;
         this.timerToggleButton.setEnabled(true);
@@ -221,18 +253,29 @@ public class TimerPanel extends PanelBase {
         this.stopTimer();
     }
 
+    /**
+     * Updates the label's text, used by the swingTimer to draw changes to screen;
+     * updates the progress bar
+     */
     private void updateTimer() {
         this.timerLabel.setText(String.format("%d:%02d", this.secondsLeft / 60, this.secondsLeft % 60));
         this.timerProgressBar.setMaximum(this.timerSetting);
         this.timerProgressBar.setValue(this.secondsLeft);
     }
 
+    /**
+     * Called when the timer finishes; plays sounds, enables start, opens games
+     */
     private void timerFinished() {
         sounds.playChimes();
         this.timerToggleButton.setEnabled(false);
         new GameInfoPanel();
     }
 
+    /**
+     * Class which creates the image buttons seen in the panel, which set the timer
+     * to the labeled minute (or seconds) values.
+     */
     class TimerButton extends JLabel implements MouseListener {
 
         private int TIMERBUTTON_SIZE = 50;
@@ -241,16 +284,28 @@ public class TimerPanel extends PanelBase {
         private int durationMins;
         private int durationSecs;
 
+        /**
+         * Construct the timer button given a minute duration
+         * @param d     Duration in minutes to set
+         */
         public TimerButton(int d) {
             this(String.format("./resources/images/buttons/%d.png", d));
             this.durationMins = d;
         }
 
+        /**
+         * Constructs the timer button using the default image (10s test button)
+         */
         public TimerButton() {
             this("./resources/images/buttons/test.png");
             this.durationSecs = 10;
         }
 
+        /**
+         * Private constructor used to construct the button using a passed path.
+         * Sets the image of the button.
+         * @param path  The path of the button's image file
+         */
         private TimerButton(String path) {
             this.setOpaque(false);
             this.addMouseListener(this);
@@ -265,7 +320,7 @@ public class TimerPanel extends PanelBase {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            setTimer(durationMins, durationSecs);
+            setTimer(durationMins, durationSecs); // Set timer when button is clicked
         }
 
         @Override
@@ -285,6 +340,11 @@ public class TimerPanel extends PanelBase {
         }
     }
 
+    /**
+     * Class containing the code for the Spott pop-up which
+     * plays when the timer is started for the first time 
+     * (from a full progress bar)
+     */
     class PopupPane extends JComponent {
 
         private Pair topLeft = new Pair(607, 761);
@@ -298,9 +358,12 @@ public class TimerPanel extends PanelBase {
 
         private AffineTransform transform;
 
+        /**
+         * Construct the PopupPane
+         */
         public PopupPane() {
             
-            // 
+            // Timer used for animation
             this.popupTimer = new Timer(timerDelay, new ActionListener() {
                 
                 int elapsedFrames;
@@ -314,15 +377,22 @@ public class TimerPanel extends PanelBase {
                 public void actionPerformed(ActionEvent ae) {
                     elapsedFrames++;
                     transform = new AffineTransform();
+                    // Phase 1: spinning, scaling up from blank
                     if (elapsedFrames < numSpinFrames) {
+                        // Scaling factor used to scale and to center the translation
                         double scalingFactor = elapsedFrames * (1.0 / numSpinFrames);
 
+                        // Translate the image to the timerPanel
                         transform.translate(center.x - (scalingFactor * size / 2.0), center.y - (scalingFactor * size / 2.0));
+                        // Rotate the image as time passes
                         transform.rotate(elapsedFrames * ((24 * Math.PI) / numSpinFrames), scalingFactor * size / 2.0, scalingFactor * size / 2.0);
+                        // Scale the image as time passes
                         transform.scale(scalingFactor, scalingFactor);
-                        //transform.translate(topLeft.x, topLeft.y);
+                    // Phase 2: linger on screen
                     } else if (elapsedFrames < 100) {
+                        // Position the image in the timerPanel
                         transform = AffineTransform.getTranslateInstance(topLeft.x, topLeft.y);
+                    // Phase 3: hide
                     } else {
                         setVisible(false);
                         popupTimer.stop();
@@ -333,6 +403,7 @@ public class TimerPanel extends PanelBase {
 
             });
 
+            // Load the popup image
             try{
                 this.popupImage = ImageIO.read(new File("./resources/images/spott/spott_popup.png"));
             } catch (IOException e) {
@@ -345,11 +416,15 @@ public class TimerPanel extends PanelBase {
         public void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D)g;
             if (this.transform != null) {
+                // Apply the transform set in the timer and then draw
                 g2.setTransform(this.transform);
                 g2.drawImage(this.popupImage, 0, 0, null);
             }
         }
 
+        /**
+         * Start the animation for the popup
+         */
         public void showPopup() {
             this.popupTimer.start();
             this.setVisible(true);

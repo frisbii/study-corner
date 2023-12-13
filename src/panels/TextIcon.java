@@ -5,7 +5,9 @@ import javax.swing.*;
 
 
 /**
- * 
+ * Used under the MIT License, taken from
+ * https://tips4java.wordpress.com/2009/04/06/rotated-icon/
+ * and created by Rob Camick.
  */
 
 

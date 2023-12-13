@@ -2,7 +2,7 @@ Madi:
 
 // Source of the TextIcon.java and RotatedIcon.java files
 // Used to make the Todo-list tab togggle with rotated text
-// Used under the MIT License
+// Used under the MIT License, created by Rob Camick
 https://tips4java.wordpress.com/2009/04/06/rotated-icon/
 
 // Look and feel downloaded from the FlatLaf open-source project
