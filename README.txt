@@ -55,8 +55,9 @@ Using the program:
         "Clear board" clears all user inputted numbers
         To assign a value to an individual square, press one of the numbered buttons on the side (1,2,3,4)
         After selecting a numbered button, click a square to assing that value to the square
-        To clear an individual square, select the "x" butotn and click on a square
+        To clear an individual square, select the "x" button and click on a square
 
     About the cat:
         Spott is your faithful study friend!
         He will wander around the bottom of the screen and keep you company while you work.
+        He cheers you on when you complete a task!
