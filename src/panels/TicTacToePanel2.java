@@ -8,16 +8,14 @@ import java.awt.event.*;
 public class TicTacToePanel2 extends JPanel {
    
     // Fields for the main panel
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 600;
-    public static int FPS = 60;
 
     public static boolean gameDone;
+    public static TicTacToeGamePanel ticTacToeTime;
 
     /**
      * Constructor to establish object, create pop up message, and make main panel
      */
-    static TicTacToeGamePanel ticTacToeTime;
+    
 
     public TicTacToePanel2(){
         gameDone = false;
