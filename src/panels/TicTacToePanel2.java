@@ -52,7 +52,6 @@ class TicTacToeGamePanel extends JPanel{
     boolean won;
     boolean lost;
     boolean tie;
-    boolean notThinking = true;
 
     public Timer responseTimer;
  
@@ -78,18 +77,6 @@ class TicTacToeGamePanel extends JPanel{
                 this.add(cellsTicTac[i][j]);
             }
         }
-
-        // this.responseTimer = new Timer(1000, new ActionListener() {
-
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         notThinking = true;
-        //         setResponse();
-        //         responseTimer.stop();
-                
-        //     }
-            
-        // });
     }
 
     /**
@@ -382,9 +369,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
     
     // ensuring that the board is not full, the mouse is in a cell, and the first move has been placed
        if (TicTacToePanel2.ticTacToeTime.checkBoardFull()){
-         if(mouseInCell && notClicked 
-        // && TicTacToePanel2.ticTacToeTime.notThinking
-        ){
+         if(mouseInCell && notClicked){
             // Changing value to place an X
             setValue(1);
             TicTacToePanel2.ticTacToeTime.isSolved();
@@ -393,23 +378,18 @@ class TicTacToeCell extends JPanel implements MouseListener{
            // If the game has not been completed and the first move has been placed, allow the computer to play response
           if (TicTacToePanel2.ticTacToeTime.containsX()){
              if (TicTacToePanel2.ticTacToeTime.won == false && TicTacToePanel2.ticTacToeTime.lost == false && TicTacToePanel2.ticTacToeTime.tie == false){
-            // TicTacToePanel2.ticTacToeTime.notThinking = false;
                  TicTacToePanel2.ticTacToeTime.setResponse();
-                // TicTacToePanel2.ticTacToeTime.responseTimer.start();
-                // TicTacToePanel2.ticTacToeTime.isSolved();
+           
             }
           }
         }
     }
    // placing the final move if there is one open square left and the game has not been finished
     if (TicTacToePanel2.ticTacToeTime.checkBoardFull() == false){
-         if(mouseInCell && notClicked 
-        // && TicTacToePanel2.ticTacToeTime.notThinking
-        ){
+         if(mouseInCell && notClicked){
              setValue(1);
         }
     }
-    
     // calling the end sequence
     endGame();  
     }
