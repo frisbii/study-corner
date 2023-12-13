@@ -8,16 +8,14 @@ import java.awt.event.*;
 public class TicTacToePanel2 extends JPanel {
    
     // Fields for the main panel
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 600;
-    public static int FPS = 60;
 
     public static boolean gameDone;
+    public static TicTacToeGamePanel ticTacToeTime;
 
     /**
      * Constructor to establish object, create pop up message, and make main panel
      */
-    static TicTacToeGamePanel ticTacToeTime;
+    
 
     public TicTacToePanel2(){
         gameDone = false;
@@ -39,22 +37,19 @@ public class TicTacToePanel2 extends JPanel {
  */
 class TicTacToeGamePanel extends JPanel{
 
-    public static final int width = 525;
-    public static final int height = 525;
+    private static final int width = 525;
+    private static final int height = 525;
 
     /** 
      * Creating fields to store cells and check current game conditions
      */
     TicTacToeCell[][] cellsTicTac;
     int gridSize;
-    int squareCol; 
-    int squareRow;
-    boolean won;
-    boolean lost;
-    boolean tie;
-    boolean notThinking = true;
-
-    public Timer responseTimer;
+    private int squareCol; 
+    private int squareRow;
+    public boolean won;
+    public boolean lost;
+    public boolean tie;
  
     /**
      * Constructor to set intial game conditions and construct initial grid
@@ -78,18 +73,6 @@ class TicTacToeGamePanel extends JPanel{
                 this.add(cellsTicTac[i][j]);
             }
         }
-
-        // this.responseTimer = new Timer(1000, new ActionListener() {
-
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         notThinking = true;
-        //         setResponse();
-        //         responseTimer.stop();
-                
-        //     }
-            
-        // });
     }
 
     /**
@@ -252,8 +235,8 @@ public void setResponse(){
  */
 class TicTacToeCell extends JPanel implements MouseListener{
 
-    public static final int width = 125;
-    public static final int height = 125;
+    private static final int width = 125;
+    private static final int height = 125;
     
     // fields
     boolean mouseInCell;
@@ -382,9 +365,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
     
     // ensuring that the board is not full, the mouse is in a cell, and the first move has been placed
        if (TicTacToePanel2.ticTacToeTime.checkBoardFull()){
-         if(mouseInCell && notClicked 
-        // && TicTacToePanel2.ticTacToeTime.notThinking
-        ){
+         if(mouseInCell && notClicked){
             // Changing value to place an X
             setValue(1);
             TicTacToePanel2.ticTacToeTime.isSolved();
@@ -393,23 +374,18 @@ class TicTacToeCell extends JPanel implements MouseListener{
            // If the game has not been completed and the first move has been placed, allow the computer to play response
           if (TicTacToePanel2.ticTacToeTime.containsX()){
              if (TicTacToePanel2.ticTacToeTime.won == false && TicTacToePanel2.ticTacToeTime.lost == false && TicTacToePanel2.ticTacToeTime.tie == false){
-            // TicTacToePanel2.ticTacToeTime.notThinking = false;
                  TicTacToePanel2.ticTacToeTime.setResponse();
-                // TicTacToePanel2.ticTacToeTime.responseTimer.start();
-                // TicTacToePanel2.ticTacToeTime.isSolved();
+           
             }
           }
         }
     }
    // placing the final move if there is one open square left and the game has not been finished
     if (TicTacToePanel2.ticTacToeTime.checkBoardFull() == false){
-         if(mouseInCell && notClicked 
-        // && TicTacToePanel2.ticTacToeTime.notThinking
-        ){
+         if(mouseInCell && notClicked){
              setValue(1);
         }
     }
-    
     // calling the end sequence
     endGame();  
     }

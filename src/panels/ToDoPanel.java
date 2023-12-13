@@ -13,22 +13,20 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     private static Color TODO_COLOR = new Color(255, 255, 255, 180);
 
     //variables for the task list itself
-    static ToDoPanel toDoModel;
-    ToDoData data;
-    JList<String> taskList;
-    DefaultListModel<String> listModel; //listmodel to more easily edit the data in jlist
-    Graphics g;
+    public static ToDoPanel toDoModel;
+    private ToDoData data;
+    private JList<String> taskList;
+    private DefaultListModel<String> listModel; //listmodel to more easily edit the data in jlist
 
     //buttons and panel layout
-    JButton addTaskButton;
-    JButton deleteTaskButton;
-    JButton clearTasksButton;
-    JTextFieldWithPrompt newTask;
-    JPanel flowPanel;
+    private JButton addTaskButton;
+    private JButton deleteTaskButton;
+    private JButton clearTasksButton;
+    private JTextFieldWithPrompt newTask;
+    private JPanel flowPanel;
 
-    boolean isMouseDragging;
-    int dragInitial;
-    boolean isPutAway;
+    private boolean isMouseDragging;
+    private int dragInitial;
 
     //constructor contains everything graphics related in the class essentially so that it can be added to MainPanel
     public ToDoPanel() {
@@ -200,12 +198,12 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         c.anchor = GridBagConstraints.PAGE_START;
         c.fill = GridBagConstraints.BOTH;
 
-        //set title
         /*
          * for future reference, in GridBagLayout, gridx is the x value gridy is the y value
          * weightx is how much of the horizontal plane it takes up compared to other components
          * weighty is how much vertical plane it takes up compared to other components
          */
+        //set title
         c.gridx = 0;
         c.gridy = 0;
         c.weightx = 1;
@@ -326,7 +324,7 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
 //text field that has input text which disappears upon the user clicking it
 class JTextFieldWithPrompt extends JTextField{
 
-    String placeholder;
+    public String placeholder;
 
     //JTextField default constructor but with focus listener to determine when to set placeholder text
     public JTextFieldWithPrompt(){

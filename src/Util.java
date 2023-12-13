@@ -102,7 +102,9 @@ class Fonts {
 
 }
 
-
+/**
+ * contains sounds used in the program and plays them from here so the class itself doesnt have to
+ */
 class Sounds implements LineListener{
 
     File chimeSound;
@@ -110,6 +112,10 @@ class Sounds implements LineListener{
     private AudioInputStream chimeStream;
     private AudioInputStream audioInputStreamN;
 
+    /**
+     * constructor that creates files for the pathnames associated with each sound
+     * and then makes audio input stream for the nothing sound and plays it so that the chime is not delayed
+     */
     public Sounds(){
         chimeSound = new File("./resources/sounds/gentle_end_sound_16bit.wav");
         //sound from freesounds.org (copyright free)
@@ -127,6 +133,9 @@ class Sounds implements LineListener{
         catch(Exception e){}
     }
 
+    /**
+     *  plays the chime sound using AudioInputStreams and clips
+     */
     public void playChimes(){
         try{
             chimeStream = AudioSystem.getAudioInputStream(chimeSound);
@@ -139,6 +148,9 @@ class Sounds implements LineListener{
         catch(Exception e) {System.out.println("Error with sound: " + e);}
     }
     
+    /**
+     * informs line listener about a state change
+     */
     @Override
     public void update(LineEvent e){
     }
