@@ -206,7 +206,7 @@ public class TimerPanel extends PanelBase {
     /**
      * Start the timer, toggle button text, show pop-up if first run
      */
-    public void startTimer() {
+    private void startTimer() {
         if (this.secondsLeft == this.timerSetting) {
             this.popupPane.showPopup();
         }
@@ -217,7 +217,7 @@ public class TimerPanel extends PanelBase {
     /**
      * Stop the timer, toggle button text
      */
-    public void stopTimer() {
+    private void stopTimer() {
         this.swingTimer.stop();
         this.timerToggleButton.setText("Start");
     }
@@ -227,7 +227,7 @@ public class TimerPanel extends PanelBase {
      * @param minutes   Minutes to set the timer to
      * @param seconds   Seconds to set the timer to
      */
-    public void setTimer(int minutes, int seconds) {
+    private void setTimer(int minutes, int seconds) {
         this.setTimer(minutes * 60 + seconds);
     }
 
@@ -235,7 +235,7 @@ public class TimerPanel extends PanelBase {
      * Set the timer, given seconds
      * @param seconds   Seconds to set the timer to
      */
-    public void setTimer(int seconds) {
+    private void setTimer(int seconds) {
         this.timerSetting = seconds;
         // In case the timerButtons are used instead of the spinner,
         // update the spinner label
@@ -246,7 +246,7 @@ public class TimerPanel extends PanelBase {
     /**
      * Reset the timer to its set value, toggle start button, stop timer
      */
-    public void resetTimer() {
+    private void resetTimer() {
         this.secondsLeft = this.timerSetting;
         this.timerToggleButton.setEnabled(true);
         this.updateTimer();
