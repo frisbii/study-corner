@@ -1,24 +1,27 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.io.PrintWriter;
 
 class ToDoData{
 
-    //TO DO: error occurs if task list is empty upon start ups
+    public LinkedList<String> tasks;
+    private String pathname = "./resources/data/TaskList.txt";
 
-    public ArrayList<String> tasks;
-    String pathname = "./resources/data/TaskList.txt";
-
-    //constructor
+    /**
+     * instantiates tasks, creates textFile and then puts strings in the list if the file is not empty
+     */
     public ToDoData() {
-        tasks = new ArrayList<String>();
+        tasks = new LinkedList<String>();
         File textFile = new File(pathname);
         if(textFile.length() != 0) getListFromFile();
     }
 
-    public void getListFromFile() {
+    /**
+     * fills the ArrayList tasks with strings by reading the task list file line by line
+     */
+    private void getListFromFile() {
         tasks.clear();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(pathname));
@@ -33,10 +36,12 @@ class ToDoData{
         }
     }
 
+    /**
+     * edits the file TaskList.txt based on what is in the tasks ArrayList
+     */
     public void getFileFromList() {
         try {
             PrintWriter out = new PrintWriter("./resources/data/TaskList.txt");
-            //should maybe delete all the tasks in the list before re-writing??
             for(int i = 0; i < tasks.size(); i++){
                 out.println(tasks.get(i));
             }
@@ -53,7 +58,7 @@ class ToDoData{
         getFileFromList();
     }
 
-    //add task to specific index
+    //add task at a specific index to both list and text file
     public void addTask(int index, String task) {
         tasks.add(index, task);
         getFileFromList();

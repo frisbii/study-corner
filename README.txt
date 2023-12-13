@@ -1,6 +1,6 @@
 Study Corner; A cozy companion for your studies.
 
-
+VERY IMPORTANT!!!!!!!
 To run the program through the command prompt:
 
 Set your console directory to study-corner.
@@ -21,7 +21,7 @@ Using the program:
     All background and character art is our own.
 
     To use the timer:
-        Press one of the number buttons on the side of the timer panel to automatically set the timer to 5, 15, 25, or 30 minutes
+        Press a number button on the side of timer panel to automatically set the timer to 10 seconds, or 5, 15, or 30 minutes
         Set the time to a custom number by entering a value IN SECONDS in the box that says "60" upon startup (right most in panel)
         Press the start button to start the timer
         Once the timer has started, press the stop button to stop the timer
@@ -58,3 +58,4 @@ Using the program:
 
     About the cat:
         Spott is your faithful study friend!
+        He will wander around the bottom of the screen and keep you company while you work.

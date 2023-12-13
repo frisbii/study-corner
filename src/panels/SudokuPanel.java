@@ -49,35 +49,35 @@ public class SudokuPanel extends JPanel{
         button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 buttonType = "1";
-                Cell.valueToChangeTo = 1;
+                SudokuCell.valueToChangeTo = 1;
             }
         });
         button2 = new JButton("2");
         button2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 buttonType = "2";
-                Cell.valueToChangeTo = 2;
+                SudokuCell.valueToChangeTo = 2;
             }
         });
         button3 = new JButton("3");
         button3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 buttonType = "3";
-                Cell.valueToChangeTo = 3;
+                SudokuCell.valueToChangeTo = 3;
             }
         });
         button4 = new JButton("4");
         button4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 buttonType = "4";
-                Cell.valueToChangeTo = 4;
+                SudokuCell.valueToChangeTo = 4;
             }
         });
         buttonX = new JButton("X");
         buttonX.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 buttonType = "x";
-                Cell.valueToChangeTo = 0;
+                SudokuCell.valueToChangeTo = 0;
             }
         });
 
@@ -136,7 +136,7 @@ class SudokuGamePanel extends JPanel{
     public static final int width = 525;
     public static final int height = 525;
 
-    Cell[][] cells;
+    SudokuCell[][] cells;
     boolean isSolved;
     int gridSize;
 
@@ -145,7 +145,7 @@ class SudokuGamePanel extends JPanel{
         gridSize = 4;
         isSolved = false;
 
-        cells = new Cell[gridSize][gridSize];
+        cells = new SudokuCell[gridSize][gridSize];
         setValues();
 
         //arrange cells in game panel using GridLayout because it's a grid
@@ -170,7 +170,7 @@ class SudokuGamePanel extends JPanel{
 
         for(int i = 0; i < gridSize; i++){
             for(int j = 0; j < gridSize; j++){
-                cells[i][j] = new Cell(i, j);
+                cells[i][j] = new SudokuCell(i, j);
                 cells[i][j].assignInitialBoardState(boardSelected[i][j]);
                 //assign "clusters" to each cell (the 4 groups of 2x2 squares that are important in sudoku)
                 //integer division results in only a 0 or a 1
@@ -250,7 +250,7 @@ class SudokuGamePanel extends JPanel{
 }
 
 //cell class represents a single cell with a single number in it
-class Cell extends JPanel implements MouseListener{
+class SudokuCell extends JPanel implements MouseListener{
 
     public static final int width = 125;
     public static final int height = 125;
@@ -272,7 +272,7 @@ class Cell extends JPanel implements MouseListener{
      * @param r   the row of the cell
      * @param c   the column of the cell
      */
-    public Cell (int r, int c){
+    public SudokuCell (int r, int c){
         row = r;
         column = c;
         mouseInCell = false;
