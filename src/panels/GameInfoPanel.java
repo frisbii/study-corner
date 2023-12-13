@@ -14,8 +14,8 @@ import java.io.IOException;
 public class GameInfoPanel implements ActionListener { 
     
     // Fields to create components and background elements of the game panel
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 600;
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
     private static Image gamePanelBG;
 
     private JButton ticTacToeButton;
@@ -24,9 +24,9 @@ public class GameInfoPanel implements ActionListener {
     private Color purple = new Color (217,195,230);
     private static JFrame frame;
 
-    SudokuPanel mainSudoku;
-    TicTacToePanel2 mainTic;
-    Timer timer = new Timer(1000, this);
+    private SudokuPanel mainSudoku;
+    private TicTacToePanel2 mainTic;
+    private Timer timer = new Timer(1000, this);
 
     // creating frame for pop up and laying out components
     public GameInfoPanel(){
