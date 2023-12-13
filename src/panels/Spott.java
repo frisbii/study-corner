@@ -44,7 +44,7 @@ public class Spott {
     {
         this.mainPanel = mp;
         
-        position = new Pair(0, Main.H - size);
+        position = new Pair(0, this.mainPanel.getHeight() - size);
         velocity = 70;
         size = 220;
 

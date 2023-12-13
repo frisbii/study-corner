@@ -8,8 +8,8 @@ import com.formdev.flatlaf.*;
  * Sets up the program (theming, look and feel, MainPanel)
  */
 public class Main {
-    public static final int W = 1600;
-    public static final int H = 900;
+    public static final int WIDTH = 1600;
+    public static final int HEIGHT = 900;
     public static void main(String[] args) {
         // Put the program onto Swing's Event Dispatching Thread (EDT) 
         // to properly schedule tasks
@@ -31,7 +31,7 @@ public class Main {
             AppTheme.loadThemeAssets();
             
             // Size and display the window.
-            frame.setSize(W, H);
+            frame.setSize(WIDTH, HEIGHT);
             frame.setVisible(true);
             frame.setResizable(false);
 
