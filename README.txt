@@ -1,4 +1,5 @@
 Study Corner; A cozy companion for your studies.
+(see bibliography.txt in resources for a list of sources)
 
 VERY IMPORTANT!!!!!!!
 To run the program through the command prompt:
