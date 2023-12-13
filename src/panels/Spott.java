@@ -7,38 +7,37 @@ public class Spott {
     // move Spott around the screen
 
     // instance variables
-    Pair position;
-    Pair velocity;
+    private Pair position;
+    private double velocity;
     int size; // Spott's sprite is contained in a size x size square
-    int state = 1; // Spott's direction (1 = right, -1 = left) --> easier to import images
+    private int state = 1; // Spott's direction (1 = right, -1 = left) --> easier to import images
 
-    int i = 0; // incremented each time update() is called --> used to determine pauses
+    private int i = 0; // incremented each time update() is called --> used to determine pauses
 
     MainPanel mainPanel;
 
     // current Spott image
-    Image spott;
+    private Image spott;
 
     // forward facing Spott
-    Image defaultSpott;
+    private Image defaultSpott;
 
     // 4 frame animation: walking right
-    Image right1;
-    Image right2;
-    Image right3;
-    Image right4;
+    private Image right1;
+    private Image right2;
+    private Image right3;
+    private Image right4;
 
     // 4 frame animation: walking left
-    Image left1;
-    Image left2;
-    Image left3;
-    Image left4;
+    private Image left1;
+    private Image left2;
+    private Image left3;
+    private Image left4;
 
     // celebration Spott
-    Image cheers;
+    private Image cheers;
 
-    int timeOnFrame = 0; // amount of time that has been spent on Image spott
-    int timePaused = 0; // amount of time that Spott has stopped for
+    private int timeOnFrame = 0; // amount of time that has been spent on Image spott
 
     // constructor
     public Spott(MainPanel mp)
@@ -46,7 +45,7 @@ public class Spott {
         this.mainPanel = mp;
         
         position = new Pair(0, Main.H - size);
-        velocity = new Pair(70, 0);
+        velocity = 70;
         size = 270;
 
         try{
@@ -88,8 +87,7 @@ public class Spott {
     {
         i++;
         double t = time / 1000;
-        position.x += velocity.x * t;
-        position.y += velocity.y * t;
+        position.x += velocity * t;
         switchFrame();
         turnAround(); 
         pause();
@@ -100,7 +98,7 @@ public class Spott {
     private void switchFrame()
     {
         // if Spott is stopped, set image to default image
-        if(velocity.x == 0)
+        if(velocity == 0)
         {
             spott = defaultSpott;
         }
@@ -109,7 +107,7 @@ public class Spott {
             // when Spott starts moving from a stopped position
             if(spott.equals(defaultSpott))
             {
-                if(velocity.x > 0)
+                if(velocity > 0)
                 {
                     spott = right1;
                     state = 1;
@@ -173,17 +171,17 @@ public class Spott {
     {
         if((position.x < 0) || (position.x + size > mainPanel.getWidth()))
         {
-            if(velocity.x > 0)
+            if(velocity > 0)
             {
                 state = -1;
                 spott = left1; // resetting the frame so that switchFrame() works properly
             }
-            else if(velocity.x < 0)
+            else if(velocity < 0)
             {
                 state = 1;
                 spott = right1;
             }
-            velocity.flipX();
+            velocity *= -1;
         }
     }
 
@@ -192,17 +190,17 @@ public class Spott {
     {
         if(i % 300 == 0)
         {
-            velocity.x = 0;
+            velocity = 0;
         }
         if(i % 500 == 100)
         {
             if(state == 1)
             {
-                velocity.x = 70;
+                velocity = 70;
             }
             if(state == -1)
             {
-                velocity.x = -70;
+                velocity = -70;
             }
         }
     }
@@ -241,10 +239,5 @@ class Pair
     public void flipX()
     {
         this.x *= -1;
-    }
-
-    public void flipY()
-    {
-        this.y *= -1;
     }
 }
