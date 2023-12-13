@@ -326,7 +326,7 @@ class SudokuCell extends JPanel implements MouseListener{
 //static class that has a list of fully solved sudoku boards that are used to assign initial values in SudokuGamePanel class
 class WinningBoards{
 
-    static List<int[][]> boards = new ArrayList<int[][]>();
+    public static ArrayList<int[][]> boards = new ArrayList<int[][]>();
 
     static{
         boards.add(new int[][]{{1,2,3,4}, {3,4,2,1}, {2,1,4,3}, {4,3,1,2}});
