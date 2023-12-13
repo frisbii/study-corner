@@ -12,6 +12,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+/**
+ * Creates the menu buttons, positioned below the clockPanel
+ */
 public class MenuButtonsPanel extends PanelBase {
 
     private static int gbWidth = 210;
@@ -22,9 +25,13 @@ public class MenuButtonsPanel extends PanelBase {
     private static int MB_HEIGHT = gbHeight;
     private static Color MB_BGCOLOR = Color.WHITE;
 
+    /**
+     * Constructs the menu buttons, adds and lays out components
+     */
     public MenuButtonsPanel() {
         super(MB_WIDTH, MB_HEIGHT, MB_BGCOLOR);
 
+        // Create the first button and add styling
         JLabel gb = new JLabel("open games menu");
         gb.setPreferredSize(new Dimension(gbWidth, gbHeight));
         gb.setBackground(Util.setAlpha(AppTheme.PRIMARY, 150));
@@ -32,14 +39,17 @@ public class MenuButtonsPanel extends PanelBase {
         gb.setOpaque(true);
         gb.setFont(Fonts.generateCutiveFont(17, 1));
         gb.setHorizontalAlignment(SwingConstants.CENTER);
+        // If clicked, open the game picker
         gb.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 new GameInfoPanel();
             }
         });
+        // Add this button to the list of components which are themed
         AppTheme.addThemedComponent(gb);
         
+        // Create the second button and add styling
         JLabel sb = new JLabel();
         sb.setPreferredSize(new Dimension(sbWidth, sbWidth));
         sb.setBackground(Color.LIGHT_GRAY);
@@ -49,6 +59,7 @@ public class MenuButtonsPanel extends PanelBase {
             icon = icon.getScaledInstance(sbWidth, sbWidth, Image.SCALE_SMOOTH);
             sb.setIcon(new ImageIcon(icon));
         } catch (IOException e) { e.printStackTrace(); }
+        // If clicked, open the settings frame
         sb.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -56,6 +67,7 @@ public class MenuButtonsPanel extends PanelBase {
             }
         });
 
+        // Layout components
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         this.add(gb);
         this.add(sb);
