@@ -64,7 +64,8 @@ public class Spott {
         }
         catch(Exception e){System.out.println("Error with Spott: " + e);}
 
-        this.spott = defaultSpott;
+        // setting initial Spott sprite
+        this.spott = right1;
     }
 
     public int getHeight() {

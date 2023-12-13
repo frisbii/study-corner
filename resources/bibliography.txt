@@ -13,6 +13,12 @@ https://www.formdev.com/flatlaf/
 // from Google Fonts under the Open Font License
 https://openfontlicense.org/
 
+// Gratitudes are extended, as always, to documentation writers and to 
+// the StackOverflow community for sustaining this project.
+https://docs.oracle.com/javase/tutorial/uiswing/
+https://stackoverflow.com/
+
+
 
 Emma:
 // General code assistance
