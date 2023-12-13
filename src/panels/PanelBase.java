@@ -3,6 +3,11 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 
+/**
+ * PanelBase is extended by most panels rendered onto the MainPanel screen.
+ * Useful in the context of absolute positioning, and provides useful
+ * methods for manipulating and laying out other panels.
+ */
 public abstract class PanelBase extends JPanel {
     
     private int width;

@@ -4,6 +4,9 @@ import javax.swing.SwingUtilities;
 
 import com.formdev.flatlaf.*;
 
+/**
+ * Sets up the program (theming, look and feel, MainPanel)
+ */
 public class Main {
     public static final int W = 1600;
     public static final int H = 900;
