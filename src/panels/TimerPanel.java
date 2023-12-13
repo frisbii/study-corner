@@ -33,6 +33,9 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
+/**
+ * 
+ */
 public class TimerPanel extends PanelBase {
 
     private static int TIMER_WIDTH = 600;
