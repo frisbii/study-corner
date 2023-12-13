@@ -17,7 +17,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     private ToDoData data;
     private JList<String> taskList;
     private DefaultListModel<String> listModel; //listmodel to more easily edit the data in jlist
-    private Graphics g;
 
     //buttons and panel layout
     private JButton addTaskButton;
@@ -199,12 +198,12 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
         c.anchor = GridBagConstraints.PAGE_START;
         c.fill = GridBagConstraints.BOTH;
 
-        //set title
         /*
          * for future reference, in GridBagLayout, gridx is the x value gridy is the y value
          * weightx is how much of the horizontal plane it takes up compared to other components
          * weighty is how much vertical plane it takes up compared to other components
          */
+        //set title
         c.gridx = 0;
         c.gridy = 0;
         c.weightx = 1;
