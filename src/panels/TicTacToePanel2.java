@@ -244,8 +244,6 @@ class TicTacToeCell extends JPanel implements MouseListener{
     JLabel valueText;
     boolean notClicked = true;
 
-    static int valueToChangeTo;
-
     /**
      * Constructor establishes and renders each individual cell
      * @param r number of rows in grid
@@ -295,7 +293,7 @@ class TicTacToeCell extends JPanel implements MouseListener{
      * exits the game panel frame
      */
 
-   public void endGame(){
+   private void endGame(){
     TicTacToePanel2.ticTacToeTime.isSolved();
         // checking win
         if(TicTacToePanel2.ticTacToeTime.won){
