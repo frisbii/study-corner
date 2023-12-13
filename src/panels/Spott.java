@@ -4,14 +4,12 @@ import javax.imageio.ImageIO;
 import java.io.File;
 
 public class Spott {
-    // move Spott around the screen
 
-    // instance variables
+    // components of Spott's appearance and movement
     private Pair position;
     private double velocity;
     int size; // Spott's sprite is contained in a size x size square
-    private int state = 1; // Spott's direction (1 = right, -1 = left) --> easier to import images
-
+    private int direction = 1; // 1 = right, -1 = left --> easier to import images
     private int i = 0; // incremented each time update() is called --> used to determine pauses
 
     MainPanel mainPanel;
@@ -44,10 +42,11 @@ public class Spott {
     {
         this.mainPanel = mp;
         
-        position = new Pair(0, Main.H - size);
+        position = new Pair(0, Main.H - size); // initial position is bottom left of screen
         velocity = 70;
         size = 220;
 
+        // importing images to use as Spott's sprites
         try{
             defaultSpott = ImageIO.read(new File("./resources/images/spott/default.png"));
 
@@ -76,13 +75,13 @@ public class Spott {
         position = new Pair(x, y);
     }
 
-    // sole function is to draw Spott
+    // draws Spott (note: does not change Spott's position or direction, ONLY draws him)
     public void draw(Graphics g)
     {
         g.drawImage(spott, (int) position.x, this.mainPanel.getHeight() - size, size, size, null);
     }
 
-    // default roaming around the screen
+    // Spott roaming around the screen
     public void update(double time)
     {
         i++;
@@ -93,9 +92,8 @@ public class Spott {
         turnAround(); 
         pause();
     }
-    // note to Serin: update() is repeatedly called by actionPerformed() in MainPanel.java
 
-    // setting the right image for Spott at the time the method is called --> gives draw() the correct image to draw
+    // sets the right image for Spott at the time the method is called --> gives draw() the correct image to draw
     private void switchFrame()
     {
         // if Spott is stopped, set image to default image
@@ -105,21 +103,21 @@ public class Spott {
         }
         else // if Spott is moving...
         {
-            // when Spott starts moving from a stopped position
+            // when Spott starts moving from a stopped position, set image and direction appropriately
             if(spott.equals(defaultSpott))
             {
                 if(velocity > 0)
                 {
                     spott = right1;
-                    state = 1;
+                    direction = 1;
                 }
-                else // if velocity.x < 0
+                else
                 {
                     spott = left1;
-                    state = -1;
+                    direction = -1;
                 }
             }
-            if(timeOnFrame == 30) // "every x number of frames"
+            if(timeOnFrame == 30) // every 30 frames, Spott moves to another stage in the 4-step cycle walking animation
             {
                 // 4 frame walking animation: left
                 if(spott == left1)
@@ -157,7 +155,7 @@ public class Spott {
                     spott = right1;
                 }
 
-                // reset timeOnFrame once frame is switched
+                // reset timeOnFrame once frame is switched --> restarts count to determine when next switch takes place
                 timeOnFrame = 0;
             }
             else
@@ -174,19 +172,19 @@ public class Spott {
         {
             if(velocity > 0)
             {
-                state = -1;
-                spott = left1; // resetting the frame so that switchFrame() works properly
+                direction = -1;
+                spott = left1; // resets the frame so that switchFrame() works properly
             }
             else if(velocity < 0)
             {
-                state = 1;
+                direction = 1;
                 spott = right1;
             }
             velocity *= -1;
         }
     }
 
-    // Spott pauses at "random" intervals (not actually random, appears random)
+    // Spott pauses at pseudo-random intervals
     private void pause()
     {
         if(i % 300 == 0)
@@ -195,11 +193,11 @@ public class Spott {
         }
         if(i % 500 == 100)
         {
-            if(state == 1)
+            if(direction == 1)
             {
                 velocity = 70;
             }
-            if(state == -1)
+            if(direction == -1)
             {
                 velocity = -70;
             }
@@ -224,6 +222,7 @@ class Pair
         this.y = y;
     }
 
+    // adds the x value of pair to the x value of this and the y value of pair to the y value of this
     public Pair add(Pair pair)
     {
         this.x += pair.x;
@@ -231,6 +230,7 @@ class Pair
         return this;
     }
 
+    // switches sign of x
     public void flipX()
     {
         this.x *= -1;
