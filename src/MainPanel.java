@@ -9,18 +9,18 @@ import javax.swing.Timer;
 
 public class MainPanel extends JPanel {
 
-    public ClockPanel clockPanel;
-    public MenuButtonsPanel menuButtonsPanel;
-    public TimerPanel timerPanel;
-    public ToDoSlideButton toDoSlideButton;
-    public ToDoPanel todoPanel;
-    public static Spott spott;
+    ClockPanel clockPanel;
+    MenuButtonsPanel menuButtonsPanel;
+    private TimerPanel timerPanel;
+    private ToDoSlideButton toDoSlideButton;
+    private ToDoPanel todoPanel;
+    private static Spott spott;
 
     private Timer toDoSlideTimer;
     private boolean toDoPanelIsOpen;
     private Timer spottTimer;
 
-    public static Image currentBG;
+    private static Image currentBG;
 
     /**
      * Constructs the main panel. This is where instances of all the 
