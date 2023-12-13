@@ -37,19 +37,19 @@ public class TicTacToePanel2 extends JPanel {
  */
 class TicTacToeGamePanel extends JPanel{
 
-    public static final int width = 525;
-    public static final int height = 525;
+    private static final int width = 525;
+    private static final int height = 525;
 
     /** 
      * Creating fields to store cells and check current game conditions
      */
     TicTacToeCell[][] cellsTicTac;
     int gridSize;
-    int squareCol; 
-    int squareRow;
-    boolean won;
-    boolean lost;
-    boolean tie;
+    private int squareCol; 
+    private int squareRow;
+    public boolean won;
+    public boolean lost;
+    public boolean tie;
  
     /**
      * Constructor to set intial game conditions and construct initial grid
@@ -235,8 +235,8 @@ public void setResponse(){
  */
 class TicTacToeCell extends JPanel implements MouseListener{
 
-    public static final int width = 125;
-    public static final int height = 125;
+    private static final int width = 125;
+    private static final int height = 125;
     
     // fields
     boolean mouseInCell;
