@@ -17,7 +17,6 @@ public class ToDoPanel extends PanelBase implements ItemListener, MouseListener,
     private ToDoData data;
     private JList<String> taskList;
     private DefaultListModel<String> listModel; //listmodel to more easily edit the data in jlist
-    private Graphics g;
 
     //buttons and panel layout
     private JButton addTaskButton;
