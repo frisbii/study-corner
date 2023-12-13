@@ -1,10 +1,9 @@
 Study Corner; A cozy companion for your studies.
 (see bibliography.txt in resources for a list of sources)
 
-VERY IMPORTANT!!!!!!!
-To run the program through the command prompt:
+####  INSTRUCTIONS TO RUN THE PROGRAM:
 
-Set your console directory to study-corner.
+In command prompt, set your console directory to study-corner.
 
 To compile, use the following command:
     javac -cp lib/flatlaf-3.2.5.jar -d classes src/*.java src/panels/*.java 
@@ -14,7 +13,7 @@ To run, use the following command:
 
 
 
-Using the program:
+#### USING THE PROGRAM:
 
     Welcome to Study Corner!
     The program currently houses many features, including a clock, timer, to-do list, and multiplie mini games and backgrounds.
