@@ -14,7 +14,7 @@ public class MainPanel extends JPanel {
     public TimerPanel timerPanel;
     public ToDoSlideButton toDoSlideButton;
     public ToDoPanel todoPanel;
-    public Spott spott;
+    public static Spott spott;
 
     private Timer toDoSlideTimer;
     private boolean toDoPanelIsOpen;
