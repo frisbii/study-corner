@@ -37,6 +37,8 @@ public class Spott {
 
     private int timeOnFrame = 0; // amount of time that has been spent on Image spott
 
+    boolean isCheering;
+
     // constructor
     public Spott(MainPanel mp)
     {
@@ -45,6 +47,7 @@ public class Spott {
         position = new Pair(0, this.mainPanel.getHeight() - size);
         velocity = 70;
         size = 220;
+        isCheering = false;
 
         // importing images to use as Spott's sprites
         try{
@@ -98,7 +101,7 @@ public class Spott {
     private void switchFrame()
     {
         // if Spott is stopped, set image to default image
-        if(velocity == 0)
+        if(velocity == 0 && !isCheering)
         {
             spott = defaultSpott;
         }
@@ -120,6 +123,7 @@ public class Spott {
             }
             if(timeOnFrame == 30) // every 30 frames, Spott moves to another stage in the 4-step cycle walking animation
             {
+                if(isCheering) isCheering = false;
                 // 4 frame walking animation: left
                 if(spott == left1)
                 {
@@ -209,6 +213,9 @@ public class Spott {
     public void cheers()
     {
         spott = cheers;
+        velocity = 0;
+        isCheering = true;
+        timeOnFrame = 0;
     }
 }
 
